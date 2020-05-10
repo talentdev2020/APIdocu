@@ -47,3 +47,36 @@
     transform: rotate(360deg);
   }
 }
+
+/* for Core API Left side */
+.rstm-search {
+  display: none;
+}
+.rstm-tree-item {
+  border-bottom: unset;
+}
+.rstm-tree-item-group {
+  border-top: unset;
+}
+
+/* for Tree */
+.makeStyles-panelSummary-2 {
+  margin-left: unset !important;
+}
+.MuiTypography-body1 {
+  font-family: Montserrat !important;
+  color: #504d4e !important;
+}
+.MuiListItemText-inset {
+  padding-left: unset !important;
+}
+.MuiTypography-root {
+  font-size: 13px !important;
+}
+.MuiCollapse-wrapper .MuiListItem-button {
+  padding-left: 3rem;
+}
+.response {
+  padding-left: 20px;
+  color: #629e35 !important;
+}
