@@ -42,25 +42,7 @@ const tree = [
     ],
   },
 ];
-const ApiType = styled.span`
-  width: 32px;
-  display: inline-block;
-  height: 12px;
-  line-height: 12px;
-  background-color: #333;
-  border-radius: 3px;
-  background-repeat: no-repeat;
-  background-position: 6px 4px;
-  font-size: 7px;
-  font-family: Verdana;
-  color: white;
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: bold;
-  vertical-align: middle;
-  margin-right: 6px;
-  margin-top: 2px;
-`;
+
 const SearchInput = styled.input`
   width: calc(100% - 40px);
   box-sizing: border-box;
