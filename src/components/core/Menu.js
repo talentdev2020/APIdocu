@@ -42,7 +42,7 @@ const ApiType = styled.span`
       background-color: #248fb2;
     `}
 `;
-const treedata = [
+let treedata = [
   {
     name: 'Cards',
     isExpand: true,
@@ -73,57 +73,150 @@ const treedata = [
     ],
   },
 ];
-
+function removeSpace(string) {
+  return string.replace(/\s/g, '');
+}
 const AppMenu = () => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  function handleClick(string, isParent = true) {
+    treedata = treedata.map((firstchild) => {
+      if (firstchild.name === string) {
+        if (isParent) firstchild.isExpand = !firstchild.isExpand;
+        firstchild.isSelected = true;
+      } else firstchild.isSelected = false;
+      if (firstchild.item) {
+        firstchild.item = firstchild.item.map((seconddata) => {
+          if (seconddata.name === string) {
+            seconddata.isExpand = !seconddata.isExpand;
+            seconddata.isSelected = true;
+          } else seconddata.isSelected = false;
 
-  function handleClick(string) {
-    setOpen(true);
+          if (seconddata.item) {
+            seconddata.item = seconddata.item.map((thirddata) => {
+              if (string === thirddata.name) {
+                thirddata.isSelected = true;
+              } else thirddata.isSelected = false;
+              return thirddata;
+            });
+          }
+          return seconddata;
+        });
+      }
+
+      return firstchild;
+    });
+    console.log(treedata);
   }
   return (
-    <>
-      <List component="nav" className={classes.appMenu} disablePadding>
-        <A href="#introduction">
-          <ListItem button className={classes.menuItem}>
-            <ListItemIcon className={classes.menuItemIcon}>
-              <IconDashboard />
-            </ListItemIcon>
-            <ListItemText inset primary="Introduction" />
-          </ListItem>
-        </A>
-        <ListItem button onClick={handleClick} className={classes.menuItem}>
-          <ListItemIcon className={classes.menuItemIcon}>
-            <IconLibraryBooks />
-          </ListItemIcon>
-          <ListItemText primary="Cards" />
-          {open ? <IconExpandLess /> : <IconExpandMore />}
-        </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <Divider />
-          <List component="div" disablePadding>
-            <A href="#orderlist">
-              <ListItem button className={classes.menuItem}>
-                <ApiType>Get</ApiType>
-                <ListItemText
-                  inset
-                  primary="Query Card Order List"
-                ></ListItemText>
-              </ListItem>
-            </A>
-            <A href="#orderbycard">
-              <ListItem button className={classes.menuItem}>
-                <ApiType post>Post</ApiType>
-                <ListItemText
-                  inset
-                  primary="Query Card Order By ID"
-                ></ListItemText>
-              </ListItem>{' '}
-            </A>
-          </List>
-        </Collapse>
-      </List>
-    </>
+    <List component="nav" className={classes.appMenu} disablePadding>
+      {treedata &&
+        treedata.map((firstdata, index) => {
+          return (
+            <div key={index}>
+              <A
+                href={`#${removeSpace(firstdata.name)}`}
+                key={index + firstdata.name}
+                onClick={() => handleClick(firstdata.name)}
+              >
+                <ListItem
+                  button
+                  className={
+                    firstdata.isSelected
+                      ? classes.selected + ' ' + classes.menuItem
+                      : classes.menuItem
+                  }
+                >
+                  <ListItemIcon className={classes.menuItemIcon}>
+                    <IconDashboard />
+                  </ListItemIcon>
+
+                  <ListItemText inset primary={firstdata.name}></ListItemText>
+                  {firstdata.isExpand ? <IconExpandLess /> : <IconExpandMore />}
+                </ListItem>
+              </A>
+              {firstdata.item && (
+                <Collapse
+                  key={index + 'seconde' + firstdata.item.name}
+                  in={firstdata.isExpand}
+                  timeout="auto"
+                  unmountOnExit
+                >
+                  <Divider />
+                  <List component="div" disablePadding>
+                    {firstdata.item.map((seconddata, index1) => {
+                      return (
+                        <div key={index1 + seconddata.name}>
+                          <A
+                            onClick={() => handleClick(seconddata.name)}
+                            href={`#${removeSpace(seconddata.name)}`}
+                            key={index1 + 'a' + seconddata.name}
+                          >
+                            <ListItem
+                              button
+                              className={
+                                seconddata.isSelected
+                                  ? classes.selected +
+                                    ' ' +
+                                    classes.secondmenuItem
+                                  : classes.secondmenuItem
+                              }
+                            >
+                              <IconLibraryBooks />
+                              <ListItemText
+                                inset
+                                primary={seconddata.name}
+                              ></ListItemText>
+                            </ListItem>
+                          </A>
+                          {seconddata.item && (
+                            <Collapse
+                              in={seconddata.isExpand}
+                              timeout="auto"
+                              key={index1 + 'ca' + seconddata.name}
+                              unmountOnExit
+                            >
+                              <List component="div" disablePadding>
+                                {seconddata.item.map((thirddata) => {
+                                  return (
+                                    <A
+                                      href={`#${removeSpace(thirddata.name)}`}
+                                      key={thirddata.name}
+                                      onClick={() =>
+                                        handleClick(thirddata.name, false)
+                                      }
+                                    >
+                                      <ListItem
+                                        button
+                                        className={
+                                          thirddata.isSelected
+                                            ? classes.selected +
+                                              ' ' +
+                                              classes.thirdmenuItem
+                                            : classes.thirdmenuItem
+                                        }
+                                      >
+                                        <ApiType post>Post</ApiType>
+                                        <ListItemText
+                                          inset
+                                          primary={thirddata.name}
+                                        ></ListItemText>
+                                      </ListItem>
+                                    </A>
+                                  );
+                                })}
+                              </List>
+                            </Collapse>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </List>
+                </Collapse>
+              )}
+            </div>
+          );
+        })}
+    </List>
   );
 };
 
@@ -143,7 +236,7 @@ const useStyles = makeStyles((theme) =>
       color: '#000',
     },
     selected: {
-      backgroundColor: 'red!important',
+      backgroundColor: '#efefef!important',
     },
     thirdmenuItem: {
       paddingLeft: '4rem!important',

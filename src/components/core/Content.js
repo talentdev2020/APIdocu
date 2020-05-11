@@ -5,7 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import APIResponse from './APIResponse';
-
+import APIContent from './APIContent';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -33,24 +33,7 @@ const Section = styled.div`
     
   }
 `;
-const ParamDescription = styled.span`
-  color: #969595;
-`;
-const ParamTitle = styled.div`
-  font-weight: bold;
-  display: inline-block;
-  width: 10rem;
-`;
-const ApiBody = styled.div`
-  margin-bottom: 15px;
-  word-break: break-all;
-  border: 1px solid #e6e6e6;
-  padding: 6px 10px;
-  border-radius: 3px;
-  font-size: 12px;
-  color: #282828;
-  background-color: #f8f8f8;
-`;
+
 const Content = () => {
   const classes = useStyles();
 
@@ -136,36 +119,7 @@ const Content = () => {
       <Section id={'orderlist'}>
         <Grid container spacing={3}>
           <Grid item md={12} lg={6}>
-            <strong style={{ color: '#6bbd5b' }}>Get </strong>Card Order List
-            <br />
-            <ApiBody>
-              {'{{ url }}'}
-              /api/v2/cardOrders?and[status][][eq]=verified&limit=2
-            </ApiBody>
-            <p>GET a list of card orders</p>
-            <p>HEADERS</p>
-            <EDivider />
-            <div>
-              <ParamTitle>Authorization</ParamTitle> {'{{authorization}}'}
-            </div>
-            <p>PARAMS</p>
-            <EDivider />
-            <div>
-              <ParamTitle>and[status][][eq]</ParamTitle> verified
-              <br />
-              <ParamTitle> &nbsp;</ParamTitle>{' '}
-              <ParamDescription>
-                Optional parameter to filter by status
-              </ParamDescription>
-            </div>
-            <div>
-              <ParamTitle>limit</ParamTitle> 2
-              <br />
-              <ParamTitle> &nbsp;</ParamTitle>{' '}
-              <ParamDescription>
-                Optional parameter to limit the results by 2
-              </ParamDescription>
-            </div>
+            <APIContent />
           </Grid>
           <Grid item md={12} lg={6}>
             <APIResponse
