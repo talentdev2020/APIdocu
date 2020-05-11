@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { withRouter, Redirect } from 'react-router';
+import { withRouter } from 'react-router';
 import Menu from './Menu';
+// import Left from './Left';
 // import TreeView from '@material-ui/lab/TreeView';
 // import TreeItem from '@material-ui/lab/TreeItem';
-import MuiTreeView from 'material-ui-treeview';
-
-import Icon from '@material-ui/core/Icon';
+// import MuiTreeView from 'material-ui-treeview';
+// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+// import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 // import { makeStyles } from '@material-ui/core/styles';
 // const useStyles = makeStyles({
 //   root: {
@@ -127,11 +128,12 @@ const LeftSide = ({ history }) => {
             onChange={(e) => handleSearch(e)}
           />
         </div>
+        {/* <Left /> */}
         {/* <MuiTreeView
-        tree={tree}
-        onParentClick={handleClick}
-        onLeafClick={handleClick}
-      /> */}
+          tree={tree}
+          onParentClick={handleClick}
+          onLeafClick={handleClick}
+        /> */}
         <Menu />
       </div>
     </LetfWrapper>

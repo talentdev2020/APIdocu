@@ -11,10 +11,9 @@ import Collapse from '@material-ui/core/Collapse';
 import IconExpandLess from '@material-ui/icons/ExpandLess';
 import IconExpandMore from '@material-ui/icons/ExpandMore';
 import IconDashboard from '@material-ui/icons/Dashboard';
-import IconShoppingCart from '@material-ui/icons/ShoppingCart';
-import IconPeople from '@material-ui/icons/People';
-import IconBarChart from '@material-ui/icons/BarChart';
+
 import IconLibraryBooks from '@material-ui/icons/LibraryBooks';
+
 const A = styled.a`
   text-decoration: none;
   font-size: 13px;
@@ -37,65 +36,94 @@ const ApiType = styled.span`
   vertical-align: middle;
   margin-right: 6px;
   margin-top: 2px;
-  ${(props) => {
-    console.log('asd', props);
-    return (
-      props.post &&
-      css`
-        background-color: #248fb2;
-      `
-    );
-  }}
+  ${(props) =>
+    props.post &&
+    css`
+      background-color: #248fb2;
+    `}
 `;
+const treedata = [
+  {
+    name: 'Cards',
+    isExpand: true,
+    isSelected: false,
+    item: [
+      {
+        name: 'Card Orders',
+        isExpand: true,
+        isSelected: false,
+        item: [
+          {
+            name: 'Query Card Orders List',
+            isExpand: false,
+            isSelected: false,
+          },
+          {
+            name: 'Query Get Order',
+            isExpand: false,
+            isSelected: false,
+          },
+        ],
+      },
+      {
+        name: 'Transactions',
+        isExpand: true,
+        isSelected: false,
+      },
+    ],
+  },
+];
 
-const AppMenu: React.FC = () => {
+const AppMenu = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  function handleClick() {
-    setOpen(!open);
+  function handleClick(string) {
+    setOpen(true);
   }
-
   return (
-    <List component="nav" className={classes.appMenu} disablePadding>
-      <A href="#introduction">
-        <ListItem button className={classes.menuItem}>
+    <>
+      <List component="nav" className={classes.appMenu} disablePadding>
+        <A href="#introduction">
+          <ListItem button className={classes.menuItem}>
+            <ListItemIcon className={classes.menuItemIcon}>
+              <IconDashboard />
+            </ListItemIcon>
+            <ListItemText inset primary="Introduction" />
+          </ListItem>
+        </A>
+        <ListItem button onClick={handleClick} className={classes.menuItem}>
           <ListItemIcon className={classes.menuItemIcon}>
-            <IconDashboard />
+            <IconLibraryBooks />
           </ListItemIcon>
-          <ListItemText inset primary="Introduction" />
+          <ListItemText primary="Cards" />
+          {open ? <IconExpandLess /> : <IconExpandMore />}
         </ListItem>
-      </A>
-      <ListItem button onClick={handleClick} className={classes.menuItem}>
-        <ListItemIcon className={classes.menuItemIcon}>
-          <IconLibraryBooks />
-        </ListItemIcon>
-        <ListItemText primary="Cards" />
-        {open ? <IconExpandLess /> : <IconExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <Divider />
-        <List component="div" disablePadding>
-          <A href="#orderlist">
-            <ListItem button className={classes.menuItem}>
-              <ApiType>Get</ApiType>{' '}
-              <ListItemText inset primary="Query Card Order List">
-                <ApiType>Get</ApiType>{' '}
-              </ListItemText>{' '}
-            </ListItem>
-          </A>
-          <A href="#orderbycard">
-            <ListItem button className={classes.menuItem}>
-              <ApiType post>Post</ApiType>
-              <ListItemText
-                inset
-                primary="Query Card Order By ID"
-              ></ListItemText>
-            </ListItem>{' '}
-          </A>
-        </List>
-      </Collapse>
-    </List>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <Divider />
+          <List component="div" disablePadding>
+            <A href="#orderlist">
+              <ListItem button className={classes.menuItem}>
+                <ApiType>Get</ApiType>
+                <ListItemText
+                  inset
+                  primary="Query Card Order List"
+                ></ListItemText>
+              </ListItem>
+            </A>
+            <A href="#orderbycard">
+              <ListItem button className={classes.menuItem}>
+                <ApiType post>Post</ApiType>
+                <ListItemText
+                  inset
+                  primary="Query Card Order By ID"
+                ></ListItemText>
+              </ListItem>{' '}
+            </A>
+          </List>
+        </Collapse>
+      </List>
+    </>
   );
 };
 
@@ -112,7 +140,19 @@ const useStyles = makeStyles((theme) =>
     },
     menuItem: {
       width: drawerWidth,
+      color: '#000',
     },
+    selected: {
+      backgroundColor: 'red!important',
+    },
+    thirdmenuItem: {
+      paddingLeft: '4rem!important',
+    },
+    secondmenuItem: {
+      color: '#97c05c',
+      paddingLeft: '3rem!important',
+    },
+
     menuItemIcon: {
       color: '#97c05c',
     },

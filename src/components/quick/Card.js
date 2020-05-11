@@ -1,17 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Card.css';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const Card = ({ title, body }) => {
-  console.log('body', body);
-
-  const copyClipboard = () => {};
+  const [copied, setCopied] = useState('Copy');
 
   return (
     <>
       <div className="snippet-header">
         <h3 className="h5-light-100">{title}</h3>
-        <CopyToClipboard text={body}>
+        <CopyToClipboard text={body} onCopy={() => setCopied('Copied')}>
           <button className="copy-box">
             <svg
               width="17px"
@@ -50,23 +48,19 @@ const Card = ({ title, body }) => {
                 </g>
               </g>
             </svg>
-            <span className="copy-text">Copy</span>
+            <span className="copy-text">{copied}</span>
           </button>
         </CopyToClipboard>
       </div>
 
       <div className="snippet-content">
-        {body.split('\\').map((line, index) => {
-          console.log('dddd');
-          console.log(line);
-          return (
-            <div className="line" key={line}>
-              <div className="line-number">{index}</div>
-              <div className="line-command">{line}</div>
-              <div style={{ marginLeft: '15px' }}>\</div>
-            </div>
-          );
-        })}
+        {body.split('\\').map((line, index) => (
+          <div className="line" key={line}>
+            <div className="line-number">{index}</div>
+            <div className="line-command">{line}</div>
+            <div style={{ marginLeft: '15px' }}>\</div>
+          </div>
+        ))}
       </div>
     </>
   );

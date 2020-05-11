@@ -58,7 +58,6 @@ const APIResponse = ({ body }) => {
       .split(',')
       .join(',<br/>');
   //const string  = body.split("{").join(",").split("}").join(",").split(",");
-  console.log(string);
   return (
     <APIResponseWrapper>
       {body && (
