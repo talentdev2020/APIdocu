@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // import ScrollableAnchor from 'react-scrollable-anchor';
 import styled from 'styled-components';
 import Divider from '@material-ui/core/Divider';
@@ -11,7 +11,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
 }));
-
+function removeSpace(string) {
+  return string.replace(/\s/g, '').toLowerCase();
+}
 const EDivider = styled(Divider)`
   margin: 2rem 0 !important;
 `;
@@ -34,9 +36,44 @@ const Section = styled.div`
   }
 `;
 
-const Content = () => {
+const Content = ({ data }) => {
   const classes = useStyles();
+  const [content, setContent] = useState('');
 
+  useEffect(() => {
+    let temp = [];
+    data.map((firstchild) => {
+      temp.push({
+        name: firstchild.name,
+        type: 'parent',
+        description: firstchild.description,
+      });
+      if (firstchild.item) {
+        firstchild.item = firstchild.item.map((seconddata) => {
+          temp.push({
+            name: seconddata.name,
+            type: 'subparent',
+            description: seconddata.description,
+          });
+
+          if (seconddata.item) {
+            seconddata.item = seconddata.item.map((thirddata) => {
+              temp.push({
+                name: thirddata.name,
+                type: 'api',
+                response: thirddata.response[0],
+                request: thirddata.request,
+              });
+              return thirddata;
+            });
+          }
+          return seconddata;
+        });
+      }
+      return firstchild;
+    });
+    setContent(temp);
+  }, [data]);
   return (
     <Wrapper className={classes.root}>
       {/* <ScrollableAnchor> */}
@@ -109,67 +146,38 @@ const Content = () => {
             </div>
           </Grid>
           <Grid item md={12} lg={6}>
-            <APIResponse />
+            <APIResponse isVisible={false} />
           </Grid>
         </Grid>
       </Section>
       {/* </ScrollableAnchor> */}
       <EDivider />
       {/* <ScrollableAnchor> */}
-      <Section id={'orderlist'}>
-        <Grid container spacing={3}>
-          <Grid item md={12} lg={6}>
-            <APIContent />
-          </Grid>
-          <Grid item md={12} lg={6}>
-            <APIResponse
-              body={`{
-                "success": true,
-                "data": [
-                  {
-                        "id": 5,
-                        "entity_id": 314,
-                    "card_id": 3,
-                    "card_upgrade_id": null,
-                    "reference": null,
-                    "type": "issue",
-                    "status": "verified",
-                    "created_at": "2018-12-25 14:06:51",
-                    "updated_at": "2019-12-12 06:04:15"
-                  },
-                  {
-                    "id": 8,
-                    "entity_id": 4013,
-                    "card_id": 2,
-                    "card_upgrade_id": null,
-                    "amount": null,
-                    "reference": null,
-                    "type": "issue",
-                    "status": "verified",
-                    "created_at": "2019-01-23 01:47:31",
-                    "updated_at": "2019-01-23 01:53:37"
+      {content &&
+        content.map((item, index) => (
+          <Section
+            id={`#${removeSpace(item.name)}`}
+            key={index + 'sec' + item.name}
+          >
+            <Grid container spacing={3}>
+              <Grid item md={12} lg={6}>
+                <APIContent data={item} />
+              </Grid>
+              <Grid item md={12} lg={6}>
+                <APIResponse
+                  isVisible={item.type.includes('parent')}
+                  response={item.response ? item.response.body : ''}
+                  request={
+                    item.request && item.request.reponse
+                      ? item.request.response[0].body
+                      : ''
                   }
-                ],
-                "links": {
-                  "first": "https://usnvspd1.cardapi.com/api/v2/cardOrders?page=1",
-                  "last": "https://usnvspd1.cardapi.com/api/v2/cardOrders?page=972",
-                  "prev": null,
-                  "next": "https://usnvspd1.cardapi.com/api/v2/cardOrders?page=2"
-                },
-                "meta": {
-                  "current_page": 1,
-                  "from": 1,
-                  "last_page": 972,
-                  "path": "https://usnvspd1.cardapi.com/api/v2/cardOrders",
-                  "per_page": "2",
-                  "to": 2,
-                  "total": 1944
-                }
-              }`}
-            />
-          </Grid>
-        </Grid>
-      </Section>
+                />
+              </Grid>
+            </Grid>
+          </Section>
+        ))}
+
       {/* </ScrollableAnchor> */}
     </Wrapper>
   );

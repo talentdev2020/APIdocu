@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router';
 import Menu from './Menu';
+import Divider from '@material-ui/core/Divider';
+
+import SearchedMenu from './SearchedMenu';
 // import Left from './Left';
 // import TreeView from '@material-ui/lab/TreeView';
 // import TreeItem from '@material-ui/lab/TreeItem';
@@ -16,32 +19,6 @@ import Menu from './Menu';
 //     maxWidth: 400,
 //   },
 // });
-
-const tree = [
-  {
-    value: ' Introduction',
-  },
-  {
-    value: 'Autorization',
-  },
-  {
-    value: 'Cards',
-    nodes: [
-      {
-        value: 'Card Orders',
-        nodes: [
-          { value: 'Query Card Order List' },
-          { value: 'Query Card Order By ID' },
-          { value: 'Update Card Order By Id' },
-          { value: 'Create Card Orders' },
-        ],
-      },
-      {
-        value: 'Card Transactions',
-      },
-    ],
-  },
-];
 
 const SearchInput = styled.input`
   width: calc(100% - 40px);
@@ -73,14 +50,16 @@ width: 350px;
     
 `;
 
-const LeftSide = ({ history }) => {
+const LeftSide = ({ history, data }) => {
   const [search, setSearch] = useState('');
-
-  const handleClick = (node) => {
-    history.push('#' + node.value.replace(/ /g, ''));
-  };
+  const [menu, setMenu] = useState(data);
+  useEffect(() => {
+    const newelement = { name: 'introduction' };
+    let temp = [newelement].concat(data);
+    setMenu(temp);
+  }, [data]);
   const handleSearch = (e) => {
-    setSearch(e.tagart.value);
+    setSearch(e.target.value);
   };
   return (
     <LetfWrapper>
@@ -90,8 +69,8 @@ const LeftSide = ({ history }) => {
           role="search"
           style={{
             position: 'relative',
-            marginBottom: '20px',
-            marginTop: '50px',
+            marginBottom: '2.5rem',
+            marginTop: '3rem',
           }}
         >
           <SearchIcon
@@ -116,7 +95,10 @@ const LeftSide = ({ history }) => {
           onParentClick={handleClick}
           onLeafClick={handleClick}
         /> */}
-        <Menu />
+        {search && <SearchedMenu search={search} />}
+
+        <Menu treedata={menu} />
+        <Divider />
       </div>
     </LetfWrapper>
   );

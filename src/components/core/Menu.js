@@ -7,6 +7,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
+import ReactShadowScroll from 'react-shadow-scroll';
 
 import IconExpandLess from '@material-ui/icons/ExpandLess';
 import IconExpandMore from '@material-ui/icons/ExpandMore';
@@ -42,41 +43,11 @@ const ApiType = styled.span`
       background-color: #248fb2;
     `}
 `;
-let treedata = [
-  {
-    name: 'Cards',
-    isExpand: true,
-    isSelected: false,
-    item: [
-      {
-        name: 'Card Orders',
-        isExpand: true,
-        isSelected: false,
-        item: [
-          {
-            name: 'Query Card Orders List',
-            isExpand: false,
-            isSelected: false,
-          },
-          {
-            name: 'Query Get Order',
-            isExpand: false,
-            isSelected: false,
-          },
-        ],
-      },
-      {
-        name: 'Transactions',
-        isExpand: true,
-        isSelected: false,
-      },
-    ],
-  },
-];
+
 function removeSpace(string) {
-  return string.replace(/\s/g, '');
+  return string.replace(/\s/g, '').toLowerCase();
 }
-const AppMenu = () => {
+const AppMenu = ({ treedata }) => {
   const classes = useStyles();
   function handleClick(string, isParent = true) {
     treedata = treedata.map((firstchild) => {
@@ -108,115 +79,124 @@ const AppMenu = () => {
     console.log(treedata);
   }
   return (
-    <List component="nav" className={classes.appMenu} disablePadding>
-      {treedata &&
-        treedata.map((firstdata, index) => {
-          return (
-            <div key={index}>
-              <A
-                href={`#${removeSpace(firstdata.name)}`}
-                key={index + firstdata.name}
-                onClick={() => handleClick(firstdata.name)}
-              >
-                <ListItem
-                  button
-                  className={
-                    firstdata.isSelected
-                      ? classes.selected + ' ' + classes.menuItem
-                      : classes.menuItem
-                  }
+    <ReactShadowScroll
+      style={{ height: 'calc(100vh - 18rem)' }}
+      isShadow={false}
+    >
+      <List component="nav" className={classes.appMenu} disablePadding>
+        {treedata &&
+          treedata.map((firstdata, index) => {
+            return (
+              <div key={index}>
+                <A
+                  href={`#${removeSpace(firstdata.name)}`}
+                  key={index + firstdata.name}
+                  onClick={() => handleClick(firstdata.name)}
                 >
-                  <ListItemIcon className={classes.menuItemIcon}>
-                    <IconDashboard />
-                  </ListItemIcon>
+                  <ListItem
+                    button
+                    className={
+                      firstdata.isSelected
+                        ? classes.selected + ' ' + classes.menuItem
+                        : classes.menuItem
+                    }
+                  >
+                    <ListItemIcon className={classes.menuItemIcon}>
+                      <IconDashboard />
+                    </ListItemIcon>
 
-                  <ListItemText inset primary={firstdata.name}></ListItemText>
-                  {firstdata.isExpand ? <IconExpandLess /> : <IconExpandMore />}
-                </ListItem>
-              </A>
-              {firstdata.item && (
-                <Collapse
-                  key={index + 'seconde' + firstdata.item.name}
-                  in={firstdata.isExpand}
-                  timeout="auto"
-                  unmountOnExit
-                >
-                  <Divider />
-                  <List component="div" disablePadding>
-                    {firstdata.item.map((seconddata, index1) => {
-                      return (
-                        <div key={index1 + seconddata.name}>
-                          <A
-                            onClick={() => handleClick(seconddata.name)}
-                            href={`#${removeSpace(seconddata.name)}`}
-                            key={index1 + 'a' + seconddata.name}
-                          >
-                            <ListItem
-                              button
-                              className={
-                                seconddata.isSelected
-                                  ? classes.selected +
-                                    ' ' +
-                                    classes.secondmenuItem
-                                  : classes.secondmenuItem
-                              }
+                    <ListItemText inset primary={firstdata.name}></ListItemText>
+                    {firstdata.name !== 'introduction' && firstdata.isExpand ? (
+                      <IconExpandLess />
+                    ) : (
+                      <IconExpandMore />
+                    )}
+                  </ListItem>
+                </A>
+                {firstdata.item && (
+                  <Collapse
+                    key={index + 'seconde' + firstdata.item.name}
+                    in={firstdata.isExpand}
+                    timeout="auto"
+                    unmountOnExit
+                  >
+                    <Divider />
+                    <List component="div" disablePadding>
+                      {firstdata.item.map((seconddata, index1) => {
+                        return (
+                          <div key={index1 + seconddata.name}>
+                            <A
+                              onClick={() => handleClick(seconddata.name)}
+                              href={`#${removeSpace(seconddata.name)}`}
+                              key={index1 + 'a' + seconddata.name}
                             >
-                              <IconLibraryBooks />
-                              <ListItemText
-                                inset
-                                primary={seconddata.name}
-                              ></ListItemText>
-                            </ListItem>
-                          </A>
-                          {seconddata.item && (
-                            <Collapse
-                              in={seconddata.isExpand}
-                              timeout="auto"
-                              key={index1 + 'ca' + seconddata.name}
-                              unmountOnExit
-                            >
-                              <List component="div" disablePadding>
-                                {seconddata.item.map((thirddata) => {
-                                  return (
-                                    <A
-                                      href={`#${removeSpace(thirddata.name)}`}
-                                      key={thirddata.name}
-                                      onClick={() =>
-                                        handleClick(thirddata.name, false)
-                                      }
-                                    >
-                                      <ListItem
-                                        button
-                                        className={
-                                          thirddata.isSelected
-                                            ? classes.selected +
-                                              ' ' +
-                                              classes.thirdmenuItem
-                                            : classes.thirdmenuItem
+                              <ListItem
+                                button
+                                className={
+                                  seconddata.isSelected
+                                    ? classes.selected +
+                                      ' ' +
+                                      classes.secondmenuItem
+                                    : classes.secondmenuItem
+                                }
+                              >
+                                <IconLibraryBooks />
+                                <ListItemText
+                                  inset
+                                  primary={seconddata.name}
+                                ></ListItemText>
+                              </ListItem>
+                            </A>
+                            {seconddata.item && (
+                              <Collapse
+                                in={seconddata.isExpand}
+                                timeout="auto"
+                                key={index1 + 'ca' + seconddata.name}
+                                unmountOnExit
+                              >
+                                <List component="div" disablePadding>
+                                  {seconddata.item.map((thirddata) => {
+                                    return (
+                                      <A
+                                        href={`#${removeSpace(thirddata.name)}`}
+                                        key={thirddata.name}
+                                        onClick={() =>
+                                          handleClick(thirddata.name, false)
                                         }
                                       >
-                                        <ApiType post>Post</ApiType>
-                                        <ListItemText
-                                          inset
-                                          primary={thirddata.name}
-                                        ></ListItemText>
-                                      </ListItem>
-                                    </A>
-                                  );
-                                })}
-                              </List>
-                            </Collapse>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </List>
-                </Collapse>
-              )}
-            </div>
-          );
-        })}
-    </List>
+                                        <ListItem
+                                          button
+                                          className={
+                                            thirddata.isSelected
+                                              ? classes.selected +
+                                                ' ' +
+                                                classes.thirdmenuItem
+                                              : classes.thirdmenuItem
+                                          }
+                                        >
+                                          <ApiType post>Post</ApiType>
+                                          <ListItemText
+                                            inset
+                                            primary={thirddata.name}
+                                          ></ListItemText>
+                                        </ListItem>
+                                      </A>
+                                    );
+                                  })}
+                                </List>
+                              </Collapse>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </List>
+                  </Collapse>
+                )}
+              </div>
+            );
+          })}
+      </List>
+    </ReactShadowScroll>
   );
 };
 

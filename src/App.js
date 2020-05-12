@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { Route, Link, Switch } from 'react-router-dom';
 import CoreAPI from './pages/coreApi';
-
+import { getdata } from './modules/collection';
 import QuickStart from './pages/quickStart';
+import { useDispatch } from 'react-redux';
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getdata());
+  }, []);
   return (
     <div className="App">
       <header className="App-header">

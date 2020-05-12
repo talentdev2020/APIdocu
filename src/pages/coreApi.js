@@ -1,16 +1,14 @@
 import React from 'react';
-import LeftSide from '../components/core/LeftSide';
-import Content from '../components/core/Content';
+import CoreAPIContainer from '../containers/core/coreApi';
 import styled from 'styled-components';
-
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
 `;
 const CoreAPI = () => {
   return (
     <Wrapper>
-      <LeftSide />
-      <Content />
+      <CoreAPIContainer />
     </Wrapper>
   );
 };

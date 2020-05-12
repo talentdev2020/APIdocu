@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Divider from '@material-ui/core/Divider';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const ParamDescription = styled.div`
-  color: #cfccea !important;
-`;
-const ParamTitle = styled.div`
-  font-weight: 500;
-  display: inline-block;
-  width: 10rem;
-`;
+import SuccessResponse from './SuccessResponse';
+import {
+  Param,
+  ParamBody,
+  ParamDescription,
+  ParamDescriptionTitle,
+  ParamTitle,
+} from './SuccessResponse';
 
 const GreenWrapper = styled.span`
   font-size: 0.929em;
@@ -20,18 +20,13 @@ const GreenWrapper = styled.span`
   text-transform: uppercase;
   margin: 0;
   margin-right: 1rem;
+  ${(props) =>
+    props.post &&
+    css`
+      background-color: #248fb2;
+    `}
 `;
-const ParamDescriptionTitle = styled.div`
-  color: #7369ca !important;
-`;
-const ParamBody = styled.div`
-  border-bottom: 1px solid #cfccea !important;
-  width: calc(100% - 10rem);
-`;
-const Param = styled.div`
-  display: flex;
-  margin-bottom: 1rem;
-`;
+
 const ApiBody = styled.div`
   margin-bottom: 15px;
   word-break: break-all;
@@ -42,45 +37,66 @@ const ApiBody = styled.div`
   color: #282828;
   background-color: #f8f8f8;
 `;
-const APIContent = () => {
+const Description = styled.p`
+  color: #969696;
+`;
+const MainCategory = styled.h3`
+  color: #01005a;
+`;
+const SubCategory = styled.h3`
+  color: #01525a;
+`;
+const APIContent = ({ data }) => {
   return (
     <>
-      <h3>Get Card Order List</h3>
-      <ApiBody>
-        <GreenWrapper>Get</GreenWrapper>
-        /api/v2/cardOrders?and[status][][eq]=verified&limit=2
-      </ApiBody>
-      <p>
-        Get a list of card ordersGet a list of card ordersGet a list of card
-        orders
-      </p>
-      <span style={{ color: 'grey' }}>HEADERS</span>
-      <Divider />
-      <br />
-      <div>
-        <ParamTitle>Authorization</ParamTitle> {'{{authorization}}'}
-      </div>
-      <br />
-      <span style={{ color: 'grey' }}>PARAMS</span>
-      <Divider />
-      <br />
-      <Param>
-        <ParamTitle>and[status][][eq]</ParamTitle>
-        <ParamBody>
-          <ParamDescriptionTitle>verified</ParamDescriptionTitle>
-          <ParamDescription>
-            Optional parameter to filter by status
-          </ParamDescription>
-        </ParamBody>
-      </Param>
-      <div>
-        <ParamTitle>limit</ParamTitle> 2
-        <br />
-        <ParamTitle> &nbsp;</ParamTitle>{' '}
-        <ParamDescription>
-          Optional parameter to limit the results by 2
-        </ParamDescription>
-      </div>
+      {data.type === 'parent' && <MainCategory>{data.name}</MainCategory>}
+      {data.type === 'subparent' && <SubCategory>{data.name}</SubCategory>}
+      {data.type === 'api' && (
+        <>
+          <h3>{data.name}</h3>
+          <ApiBody>
+            <GreenWrapper post={data.request.method === 'GET' ? false : true}>
+              {data.request.method}
+            </GreenWrapper>
+            {data.request.url.raw ? data.request.url.raw : data.request.url}
+          </ApiBody>
+        </>
+      )}
+
+      <Description>
+        {data.type === 'api' ? data.request.description : data.description}
+      </Description>
+      {data.type === 'api' && (
+        <>
+          {' '}
+          <span style={{ color: 'grey' }}>HEADERS</span>
+          <Divider />
+          <br />
+          <div>
+            <ParamTitle>Authorization</ParamTitle> {'{{authorization}}'}
+          </div>
+          <br />
+          <span style={{ color: 'grey' }}>PARAMS</span>
+          <Divider />
+          <br />
+          {data.request.url.query &&
+            data.request.url.query.map((item, index) => (
+              <Param key={index + 'pa' + item.value}>
+                {' '}
+                <ParamTitle>{item.key}</ParamTitle>
+                <ParamBody>
+                  <ParamDescriptionTitle>{item.value}</ParamDescriptionTitle>
+                  <ParamDescription>{item.description}</ParamDescription>
+                </ParamBody>
+              </Param>
+            ))}
+          <br />
+          <p>Responses</p>
+          {/* for 200 */}
+          <SuccessResponse success={true} />
+          <SuccessResponse success={false} />
+        </>
+      )}
     </>
   );
 };
