@@ -231,7 +231,6 @@ const APIResponse = ({ request, response, isVisible }) => {
         return item !== '';
       });
     string && string.push('}');
-    console.log(string);
     let depth = 0;
     let newData =
       string &&
