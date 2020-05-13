@@ -107,11 +107,13 @@ const APIResponse = ({ request, response, isVisible }) => {
   const [bodytype, setBodyType] = useState('200');
 
   const handleClick = useCallback((index) => {
-    const temp = body.map((item, i) => {
-      item.isMarked = false;
-      if (index === i) item.isExpand = !item.isExpand;
-      return item;
-    });
+    const temp =
+      body &&
+      body.map((item, i) => {
+        item.isMarked = false;
+        if (index === i) item.isExpand = !item.isExpand;
+        return item;
+      });
     setBody(temp);
     const data = makeResponse(0, 0);
     setResponseBody(data);
