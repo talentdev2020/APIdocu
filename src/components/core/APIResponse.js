@@ -83,26 +83,24 @@ const Li = styled.li`
   padding: unset;
 `;
 const Collapse = styled.div`
-     top: 1px;
-    left: -1.5em;
-    cursor: pointer
-    padding-right: 6px;
-    padding-left: 6px;
-    
-
-    &:after{
-      content: '+';
-      ${(props) => props.isExpand && 'content: ' - ';'}
+  top: 1px;
+  left: -1.5em;
+  padding-right: 6px;
+  padding-left: 6px;
+  &:after {
+    content: '+';
+    ${(props) => props.isExpand && 'content: ' - ';'}
     cursor: pointer;
-    }
-     
+  }
 `;
+function handleClick(index) {}
 const APIResponse = ({ response, isVisible }) => {
   const [body, setBody] = useState('');
   const [bodytype, setBodyType] = useState('200');
   const [requestBody, setRequestBody] = useState('');
   const [copy, setCopied] = useState('Copy');
   const [requestcopy, setRequestCopied] = useState('Copy');
+
   useEffect(() => {
     let string = '';
     if (bodytype === '200') {
@@ -158,7 +156,10 @@ const APIResponse = ({ response, isVisible }) => {
                 paddingLeft: left + 'px',
               }}
             >
-              <Collapse isExpand={item.isExpand} />
+              <Collapse
+                isExpand={item.isExpand}
+                onClick={(e) => handleClick(index)}
+              />
               <ResponsiveSpan>{item.name}</ResponsiveSpan>
             </div>
             <ul>{depth < 4 ? Test(index, depth + 1) : ''}</ul>

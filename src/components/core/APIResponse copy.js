@@ -97,6 +97,7 @@ const APIResponse = ({ response, isVisible }) => {
           .split(',')
           .join(',<br/>');
     }
+
     setBody(string);
   }, [response, bodytype]);
 
