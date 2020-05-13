@@ -316,7 +316,7 @@ const APIResponse = ({ request, response, isVisible }) => {
         <APIResponseBody>
           <JsonWrapper>application/json</JsonWrapper>
           <CopyBoard>
-            <CopyToClipboard text={body}>
+            <CopyToClipboard text={response}>
               <CopyButton>Copy</CopyButton>
             </CopyToClipboard>
             <CopyButton onClick={expandAll}>Expand All</CopyButton>
