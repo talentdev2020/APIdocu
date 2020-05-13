@@ -64,7 +64,7 @@ const LeftSide = ({ history, data }) => {
   return (
     <LetfWrapper>
       <div style={{ position: 'fixed' }}>
-        <img src="logo" alt="Logo" />
+        <img src="logo.png" alt="Logo" />
         <div
           role="search"
           style={{
