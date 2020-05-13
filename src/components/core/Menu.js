@@ -1,4 +1,5 @@
 import React from 'react';
+import { HashLink as Link } from 'react-router-hash-link';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import styled, { css } from 'styled-components';
 import List from '@material-ui/core/List';
@@ -15,7 +16,7 @@ import IconDashboard from '@material-ui/icons/Dashboard';
 
 import IconLibraryBooks from '@material-ui/icons/LibraryBooks';
 
-const A = styled.a`
+const A = styled(Link)`
   text-decoration: none;
   font-size: 13px;
 `;
@@ -89,7 +90,7 @@ const AppMenu = ({ treedata }) => {
             return (
               <div key={index}>
                 <A
-                  href={`#${removeSpace(firstdata.name)}`}
+                  to={`#${removeSpace(firstdata.name)}`}
                   key={index + firstdata.name}
                   onClick={() => handleClick(firstdata.name)}
                 >
@@ -127,7 +128,7 @@ const AppMenu = ({ treedata }) => {
                           <div key={index1 + seconddata.name}>
                             <A
                               onClick={() => handleClick(seconddata.name)}
-                              href={`#${removeSpace(seconddata.name)}`}
+                              to={`#${removeSpace(seconddata.name)}`}
                               key={index1 + 'a' + seconddata.name}
                             >
                               <ListItem
@@ -158,7 +159,7 @@ const AppMenu = ({ treedata }) => {
                                   {seconddata.item.map((thirddata) => {
                                     return (
                                       <A
-                                        href={`#${removeSpace(thirddata.name)}`}
+                                        to={`#${removeSpace(thirddata.name)}`}
                                         key={thirddata.name}
                                         onClick={() =>
                                           handleClick(thirddata.name, false)

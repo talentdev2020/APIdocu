@@ -42,7 +42,7 @@ const SearchIcon = styled.svg`
 `;
 
 const LetfWrapper = styled.div`
-width: 350px;
+width: 320px;
  
 @media (max-width: 768px) {
      
@@ -54,7 +54,7 @@ const LeftSide = ({ history, data }) => {
   const [search, setSearch] = useState('');
   const [menu, setMenu] = useState(data);
   useEffect(() => {
-    const newelement = { name: 'introduction' };
+    const newelement = { name: 'introduction', type: 'parent' };
     let temp = [newelement].concat(data);
     setMenu(temp);
   }, [data]);

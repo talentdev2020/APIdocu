@@ -19,7 +19,7 @@ const EDivider = styled(Divider)`
 `;
 const Wrapper = styled.div`
   padding-left: 3rem;
-  width: 100%;
+  width: calc(100vw - 320px);
   & div {
     color: #383838;
     text-align: left;
@@ -146,7 +146,7 @@ const Content = ({ data }) => {
             </div>
           </Grid>
           <Grid item md={12} lg={6}>
-            <APIResponse isVisible={false} />
+            <APIResponse isVisible={true} />
           </Grid>
         </Grid>
       </Section>
@@ -156,14 +156,14 @@ const Content = ({ data }) => {
       {content &&
         content.map((item, index) => (
           <Section
-            id={`#${removeSpace(item.name)}`}
+            id={`${removeSpace(item.name)}`}
             key={index + 'sec' + item.name}
           >
             <Grid container spacing={3}>
-              <Grid item md={12} lg={6}>
+              <Grid item sm={12} sx={12} md={12} lg={6}>
                 <APIContent data={item} />
               </Grid>
-              <Grid item md={12} lg={6}>
+              <Grid item sx={12} sm={12} md={12} lg={6}>
                 <APIResponse
                   isVisible={item.type.includes('parent')}
                   response={item.response ? item.response.body : ''}
@@ -175,6 +175,7 @@ const Content = ({ data }) => {
                 />
               </Grid>
             </Grid>
+            {item.type === 'api' && <Divider />}
           </Section>
         ))}
 

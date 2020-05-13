@@ -66,10 +66,6 @@ const CopyBoard = styled.div`
     color: white !important;
   }
 `;
-const ResponsiveSpan = styled.div`
-  padding-left: 20px;
-  color: #629e35 !important;
-`;
 const CopyButton = styled.span`
   padding: 0.3rem 0.6rem;
   cursor: pointer;
@@ -77,25 +73,6 @@ const CopyButton = styled.span`
   &:hover {
     background-color: #333333;
   }
-`;
-const Li = styled.li`
-  list-style-type: none;
-  padding: unset;
-`;
-const Collapse = styled.div`
-     top: 1px;
-    left: -1.5em;
-    cursor: pointer
-    padding-right: 6px;
-    padding-left: 6px;
-    
-
-    &:after{
-      content: '+';
-      ${(props) => props.isExpand && 'content: ' - ';'}
-    cursor: pointer;
-    }
-     
 `;
 const APIResponse = ({ response, isVisible }) => {
   const [body, setBody] = useState('');
@@ -109,78 +86,20 @@ const APIResponse = ({ response, isVisible }) => {
       string =
         response &&
         response
-          .split('},')
-          .join('}')
-          .split('],')
-          .join(']')
-          .split(',')
-          .join(', ')
           .split('{')
-          .join('{, ')
+          .join('{<div class="response">')
           .split('}')
-          .join('}, ')
-          .split(', ');
+          .join('</div>}')
+          .split('<div class="response">')
+          .join('<div class="response">')
+          .split('</div>')
+          .join('</div>')
+          .split(',')
+          .join(',<br/>');
     }
-    let depth = 0;
-    let newData =
-      string &&
-      string.map((item) => {
-        if (item.includes('[') || item.includes('{')) {
-          item = { name: item, isExpand: depth > 4 ? false : true };
-          depth++;
-        } else if (item.includes(']') || item.includes('}')) {
-          item = { name: item + ' ,', isExpand: false };
-          depth--;
-        } else item = { name: item + ' ,' };
-        return item;
-      });
-    setBody(newData);
+    setBody(string);
   }, [response, bodytype]);
-  const Test = (start, depth) => {
-    let childflag = 0;
-    let parentflag = 0;
-    return body.map((item, index) => {
-      if (childflag === 1) return <></>;
-      if (index <= start) return <></>;
-      // if (item.isMarked) return <></>;
-      const left = 16 * depth;
 
-      console.log(item.name);
-      if (item.name.includes('{') || item.name.includes('[')) {
-        parentflag = 1;
-        body[index].isMarked = true;
-        return (
-          <Li key={index + 'li' + item.name}>
-            <div
-              style={{
-                display: 'flex',
-                position: 'relative',
-                paddingLeft: left + 'px',
-              }}
-            >
-              <Collapse isExpand={item.isExpand} />
-              <ResponsiveSpan>{item.name}</ResponsiveSpan>
-            </div>
-            <ul>{depth < 4 ? Test(index, depth + 1) : ''}</ul>
-          </Li>
-        );
-      }
-      if (item.name.includes('}') || item.name.includes(']')) {
-        childflag = 1;
-        parentflag = 0;
-      }
-      if (parentflag === 1) return <></>;
-      body[index].isMarked = true;
-      return (
-        <Li
-          key={index + 'res' + item.name}
-          style={{ paddingLeft: left + 'px' }}
-        >
-          <ResponsiveSpan>{item.name}</ResponsiveSpan>
-        </Li>
-      );
-    });
-  };
   useEffect(() => {
     const string =
       response &&
@@ -270,8 +189,7 @@ const APIResponse = ({ response, isVisible }) => {
             <CopyButton>Expand All</CopyButton>
             <CopyButton>Collapse All</CopyButton>
           </CopyBoard>
-          {Test(0, 1)}
-          {/* <P dangerouslySetInnerHTML={{ __html: body }}></P> */}
+          <P dangerouslySetInnerHTML={{ __html: body }}></P>
         </APIResponseBody>
       )}
     </APIResponseWrapper>
