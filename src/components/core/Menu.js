@@ -51,13 +51,12 @@ function removeSpace(string) {
 }
 const AppMenu = ({ treedata, selectedmenu }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   useEffect(() => {
-    handleClick(selectedmenu);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    console.log(selectedmenu);
+    selectedmenu && document.getElementById(selectedmenu).click();
   }, [selectedmenu]);
   function handleClick(string, isParent = true) {
-    dispatch(selectmenu(string));
+    // dispatch(selectmenu(string));
     treedata = treedata.map((firstchild) => {
       if (firstchild.name === string) {
         if (isParent) firstchild.isExpand = !firstchild.isExpand;
@@ -99,6 +98,7 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                   to={`#${removeSpace(firstdata.name)}`}
                   key={index + firstdata.name}
                   onClick={() => handleClick(firstdata.name)}
+                  id={`${removeSpace(firstdata.name)}`}
                 >
                   <ListItem
                     button
@@ -135,6 +135,7 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                             <A
                               onClick={() => handleClick(seconddata.name)}
                               to={`#${removeSpace(seconddata.name)}`}
+                              id={`${removeSpace(seconddata.name)}`}
                               key={index1 + 'a' + seconddata.name}
                             >
                               <ListItem
@@ -166,6 +167,7 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                                     return (
                                       <A
                                         to={`#${removeSpace(thirddata.name)}`}
+                                        id={`${removeSpace(thirddata.name)}`}
                                         key={thirddata.name}
                                         onClick={() =>
                                           handleClick(thirddata.name, false)

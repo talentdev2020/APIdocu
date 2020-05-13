@@ -106,16 +106,16 @@ const APIResponse = ({ request, response, isVisible }) => {
   const [responseBody, setResponseBody] = useState('');
   const [bodytype, setBodyType] = useState('200');
 
-  const handleClick = useCallback((index) => {
+  const handleClick = useCallback((index, source) => {
     const temp =
-      body &&
-      body.map((item, i) => {
+      source &&
+      source.map((item, i) => {
         item.isMarked = false;
         if (index === i) item.isExpand = !item.isExpand;
         return item;
       });
     setBody(temp);
-    const data = makeResponse(0, 0);
+    const data = makeResponse(temp, 0, 0);
     setResponseBody(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -127,22 +127,23 @@ const APIResponse = ({ request, response, isVisible }) => {
       return item;
     });
     setBody(newData);
-    const data = makeResponse(0, 0);
+    const data = makeResponse(newData, 0, 0);
     setResponseBody(data);
   };
   const collapseAll = () => {
-    const newData = body.map((item) => {
+    const newData = body.map((item, index) => {
       item.isExpand = false;
       item.isMarked = false;
+
       return item;
     });
     setBody(newData);
-    const data = makeResponse(0, 0);
+    const data = makeResponse(newData, 0, 0);
     setResponseBody(data);
   };
 
   const makeResponse = useCallback(
-    (source = body, start, depth) => {
+    (source, start, depth) => {
       let childflag = 0;
       return (
         source &&
@@ -167,7 +168,7 @@ const APIResponse = ({ request, response, isVisible }) => {
                   {index !== 0 && (
                     <Collapse
                       isExpand={item.isExpand}
-                      onClick={(e) => handleClick(index)}
+                      onClick={(e) => handleClick(index, source)}
                     />
                   )}
                   <ResponsiveSpan>{item.name}</ResponsiveSpan>
