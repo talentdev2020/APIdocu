@@ -77,7 +77,6 @@ const AppMenu = ({ treedata }) => {
 
       return firstchild;
     });
-    console.log(treedata);
   }
   return (
     <ReactShadowScroll

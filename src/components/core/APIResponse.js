@@ -139,6 +139,7 @@ const APIResponse = ({ request, response, isVisible }) => {
   };
 
   const makeResponse = (start, depth) => {
+    console.log('make');
     let childflag = 0;
     return (
       body &&
@@ -244,6 +245,7 @@ const APIResponse = ({ request, response, isVisible }) => {
         } else item = { name: item + ' ,' };
         return item;
       });
+    console.log('Effee');
     setBody(newData);
   }, [response, bodytype]);
   // useEffect(() => {
