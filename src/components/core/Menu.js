@@ -17,6 +17,8 @@ import IconDashboard from '@material-ui/icons/Dashboard';
 import IconLibraryBooks from '@material-ui/icons/LibraryBooks';
 import { useDispatch } from 'react-redux';
 import { selectmenu } from '../../modules/collection';
+import { useScrollPosition } from '@n8tb1t/use-scroll-position';
+
 const A = styled(Link)`
   text-decoration: none;
   font-size: 13px;
@@ -51,12 +53,61 @@ function removeSpace(string) {
 }
 const AppMenu = ({ treedata, selectedmenu }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   useEffect(() => {
     console.log(selectedmenu);
-    selectedmenu && document.getElementById(selectedmenu).click();
+    selectedmenu &&
+      document.getElementById(selectedmenu + '_menu') &&
+      document.getElementById(selectedmenu + '_menu').click();
+    if (selectedmenu)
+      if (!document.getElementById(selectedmenu + '_menu')) {
+        let selectedparent = '';
+        let selectedgrandparent = '';
+        treedata.map((firstchild, index) => {
+          if (firstchild.name === selectedmenu) {
+            selectedparent = treedata[index - 1].name;
+
+            return firstchild;
+          }
+
+          if (firstchild.item) {
+            firstchild.item = firstchild.item.map((seconddata) => {
+              if (seconddata.name === selectedmenu) {
+                selectedparent = firstchild.name;
+
+                return seconddata;
+              }
+
+              if (seconddata.item) {
+                seconddata.item = seconddata.item.map((thirddata) => {
+                  if (selectedmenu === thirddata.name) {
+                    selectedparent = seconddata.name;
+                    selectedgrandparent = firstchild.name;
+                    console.log('find');
+                  }
+                  return thirddata;
+                });
+              }
+              return seconddata;
+            });
+          }
+
+          return firstchild;
+        });
+        console.log('grand', selectedgrandparent);
+        console.log('grand', selectedparent);
+        if (selectedgrandparent)
+          document.getElementById(selectedgrandparent + '_menu') &&
+            document.getElementById(selectedgrandparent + '_menu').click();
+        document.getElementById(selectedparent + '_menu') &&
+          document.getElementById(selectedparent + '_menu').click();
+        document.getElementById(selectedmenu + '_menu') &&
+          document.getElementById(selectedmenu + '_menu').click();
+      }
+    //dispatch(selectmenu(selectedmenu));
   }, [selectedmenu]);
   function handleClick(string, isParent = true) {
-    // dispatch(selectmenu(string));
+    //    dispatch(selectmenu(string));
     treedata = treedata.map((firstchild) => {
       if (firstchild.name === string) {
         if (isParent) firstchild.isExpand = !firstchild.isExpand;
@@ -98,7 +149,7 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                   to={`#${removeSpace(firstdata.name)}`}
                   key={index + firstdata.name}
                   onClick={() => handleClick(firstdata.name)}
-                  id={`${removeSpace(firstdata.name)}`}
+                  id={`${removeSpace(firstdata.name)}_menu`}
                 >
                   <ListItem
                     button
@@ -135,7 +186,7 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                             <A
                               onClick={() => handleClick(seconddata.name)}
                               to={`#${removeSpace(seconddata.name)}`}
-                              id={`${removeSpace(seconddata.name)}`}
+                              id={`${removeSpace(seconddata.name)}_menu`}
                               key={index1 + 'a' + seconddata.name}
                             >
                               <ListItem
@@ -167,7 +218,9 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                                     return (
                                       <A
                                         to={`#${removeSpace(thirddata.name)}`}
-                                        id={`${removeSpace(thirddata.name)}`}
+                                        id={`${removeSpace(
+                                          thirddata.name,
+                                        )}_menu`}
                                         key={thirddata.name}
                                         onClick={() =>
                                           handleClick(thirddata.name, false)
