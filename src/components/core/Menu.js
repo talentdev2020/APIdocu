@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import styled, { css } from 'styled-components';
@@ -15,7 +15,8 @@ import IconExpandMore from '@material-ui/icons/ExpandMore';
 import IconDashboard from '@material-ui/icons/Dashboard';
 
 import IconLibraryBooks from '@material-ui/icons/LibraryBooks';
-
+import { useDispatch } from 'react-redux';
+import { selectmenu } from '../../modules/collection';
 const A = styled(Link)`
   text-decoration: none;
   font-size: 13px;
@@ -48,9 +49,15 @@ const ApiType = styled.span`
 function removeSpace(string) {
   return string.replace(/\s/g, '').toLowerCase();
 }
-const AppMenu = ({ treedata }) => {
+const AppMenu = ({ treedata, selectedmenu }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    handleClick(selectedmenu);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedmenu]);
   function handleClick(string, isParent = true) {
+    dispatch(selectmenu(string));
     treedata = treedata.map((firstchild) => {
       if (firstchild.name === string) {
         if (isParent) firstchild.isExpand = !firstchild.isExpand;

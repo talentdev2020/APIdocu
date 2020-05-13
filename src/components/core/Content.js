@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // import ScrollableAnchor from 'react-scrollable-anchor';
 import styled from 'styled-components';
 import Divider from '@material-ui/core/Divider';
@@ -6,6 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import APIResponse from './APIResponse';
 import APIContent from './APIContent';
+import { useScrollPosition } from '@n8tb1t/use-scroll-position';
+import { useDispatch } from 'react-redux';
+import { selectmenu } from '../../modules/collection';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -39,7 +42,39 @@ const Section = styled.div`
 const Content = ({ data }) => {
   const classes = useStyles();
   const [content, setContent] = useState('');
+  const elementRef = useRef();
+  const dispatch = useDispatch();
+  // Element scroll position
+  useScrollPosition(({ currPos }) => {
+    const scroll = currPos.y || window.pageYOffset;
 
+    const viewport = {
+      top: scroll,
+      bottom: scroll + window.innerHeight,
+    };
+    const elements = document.getElementById('parent').children;
+
+    for (let i = 0; i < parseInt(elements.length); i++) {
+      const element = elements[i];
+      const boundsTop = element.getBoundingClientRect().top + scroll - 200;
+      // console.log('client', element.getBoundingClientRect().top);
+      // console.log('scroll', scroll);
+      const bounds = {
+        top: boundsTop,
+        bottom: boundsTop + element.clientHeight + 200,
+      };
+
+      // console.log(bounds);
+      // console.log(viewport);
+      if (bounds.top >= viewport.top) {
+        console.log('id', element.id);
+        if (element.id) {
+          dispatch(selectmenu(element.id));
+          return;
+        }
+      }
+    }
+  }, []);
   useEffect(() => {
     let temp = [];
     data.map((firstchild) => {
@@ -74,8 +109,9 @@ const Content = ({ data }) => {
     });
     setContent(temp);
   }, [data]);
+
   return (
-    <Wrapper className={classes.root}>
+    <Wrapper className={classes.root} ref={elementRef} id="parent">
       {/* <ScrollableAnchor> */}
       <Section id={'introduction'}>
         {' '}

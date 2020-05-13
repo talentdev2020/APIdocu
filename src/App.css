@@ -83,3 +83,6 @@
 .hide {
   display: none;
 }
+.MuiGrid-item {
+  padding-right: unset !important;
+}

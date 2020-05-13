@@ -6,7 +6,7 @@ import { getdata } from '../../modules/collection';
 
 const LeftSideContainer = () => {
   const dispatch = useDispatch();
-  const { isLoading, isError, collection } = useSelector(
+  const { isLoading, isError, collection, selectedmenu } = useSelector(
     (state) => state.collection,
   );
   useEffect(() => {
@@ -24,7 +24,10 @@ const LeftSideContainer = () => {
             <div style={{ textAlign: 'center' }}>Loading...</div>
           ) : (
             <>
-              <LeftSide data={collection.data.item} />
+              <LeftSide
+                data={collection.data.item}
+                selectedmenu={selectedmenu}
+              />
               <Content data={collection.data.item} />{' '}
             </>
           )}

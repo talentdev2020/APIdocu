@@ -85,9 +85,9 @@ const SuccessResponse = (props) => {
           <span style={{ color: 'black' }}>application/json</span>
           <Divider />
           <Param>
-            <ParamTitle>and[status][][eq]</ParamTitle>
+            <ParamTitle>Data</ParamTitle>
             <ParamBody>
-              <ParamDescriptionTitle>verified</ParamDescriptionTitle>
+              <ParamDescriptionTitle>object</ParamDescriptionTitle>
               <ParamDescription>
                 Optional parameter to filter by status
               </ParamDescription>

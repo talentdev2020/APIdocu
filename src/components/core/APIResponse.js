@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -8,6 +8,7 @@ const APIResponseWrapper = styled.div`
   padding-bottom: 1.5rem;
   padding-left: 2rem;
   height: 100%;
+  padding-right: 1.5rem;
   boder-bottom: 1px solid grey !important;
 `;
 
@@ -16,6 +17,8 @@ const APIResponseBody = styled.div`
   padding-top: 10px;
   margin-bottom: 1rem;
   background-color: #11171a;
+  overflow: auto;
+  max-height: 200vh;
   color: #b1eab7 !important;
 `;
 const P = styled.p`
@@ -103,7 +106,7 @@ const APIResponse = ({ request, response, isVisible }) => {
   const [responseBody, setResponseBody] = useState('');
   const [bodytype, setBodyType] = useState('200');
 
-  const handleClick = (index) => {
+  const handleClick = useCallback((index) => {
     const temp = body.map((item, i) => {
       item.isMarked = false;
       if (index === i) item.isExpand = !item.isExpand;
@@ -111,9 +114,9 @@ const APIResponse = ({ request, response, isVisible }) => {
     });
     setBody(temp);
     const data = makeResponse(0, 0);
-    console.log(data);
     setResponseBody(data);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const expandAll = () => {
     const newData = body.map((item) => {
@@ -123,7 +126,6 @@ const APIResponse = ({ request, response, isVisible }) => {
     });
     setBody(newData);
     const data = makeResponse(0, 0);
-    console.log(data);
     setResponseBody(data);
   };
   const collapseAll = () => {
@@ -134,54 +136,64 @@ const APIResponse = ({ request, response, isVisible }) => {
     });
     setBody(newData);
     const data = makeResponse(0, 0);
-    console.log(data);
     setResponseBody(data);
   };
 
-  const makeResponse = (start, depth) => {
-    console.log('make');
-    let childflag = 0;
-    return (
-      body &&
-      body.map((item, index) => {
-        if (index < start) return <></>;
-        if (childflag === 1) return <></>;
+  const makeResponse = useCallback(
+    (source = body, start, depth) => {
+      let childflag = 0;
+      return (
+        source &&
+        source.map((item, index) => {
+          if (index < start) return <></>;
+          if (childflag === 1) return <></>;
 
-        if (item.isMarked) return <></>;
-        let left = 16 * depth;
-        item.isMarked = true;
-        if (item.name.includes('{') || item.name.includes('[')) {
-          return (
-            <Li key={index + start + 'li' + item.name}>
-              <div
-                key={index + 'div' + item.name}
-                style={{
-                  display: 'flex',
-                  position: 'relative',
-                  paddingLeft: left + 'px',
-                }}
+          if (item.isMarked) return <></>;
+          let left = 16 * depth;
+          item.isMarked = true;
+          if (item.name.includes('{') || item.name.includes('[')) {
+            return (
+              <Li key={index + start + 'li' + item.name}>
+                <div
+                  key={index + 'div' + item.name}
+                  style={{
+                    display: 'flex',
+                    position: 'relative',
+                    paddingLeft: left + 'px',
+                  }}
+                >
+                  {index !== 0 && (
+                    <Collapse
+                      isExpand={item.isExpand}
+                      onClick={(e) => handleClick(index)}
+                    />
+                  )}
+                  <ResponsiveSpan>{item.name}</ResponsiveSpan>
+                </div>
+
+                <ul
+                  className={item.isExpand ? '' : 'hide'}
+                  key={index + 'ul' + item.name}
+                >
+                  {makeResponse(source, index + 1, depth + 1)}
+                </ul>
+              </Li>
+            );
+          }
+          if (item.name.includes('}') || item.name.includes(']')) {
+            childflag = 1;
+            left = 16 * (depth - 1);
+            return (
+              <Li
+                key={index + start + 'res' + item.name}
+                style={{ paddingLeft: left + 'px' }}
               >
-                {index !== 0 && (
-                  <Collapse
-                    isExpand={item.isExpand}
-                    onClick={(e) => handleClick(index)}
-                  />
-                )}
                 <ResponsiveSpan>{item.name}</ResponsiveSpan>
-              </div>
-
-              <ul
-                className={item.isExpand ? '' : 'hide'}
-                key={index + 'ul' + item.name}
-              >
-                {makeResponse(index + 1, depth + 1)}
-              </ul>
-            </Li>
-          );
-        }
-        if (item.name.includes('}') || item.name.includes(']')) {
-          childflag = 1;
-          left = 16 * (depth - 1);
+              </Li>
+            );
+            //  parentflag = 0;
+          }
+          //  if (parentflag === 1) return <></>;
           return (
             <Li
               key={index + start + 'res' + item.name}
@@ -190,20 +202,12 @@ const APIResponse = ({ request, response, isVisible }) => {
               <ResponsiveSpan>{item.name}</ResponsiveSpan>
             </Li>
           );
-          //  parentflag = 0;
-        }
-        //  if (parentflag === 1) return <></>;
-        return (
-          <Li
-            key={index + start + 'res' + item.name}
-            style={{ paddingLeft: left + 'px' }}
-          >
-            <ResponsiveSpan>{item.name}</ResponsiveSpan>
-          </Li>
-        );
-      })
-    );
-  };
+        })
+      );
+    },
+    [body, handleClick],
+  );
+
   useEffect(() => {
     let string = '';
     if (bodytype === '200') {
@@ -245,26 +249,11 @@ const APIResponse = ({ request, response, isVisible }) => {
         } else item = { name: item + ' ,' };
         return item;
       });
-    console.log('Effee');
     setBody(newData);
+    const data = makeResponse(newData, 0, 0);
+    setResponseBody(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, bodytype]);
-  // useEffect(() => {
-  //   const string =
-  //     response &&
-  //     response
-  //       .split('{')
-  //       .join('{<div class="response">')
-  //       .split('}')
-  //       .join('</div>}')
-  //       .split('<div class="response">')
-  //       .join('<div class="response">')
-  //       .split('</div>')
-  //       .join('</div>')
-  //       .split(',')
-  //       .join(',<br/>');
-  //   setRequestBody(string);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   const changeContentResponse = (type) => {
     setBodyType(type);
@@ -324,8 +313,8 @@ const APIResponse = ({ request, response, isVisible }) => {
             <CopyButton onClick={expandAll}>Expand All</CopyButton>
             <CopyButton onClick={collapseAll}>Collapse All</CopyButton>
           </CopyBoard>
-          <div>{responseBody ? responseBody : makeResponse(0, 0)}</div>
-
+          {/* <div>{responseBody ? responseBody : makeResponse(0, 0)}</div> */}
+          {responseBody}
           {/* <P dangerouslySetInnerHTML={{ __html: body }}></P> */}
         </APIResponseBody>
       )}

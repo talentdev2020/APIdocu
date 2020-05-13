@@ -50,7 +50,7 @@ width: 320px;
     
 `;
 
-const LeftSide = ({ history, data }) => {
+const LeftSide = ({ data, selectedmenu }) => {
   const [search, setSearch] = useState('');
   const [menu, setMenu] = useState(data);
   useEffect(() => {
@@ -97,7 +97,7 @@ const LeftSide = ({ history, data }) => {
         /> */}
         {search && <SearchedMenu search={search} />}
 
-        <Menu treedata={menu} />
+        <Menu treedata={menu} selectedmenu={selectedmenu} />
         <Divider />
       </div>
     </LetfWrapper>

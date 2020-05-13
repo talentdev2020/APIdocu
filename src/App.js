@@ -9,6 +9,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getdata());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="App">

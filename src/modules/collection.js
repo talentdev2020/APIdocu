@@ -4,6 +4,7 @@ import { getData } from '../lib/api';
 
 const SETDATA = 'SETDATA';
 const GETDATA = 'GETDATA';
+const SELECTEDMENU = 'SELECTEDMENU';
 const LOADING_START = 'LOADING_START';
 const LOADING_END = 'LOADING_END';
 const GETDATAFAIL = 'GETDATAFAIL';
@@ -12,10 +13,11 @@ const initialState = {
   collection: '',
   isError: false,
   isLoading: true,
+  selectedmenu: 0,
 };
 
 export const getdata = createAction(GETDATA);
-
+export const selectmenu = createAction(SELECTEDMENU, (id) => id);
 function* getDataSaga() {
   yield put({ type: LOADING_START });
   try {
@@ -33,6 +35,10 @@ export function* collectionSaga() {
 const actions = handleActions(
   {
     [LOADING_START]: (state) => ({ ...state, isLoading: true }),
+    [SELECTEDMENU]: (state, action) => ({
+      ...state,
+      selectedmenu: action.payload,
+    }),
     [LOADING_END]: (state) => ({ ...state, isLoading: false }),
     [SETDATA]: (state, action) => ({
       ...state,
