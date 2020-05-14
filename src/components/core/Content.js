@@ -56,7 +56,6 @@ const Content = ({ data }) => {
     };
     const elements = document.getElementById('parent').children;
     const direction = currPos.y < prevPos.y ? true : false;
-    console.log('direct', direction);
     const isVisible = true;
     if (isVisible)
       for (let i = 0; i < parseInt(elements.length); i++) {
@@ -222,7 +221,7 @@ const Content = ({ data }) => {
                   needed.
                   <br /> An example would be
                   <strong>
-                    in[tierLevel][]=1&in[tierLevel][]=2&in[tierLevel][]=3
+                    &nbsp;in[tierLevel][]=1&in[tierLevel][]=2&in[tierLevel][]=3
                   </strong>
                   .{' '}
                 </P>
@@ -238,6 +237,7 @@ const Content = ({ data }) => {
                   same attribute and use as many ors as needed. An example would
                   be
                   <strong>
+                    &nbsp;
                     date[created_at][][gt]=2018-01-01&date[created_at][][lt]=2018-01-31
                   </strong>
                   . It is possible to use various type of operators, below is
@@ -264,7 +264,16 @@ const Content = ({ data }) => {
           >
             <Grid container spacing={3}>
               <Grid item sm={12} sx={12} md={12} lg={6}>
-                <APIContent data={item} />
+                <APIContent
+                  request={item.request}
+                  type={item.type}
+                  name={item.name}
+                  description={
+                    item.type === 'api'
+                      ? item.request.description
+                      : item.description
+                  }
+                />
               </Grid>
               <Grid item sx={12} sm={12} md={12} lg={6}>
                 <APIResponse

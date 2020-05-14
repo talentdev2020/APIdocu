@@ -37,8 +37,9 @@ const ApiBody = styled.div`
   color: #282828;
   background-color: #f8f8f8;
 `;
-const Description = styled.p`
+const Description = styled.div`
   color: #969696;
+  margin-top: 1rem;
 `;
 const MainCategory = styled.h3`
   color: #01005a;
@@ -46,15 +47,65 @@ const MainCategory = styled.h3`
 const SubCategory = styled.h3`
   color: #01525a;
 `;
-const APIContent = ({ data }) => {
+const APIContent = ({ request, type, name, description }) => {
   const [postBody, setPostBody] = useState();
+  const [descriptionTitle, setDescriptionTitle] = useState('');
+  const [descriptionTableTitle, setDescriptionTableTitle] = useState('');
+  const [descriptionTableBody, setDescriptionTableBody] = useState('');
+
+  console.log('conetent', description);
+
   useEffect(() => {
-    if (data.request && data.request.method === 'POST') {
+    if (description && description.includes('**')) {
+      let tables = [];
+      let tabletitles = [];
+
+      const n = description.indexOf('**');
+      const temp = description.substr(0, n);
+      setDescriptionTitle(temp.split('.)').join('.').split('.'));
+
+      const m = description.indexOf('**', n + 1);
+      tabletitles.push(description.substring(n, m + 1));
+      const tablestart = description.indexOf('---------', m + 1);
+      let tableend = description.indexOf('**', m + 1);
+      if (tableend === -1) tableend = description.length;
+      const tablebodystring = description.substring(tablestart, tableend);
+      const tablebody = tablebodystring.split('|');
+      let temp_arr = [];
+      for (let i = 0; i < tablebody.length; i = i + 3)
+        temp_arr.push({
+          id: tablebody[i],
+          type: tablebody[i + 1],
+          value: tablebody[i + 2],
+        });
+      tables.push(temp_arr);
+
+      const n1 = description.indexOf('**', tableend);
+      const m1 = description.indexOf('**', n1 + 1);
+      tabletitles.push(description.substring(n1, m1 + 1));
+      const tablestart1 = description.indexOf('---------', m1 + 1);
+      let tableend1 = description.indexOf('**', m1 + 1);
+      if (tableend1 === -1) tableend1 = description.length;
+      const tablebodystring1 = description.substring(tablestart1, tableend1);
+      const tablebody1 = tablebodystring1 ? tablebodystring1.split('|') : [];
+      temp_arr = [];
+      for (let i = 0; i < tablebody1.length; i = i + 3)
+        temp_arr.push({
+          id: tablebody1[i],
+          type: tablebody1[i + 1],
+          value: tablebody1[i + 2],
+        });
+      tables.push(temp_arr);
+
+      setDescriptionTableTitle(tabletitles);
+      setDescriptionTableBody(tables);
+    }
+  }, [description]);
+  useEffect(() => {
+    if (request && request.method === 'POST') {
       try {
-        const temp = JSON.parse(data.request.body.raw);
-        console.log('temp', temp);
+        const temp = JSON.parse(request.body.raw);
         const temp_arr = Object.keys(temp);
-        console.log('objectkey', temp);
         let arr = [];
         if (temp_arr.length > 10) {
           setPostBody([]);
@@ -67,41 +118,76 @@ const APIContent = ({ data }) => {
             return 'Array';
           }
         });
-        console.log('arr', arr);
         setPostBody(arr);
       } catch (e) {
         setPostBody([]);
       }
     }
-  }, [data]);
-  console.log(postBody);
+  }, [request]);
   return (
     <>
-      {data.type === 'parent' && <MainCategory>{data.name}</MainCategory>}
-      {data.type === 'subparent' && <SubCategory>{data.name}</SubCategory>}
-      {data.type === 'api' && (
+      {type === 'parent' && <MainCategory>{name}</MainCategory>}
+      {type === 'subparent' && <SubCategory>{name}</SubCategory>}
+      {type === 'api' && (
         <>
-          <h3>{data.name}</h3>
+          <h3>{name}</h3>
           <ApiBody>
-            <GreenWrapper post={data.request.method === 'GET' ? false : true}>
-              {data.request.method}
+            <GreenWrapper post={request.method === 'GET' ? false : true}>
+              {request.method}
             </GreenWrapper>
-            {data.request.url.raw ? data.request.url.raw : data.request.url}
+            {request.url.raw ? request.url.raw : request.url}
           </ApiBody>
         </>
       )}
 
       <Description>
-        {data.type === 'api' ? data.request.description : data.description}
+        {descriptionTitle ? '' : description}
+        {descriptionTitle &&
+          descriptionTitle.map((line, index) => {
+            if (index === 0) return <p>{line}</p>;
+            else return <div>{line}</div>;
+          })}
+        {descriptionTableTitle &&
+          descriptionTableTitle.map((title, index) => {
+            return (
+              <>
+                <p key={'title' + index}>{title}</p>
+                <table>
+                  <thead>
+                    <tr key={index + 'thead'}>
+                      <th>{descriptionTableBody[index]['id']}</th>
+                      <th>{descriptionTableBody[index]['type']}</th>
+                      <th>{descriptionTableBody[index]['value']}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {descriptionTableBody[index].map((table, tblindex) => {
+                      if (tblindex === 0) {
+                        return <></>;
+                      } else
+                        return (
+                          <tr key={index + 'tr' + tblindex}>
+                            <td>{table['id']}</td>
+                            <td>{table['type']}</td>
+                            <td>{table['value']}</td>
+                          </tr>
+                        );
+                    })}
+                  </tbody>
+                </table>
+                <br />
+              </>
+            );
+          })}
       </Description>
-      {data.type === 'api' && (
+      {type === 'api' && (
         <>
           {' '}
           <span style={{ color: 'grey' }}>HEADERS</span>
           <Divider />
           <br />
           <div>
-            {data.request.header.map((item, index) => (
+            {request.header.map((item, index) => (
               <Param key={'header' + index}>
                 <ParamTitle>{item.key}</ParamTitle>
                 <ParamBody>
@@ -115,9 +201,9 @@ const APIContent = ({ data }) => {
           <span style={{ color: 'grey' }}>PARAMS</span>
           <Divider />
           <br />
-          {data.request.method === 'GET' &&
-            data.request.url.query &&
-            data.request.url.query.map((item, index) => (
+          {request.method === 'GET' &&
+            request.url.query &&
+            request.url.query.map((item, index) => (
               <Param key={index + 'pa' + item.value}>
                 <ParamTitle>{item.key}</ParamTitle>
                 <ParamBody>
@@ -126,7 +212,7 @@ const APIContent = ({ data }) => {
                 </ParamBody>
               </Param>
             ))}
-          {data.request.method === 'POST' &&
+          {request.method === 'POST' &&
             postBody &&
             postBody.map((item, index) => (
               <Param key={index + 'pa' + item.value}>
