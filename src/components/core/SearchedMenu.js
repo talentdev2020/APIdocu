@@ -45,6 +45,7 @@ const Wrapper = styled.div`
   padding-top: 1rem;
   padding-bottom: 1rem;
   max-height: 10rem;
+  overflow: scroll;
   ${(props) =>
     !props.menuData &&
     css`
