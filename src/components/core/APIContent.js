@@ -52,9 +52,7 @@ const APIContent = ({ request, type, name, description }) => {
   const [descriptionTitle, setDescriptionTitle] = useState('');
   const [descriptionTableTitle, setDescriptionTableTitle] = useState('');
   const [descriptionTableBody, setDescriptionTableBody] = useState('');
-
-  console.log('conetent', description);
-
+  console.log(description);
   useEffect(() => {
     if (description && description.includes('**')) {
       let tables = [];
@@ -64,39 +62,45 @@ const APIContent = ({ request, type, name, description }) => {
       const temp = description.substr(0, n);
       setDescriptionTitle(temp.split('.)').join('.').split('.'));
 
-      const m = description.indexOf('**', n + 1);
+      const m = description.indexOf('**', n + 2);
       tabletitles.push(description.substring(n, m + 1));
       const tablestart = description.indexOf('---------', m + 1);
-      let tableend = description.indexOf('**', m + 1);
+      let tableend = description.indexOf('**', m + 2);
       if (tableend === -1) tableend = description.length;
       const tablebodystring = description.substring(tablestart, tableend);
-      const tablebody = tablebodystring.split('|');
+      const tablebody = tablebodystring.split('\n').join('|').split('|');
       let temp_arr = [];
+      console.log(tablebody);
       for (let i = 0; i < tablebody.length; i = i + 3)
         temp_arr.push({
           id: tablebody[i],
-          type: tablebody[i + 1],
-          value: tablebody[i + 2],
+          value: tablebody[i + 1],
+          type: tablebody[i + 2],
         });
       tables.push(temp_arr);
+      console.log(tableend);
+      if (tableend !== description.length) {
+        const n1 = description.indexOf('**', tableend);
+        const m1 = description.indexOf('**', n1 + 1);
+        tabletitles.push(description.substring(n1, m1 + 1));
+        const tablestart1 = description.indexOf('---------', m1 + 1);
+        let tableend1 = description.indexOf('**', m1 + 1);
+        if (tableend1 === -1) tableend1 = description.length;
+        const tablebodystring1 = description.substring(tablestart1, tableend1);
+        const tablebody1 = tablebodystring1
+          ? tablebodystring1.split('\n').join('|').split('|')
+          : [];
+        temp_arr = [];
 
-      const n1 = description.indexOf('**', tableend);
-      const m1 = description.indexOf('**', n1 + 1);
-      tabletitles.push(description.substring(n1, m1 + 1));
-      const tablestart1 = description.indexOf('---------', m1 + 1);
-      let tableend1 = description.indexOf('**', m1 + 1);
-      if (tableend1 === -1) tableend1 = description.length;
-      const tablebodystring1 = description.substring(tablestart1, tableend1);
-      const tablebody1 = tablebodystring1 ? tablebodystring1.split('|') : [];
-      temp_arr = [];
-      for (let i = 0; i < tablebody1.length; i = i + 3)
-        temp_arr.push({
-          id: tablebody1[i],
-          type: tablebody1[i + 1],
-          value: tablebody1[i + 2],
-        });
-      tables.push(temp_arr);
-
+        for (let i = 0; i < tablebody1.length; i = i + 3)
+          temp_arr.push({
+            id: tablebody1[i],
+            value: tablebody1[i + 1],
+            type: tablebody1[i + 2],
+          });
+        tables.push(temp_arr);
+      }
+      console.log(tables);
       setDescriptionTableTitle(tabletitles);
       setDescriptionTableBody(tables);
     }
@@ -147,22 +151,30 @@ const APIContent = ({ request, type, name, description }) => {
             if (index === 0) return <p>{line}</p>;
             else return <div>{line}</div>;
           })}
-        {descriptionTableTitle &&
+        {descriptionTableTitle.length > 0 &&
           descriptionTableTitle.map((title, index) => {
             return (
               <>
                 <p key={'title' + index}>{title}</p>
                 <table>
                   <thead>
-                    <tr key={index + 'thead'}>
-                      <th>{descriptionTableBody[index]['id']}</th>
-                      <th>{descriptionTableBody[index]['type']}</th>
-                      <th>{descriptionTableBody[index]['value']}</th>
-                    </tr>
+                    {descriptionTableBody[index][1] ? (
+                      <tr key={index + 'thead'}>
+                        <th>{descriptionTableBody[index][1]['id']}</th>
+                        <th>{descriptionTableBody[index][1]['type']}</th>
+                        <th>{descriptionTableBody[index][1]['value']}</th>
+                      </tr>
+                    ) : (
+                      <tr key={index + 'thead'}>
+                        <th>{descriptionTableBody[index][0]['id']}</th>
+                        <th>{descriptionTableBody[index][0]['type']}</th>
+                        <th>{descriptionTableBody[index][0]['value']}</th>
+                      </tr>
+                    )}
                   </thead>
                   <tbody>
                     {descriptionTableBody[index].map((table, tblindex) => {
-                      if (tblindex === 0) {
+                      if (tblindex === 1) {
                         return <></>;
                       } else
                         return (
