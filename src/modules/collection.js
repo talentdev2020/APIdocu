@@ -3,6 +3,7 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 import { getData } from '../lib/api';
 
 const SETDATA = 'SETDATA';
+const SETDIRECTION = 'SETDIRECTION';
 const GETDATA = 'GETDATA';
 const SELECTEDMENU = 'SELECTEDMENU';
 const LOADING_START = 'LOADING_START';
@@ -13,11 +14,16 @@ const initialState = {
   collection: '',
   isError: false,
   isLoading: true,
-  selectedmenu: 0,
+  selectedmenu: '',
+  direction: true,
 };
 
 export const getdata = createAction(GETDATA);
-export const selectmenu = createAction(SELECTEDMENU, (id) => id);
+export const selectmenu = createAction(SELECTEDMENU, (payload) => payload);
+export const setdirection = createAction(
+  SETDIRECTION,
+  (direction) => direction,
+);
 function* getDataSaga() {
   yield put({ type: LOADING_START });
   try {
@@ -38,6 +44,10 @@ const actions = handleActions(
     [SELECTEDMENU]: (state, action) => ({
       ...state,
       selectedmenu: action.payload,
+    }),
+    [SETDIRECTION]: (state, action) => ({
+      ...state,
+      direction: action.payload,
     }),
     [LOADING_END]: (state) => ({ ...state, isLoading: false }),
     [SETDATA]: (state, action) => ({

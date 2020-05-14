@@ -24,31 +24,31 @@ const APIResponseBody = styled.div`
 const P = styled.p`
   padding-left: 15px;
 `;
-const ResponseButton = styled.button`
-  padding: 5px 10px;
-  display: inline-block;
-  background-color: #11171a;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-  text-align: center;
-  outline: none;
-  color: red;
-  margin: 0 5px 5px 5px;
-  border: 1px solid #07090b;
-  border-radius: 5px;
-  min-width: 60px;
-  font-size: 0.9em;
-  font-weight: bold;
-  margin-top: 1rem;
-  &:focus {
-    background-color: white;
-  }
-  ${(props) =>
-    props.success &&
-    css`
-      color: green;
-    `}
-`;
+// const ResponseButton = styled.button`
+//   padding: 5px 10px;
+//   display: inline-block;
+//   background-color: #11171a;
+//   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+//   cursor: pointer;
+//   text-align: center;
+//   outline: none;
+//   color: red;
+//   margin: 0 5px 5px 5px;
+//   border: 1px solid #07090b;
+//   border-radius: 5px;
+//   min-width: 60px;
+//   font-size: 0.9em;
+//   font-weight: bold;
+//   margin-top: 1rem;
+//   &:focus {
+//     background-color: white;
+//   }
+//   ${(props) =>
+//     props.success &&
+//     css`
+//       color: green;
+//     `}
+// `;
 const JsonWrapper = styled.div`
   color: white !important;
   margin: 1rem 0;
@@ -104,7 +104,7 @@ const Collapse = styled.div`
 const APIResponse = ({ request, response, isVisible }) => {
   const [body, setBody] = useState('');
   const [responseBody, setResponseBody] = useState('');
-  const [bodytype, setBodyType] = useState('200');
+  // const [bodytype, setBodyType] = useState('200');
 
   const handleClick = useCallback((index, source) => {
     const temp =
@@ -158,7 +158,6 @@ const APIResponse = ({ request, response, isVisible }) => {
             return (
               <Li key={index + start + 'li' + item.name}>
                 <div
-                  key={index + 'div' + item.name}
                   style={{
                     display: 'flex',
                     position: 'relative',
@@ -174,10 +173,7 @@ const APIResponse = ({ request, response, isVisible }) => {
                   <ResponsiveSpan>{item.name}</ResponsiveSpan>
                 </div>
 
-                <ul
-                  className={item.isExpand ? '' : 'hide'}
-                  key={index + 'ul' + item.name}
-                >
+                <ul className={item.isExpand ? '' : 'hide'}>
                   {makeResponse(source, index + 1, depth + 1)}
                 </ul>
               </Li>
@@ -191,7 +187,7 @@ const APIResponse = ({ request, response, isVisible }) => {
                 key={index + start + 'res' + item.name}
                 style={{ paddingLeft: left + 'px' }}
               >
-                <ResponsiveSpan>{item.name}</ResponsiveSpan>
+                <ResponsiveSpan key={index + 'E'}>{item.name}</ResponsiveSpan>
               </Li>
             );
             //  parentflag = 0;
@@ -208,30 +204,29 @@ const APIResponse = ({ request, response, isVisible }) => {
         })
       );
     },
-    [body, handleClick],
+    [handleClick],
   );
 
   useEffect(() => {
     let string = '';
-    if (bodytype === '200') {
-      string =
-        response &&
-        response
+    // if (bodytype === '200') {
+    string =
+      response &&
+      response
 
-          .split('],')
-          .join(']')
-          .split(',')
-          .join(', ')
-          .split('{')
-          .join('{, ')
-          .split('}')
-          .join(', }')
-          .split('[')
-          .join('[, ')
-          .split(']')
-          .join('], ')
-          .split(', ');
-    }
+        .split('],')
+        .join(']')
+        .split(',')
+        .join(', ')
+        .split('{')
+        .join('{, ')
+        .split('}')
+        .join(', }')
+        .split('[')
+        .join('[, ')
+        .split(']')
+        .join('], ')
+        .split(', ');
 
     string =
       string &&
@@ -256,14 +251,14 @@ const APIResponse = ({ request, response, isVisible }) => {
     const data = makeResponse(newData, 0, 0);
     setResponseBody(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response, bodytype]);
+  }, [response]);
 
-  const changeContentResponse = (type) => {
-    setBodyType(type);
-  };
+  // const changeContentResponse = (type) => {
+  //   setBodyType(type);
+  // };
 
   return (
-    <APIResponseWrapper>
+    <APIResponseWrapper key="random">
       {!isVisible && (
         <div>
           <strong style={{ fontSize: '1.3rem', color: 'white' }}>
@@ -294,20 +289,20 @@ const APIResponse = ({ request, response, isVisible }) => {
             Response Example
           </strong>
           <br />
-          <ResponseButton success onClick={() => changeContentResponse('200')}>
+          {/* <ResponseButton success onClick={() => changeContentResponse('200')}>
             200
-          </ResponseButton>
-          <ResponseButton onClick={() => changeContentResponse('400')}>
+          </ResponseButton> */}
+          {/* <ResponseButton onClick={() => changeContentResponse('400')}>
             400
           </ResponseButton>
           <ResponseButton onClick={() => changeContentResponse('401')}>
             401
-          </ResponseButton>
+          </ResponseButton> */}
         </div>
       )}
 
       {body && (
-        <APIResponseBody>
+        <APIResponseBody key="ee">
           <JsonWrapper>application/json</JsonWrapper>
           <CopyBoard>
             <CopyToClipboard text={response}>

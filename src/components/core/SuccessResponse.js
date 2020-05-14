@@ -13,7 +13,7 @@ const ResponseBody = styled.div`
   background-color: rgba(229, 57, 53, 0.1);
   color: #e53935 !important;
   ${(props) =>
-    props.success &&
+    props.status === 200 &&
     css`
       background-color: rgba(0, 170, 19, 0.1);
       color: #00aa13 !important;
@@ -52,7 +52,7 @@ const Param = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
 `;
-const SuccessResponse = (props) => {
+const SuccessResponse = ({ status }) => {
   const [success, setSuccess] = useState(false);
 
   const showResponse = () => {
@@ -61,7 +61,7 @@ const SuccessResponse = (props) => {
   return (
     <div>
       <ResponseBody
-        success={props.success}
+        status={status}
         clicked={success}
         onClick={() => showResponse()}
       >
@@ -75,9 +75,9 @@ const SuccessResponse = (props) => {
         >
           <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
         </svg>
-        200{' '}
+        {status}
       </ResponseBody>
-      {props.success && success && (
+      {status === 200 && success && (
         <div style={{ paddingLeft: '10px' }}>
           <span style={{ color: 'grey', marginRight: '20px' }}>
             RESPONSE SCHEMA:

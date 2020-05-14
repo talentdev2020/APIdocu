@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Divider from '@material-ui/core/Divider';
 import styled, { css } from 'styled-components';
 
@@ -47,6 +47,34 @@ const SubCategory = styled.h3`
   color: #01525a;
 `;
 const APIContent = ({ data }) => {
+  const [postBody, setPostBody] = useState();
+  useEffect(() => {
+    if (data.request && data.request.method === 'POST') {
+      try {
+        const temp = JSON.parse(data.request.body.raw);
+        console.log('temp', temp);
+        const temp_arr = Object.keys(temp);
+        console.log('objectkey', temp);
+        let arr = [];
+        if (temp_arr.length > 10) {
+          setPostBody([]);
+          return;
+        }
+        temp_arr.map((item) => {
+          try {
+            return arr.push({ key: item, value: temp[item] });
+          } catch (e) {
+            return 'Array';
+          }
+        });
+        console.log('arr', arr);
+        setPostBody(arr);
+      } catch (e) {
+        setPostBody([]);
+      }
+    }
+  }, [data]);
+  console.log(postBody);
   return (
     <>
       {data.type === 'parent' && <MainCategory>{data.name}</MainCategory>}
@@ -73,16 +101,24 @@ const APIContent = ({ data }) => {
           <Divider />
           <br />
           <div>
-            <ParamTitle>Authorization</ParamTitle> {'{{authorization}}'}
+            {data.request.header.map((item, index) => (
+              <Param key={'header' + index}>
+                <ParamTitle>{item.key}</ParamTitle>
+                <ParamBody>
+                  <ParamDescriptionTitle>{item.text}</ParamDescriptionTitle>
+                  <ParamDescription>{item.value}</ParamDescription>
+                </ParamBody>
+              </Param>
+            ))}
           </div>
           <br />
           <span style={{ color: 'grey' }}>PARAMS</span>
           <Divider />
           <br />
-          {data.request.url.query &&
+          {data.request.method === 'GET' &&
+            data.request.url.query &&
             data.request.url.query.map((item, index) => (
               <Param key={index + 'pa' + item.value}>
-                {' '}
                 <ParamTitle>{item.key}</ParamTitle>
                 <ParamBody>
                   <ParamDescriptionTitle>{item.value}</ParamDescriptionTitle>
@@ -90,11 +126,21 @@ const APIContent = ({ data }) => {
                 </ParamBody>
               </Param>
             ))}
+          {data.request.method === 'POST' &&
+            postBody &&
+            postBody.map((item, index) => (
+              <Param key={index + 'pa' + item.value}>
+                <ParamTitle>{item.key}</ParamTitle>
+                <ParamBody>
+                  <ParamDescriptionTitle>{item.value}</ParamDescriptionTitle>
+                </ParamBody>
+              </Param>
+            ))}
           <br />
           <p>Responses</p>
           {/* for 200 */}
-          <SuccessResponse success={true} />
-          <SuccessResponse success={false} />
+          <SuccessResponse status={200} />
+          <SuccessResponse status={401} />
         </>
       )}
     </>

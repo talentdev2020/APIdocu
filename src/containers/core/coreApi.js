@@ -9,6 +9,7 @@ const LeftSideContainer = () => {
   const { isLoading, isError, collection, selectedmenu } = useSelector(
     (state) => state.collection,
   );
+  console.log(collection);
   useEffect(() => {
     if (!collection) {
       if (!isError && !!isLoading) dispatch(getdata());

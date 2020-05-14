@@ -49,21 +49,47 @@ width: 320px;
       display: none;
     
 `;
-
+function removeSpace(string) {
+  return string.replace(/\s/g, '').toLowerCase();
+}
 const LeftSide = ({ data, selectedmenu }) => {
   const [search, setSearch] = useState('');
   const [menu, setMenu] = useState(data);
   useEffect(() => {
     const newelement = { name: 'introduction', type: 'parent' };
     let temp = [newelement].concat(data);
+
+    temp.map((firstchild, index) => {
+      if (firstchild.item) {
+        firstchild.item = firstchild.item.map((seconddata, secondindex) => {
+          if (seconddata.item) {
+            seconddata.item.map((thirddata, thirdindex) => {
+              if (selectedmenu === removeSpace(thirddata.name)) {
+                temp[index].isExpand = true;
+                temp[index].item[secondindex].isExpand = true;
+              }
+              if (selectedmenu === removeSpace(seconddata.name)) {
+                temp[index].isExpand = true;
+              }
+              return thirddata;
+            });
+          }
+          return seconddata;
+        });
+      }
+      return firstchild;
+    });
+
     setMenu(temp);
-  }, [data]);
+  }, [data, selectedmenu]);
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
   return (
     <LetfWrapper>
-      <div style={{ position: 'fixed' }}>
+      <div
+        style={{ position: 'fixed', textAlign: 'left', paddingLeft: '1rem' }}
+      >
         <img src="logo.png" alt="Logo" width="250px" />
         <div
           role="search"
@@ -95,7 +121,7 @@ const LeftSide = ({ data, selectedmenu }) => {
           onParentClick={handleClick}
           onLeafClick={handleClick}
         /> */}
-        {search && <SearchedMenu search={search} />}
+        {search && <SearchedMenu treedata={menu} search={search} />}
 
         <Menu treedata={menu} selectedmenu={selectedmenu} />
         <Divider />

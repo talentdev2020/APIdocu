@@ -38,7 +38,9 @@ const Section = styled.div`
     
   }
 `;
-
+const P = styled.div`
+  padding-left: 8px;
+`;
 const Content = ({ data }) => {
   const classes = useStyles();
   const [content, setContent] = useState('');
@@ -53,6 +55,8 @@ const Content = ({ data }) => {
       bottom: scroll + window.innerHeight,
     };
     const elements = document.getElementById('parent').children;
+    const direction = currPos.y < prevPos.y ? true : false;
+    console.log('direct', direction);
     const isVisible = true;
     if (isVisible)
       for (let i = 0; i < parseInt(elements.length); i++) {
@@ -69,10 +73,7 @@ const Content = ({ data }) => {
         // console.log(viewport);
 
         if (isVisible) {
-          if (bounds.top <= viewport.top && bounds.top >= viewport.top - 200) {
-            console.log(bounds.top);
-            console.log(viewport.top);
-            console.log('id', element.id);
+          if (bounds.top <= viewport.top && bounds.top >= viewport.top - 100) {
             if (element.id) {
               dispatch(selectmenu(element.id));
               return;
@@ -80,29 +81,29 @@ const Content = ({ data }) => {
           }
         }
       }
-    else
-      for (let i = parseInt(elements.length) - 1; i >= 0; i--) {
-        const element = elements[i];
-        const boundsTop = element.getBoundingClientRect().top + scroll - 200;
-        // console.log('client', element.getBoundingClientRect().top);
-        // console.log('scroll', scroll);
-        const bounds = {
-          top: boundsTop,
-          bottom: boundsTop + element.clientHeight + 200,
-        };
+    // else
+    //   for (let i = parseInt(elements.length) - 1; i >= 0; i--) {
+    //     const element = elements[i];
+    //     const boundsTop = element.getBoundingClientRect().top + scroll - 200;
+    //     // console.log('client', element.getBoundingClientRect().top);
+    //     // console.log('scroll', scroll);
+    //     const bounds = {
+    //       top: boundsTop,
+    //       bottom: boundsTop + element.clientHeight + 200,
+    //     };
 
-        // console.log(bounds);
-        // console.log(viewport);
+    //     // console.log(bounds);
+    //     // console.log(viewport);
 
-        if (isVisible) {
-        } else {
-          if (bounds.bottom <= viewport.bottom)
-            if (element.id) {
-              dispatch(selectmenu(element.id));
-              return;
-            }
-        }
-      }
+    //     if (isVisible) {
+    //     } else {
+    //       if (bounds.bottom <= viewport.bottom)
+    //         if (element.id) {
+    //           dispatch(selectmenu(element.id));
+    //           return;
+    //         }
+    //     }
+    //   }
   }, []);
   useEffect(() => {
     let temp = [];
@@ -146,8 +147,9 @@ const Content = ({ data }) => {
         {' '}
         <Grid container spacing={3}>
           <Grid item md={12} lg={6}>
-            <strong>Introduction</strong>
-            <br />
+            <p>
+              <strong>Introduction</strong>
+            </p>
             Welcome to Venus. <br />
             The purpose of this documentation is to ensure that every user is
             able to properly integrate a full card issuing solution to their
@@ -155,7 +157,9 @@ const Content = ({ data }) => {
             you will find an explanation of how our products work and how to
             integrate with them.
             <div>
-              <strong> Authorization</strong> <br />
+              <p>
+                <strong> Authorization</strong>{' '}
+              </p>
               On every API call, the header named APIKEY must be sent to
               authenticate every request. Talk to your account manager to get
               access to your key.{' '}
@@ -167,47 +171,81 @@ const Content = ({ data }) => {
               represent the records they are actually looking for. <br />
               For any GET call for listing records, the following query
               parameters will be available: <br />
-              with[] <br />
-              This parameter will let the user who is requesting it add any
-              desired relation the resource has in the API so it lists nested on
-              the JSON structure. It can be sent as many as the resource has
-              available, it is also possible to access subsequent relations by
-              separating the names by "." (dot). <br />
-              An example of a request would be
-              /api/v2/entities?with[]=documents&with[]=funds&with[]=cards, this
-              request would query for all entities and add to the structure
-              thier documents, funds, and cards relations.
-              <br /> and[]
-              <br /> This query parameter will enable the user to filter the
-              records by applying a "AND" conditional, meaning that the search
-              needs to satisfy all values so it loads on the response, it is
-              possible to use multiple values for the same attribute and use as
-              many and as needed. An example would be and[type][][eq]=receive.{' '}
-              <br />
-              or[] <br />
-              This query parameter will enable the user to filter the records by
-              applying a "OR" conditional, meaning that the search needs to
-              satisfy at least one or more values so it loads on the response,
-              it is possible to use multiple values for the same attribute and
-              use as many ors as needed. An example would be
-              or[tierLevel][][eq]=1. <br />
-              in[] This query parameter will enable the user to filter the
-              records by applying a "IN" conditional, meaning that the attribute
-              needs to satisfy at least one or more values within the array so
-              it loads on the response, it is possible to use multiple values
-              for the same attribute and use as many ors as needed.
-              <br /> An example would be
-              in[tierLevel][]=1&in[tierLevel][]=2&in[tierLevel][]=3. date[] This
-              query parameter will enable the user to filter the records by
-              applying a "DATE" conditional, meaning that the search needs to
-              satisfy a certain date conditional so it loads on the response, it
-              is possible to use multiple values for same attribute and use as
-              many ors as needed. An example would be
-              date[created_at][][gt]=2018-01-01&date[created_at][][lt]=2018-01-31.
-              It is possible to use various type of operators, below is the
-              mapping for each one: eq => Equal nq => Not Equal gt => Greater
-              than lt => Less than gte => Greater than or equal to lte => Less
-              than or equal to like => Like conditinal
+            </div>
+            <div>
+              with[]
+              <P>
+                This parameter will let the user who is requesting it add any
+                desired relation the resource has in the API so it lists nested
+                on the JSON structure. It can be sent as many as the resource
+                has available, it is also possible to access subsequent
+                relations by separating the names by "." (dot). <br />
+                An example of a request would be
+                <br />
+                <strong>
+                  /api/v2/entities?with[]=documents&with[]=funds&with[]=cards
+                </strong>
+                ,<br /> this request would query for all entities and add to the
+                structure thier documents, funds, and cards relations.
+              </P>
+            </div>
+            <div>
+              and[]
+              <P>
+                This query parameter will enable the user to filter the records
+                by applying a "AND" conditional, meaning that the search needs
+                to satisfy all values so it loads on the response, it is
+                possible to use multiple values for the same attribute and use
+                as many and as needed. An example would be{' '}
+                <strong> and[type][][eq]=receive</strong>.
+              </P>
+            </div>
+            <div>
+              {' '}
+              or[]
+              <P>
+                This query parameter will enable the user to filter the records
+                by applying a "OR" conditional, meaning that the search needs to
+                satisfy at least one or more values so it loads on the response,
+                it is possible to use multiple values for the same attribute and
+                use as many ors as needed. An example would be
+                <strong> or[tierLevel][][eq]=1</strong>.
+              </P>
+              <div>
+                in[]{' '}
+                <P>
+                  This query parameter will enable the user to filter the
+                  records by applying a "IN" conditional, meaning that the
+                  attribute needs to satisfy at least one or more values within
+                  the array so it loads on the response, it is possible to use
+                  multiple values for the same attribute and use as many ors as
+                  needed.
+                  <br /> An example would be
+                  <strong>
+                    in[tierLevel][]=1&in[tierLevel][]=2&in[tierLevel][]=3
+                  </strong>
+                  .{' '}
+                </P>
+              </div>
+              <div>
+                date[]
+                <P>
+                  {' '}
+                  This query parameter will enable the user to filter the
+                  records by applying a "DATE" conditional, meaning that the
+                  search needs to satisfy a certain date conditional so it loads
+                  on the response, it is possible to use multiple values for
+                  same attribute and use as many ors as needed. An example would
+                  be
+                  <strong>
+                    date[created_at][][gt]=2018-01-01&date[created_at][][lt]=2018-01-31
+                  </strong>
+                  . It is possible to use various type of operators, below is
+                  the mapping for each one: eq => Equal nq => Not Equal gt =>
+                  Greater than lt => Less than gte => Greater than or equal to
+                  lte => Less than or equal to like => Like conditinal
+                </P>
+              </div>
             </div>
           </Grid>
           <Grid item md={12} lg={6}>
@@ -230,13 +268,16 @@ const Content = ({ data }) => {
               </Grid>
               <Grid item sx={12} sm={12} md={12} lg={6}>
                 <APIResponse
+                  key={index + 'reponsebody'}
                   isVisible={item.type.includes('parent')}
-                  response={item.response ? item.response.body : ''}
-                  request={
-                    item.request && item.request.reponse
-                      ? item.request.response[0].body
+                  response={
+                    item.response && item.response.body
+                      ? item.response.body
+                      : item.request
+                      ? item.request.body.raw
                       : ''
                   }
+                  request={''}
                 />
               </Grid>
             </Grid>

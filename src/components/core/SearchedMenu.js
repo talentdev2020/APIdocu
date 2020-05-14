@@ -44,44 +44,49 @@ const Wrapper = styled.div`
   background-color: #eeeeee;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  height: 10rem;
+  max-height: 10rem;
+  ${(props) =>
+    !props.menuData &&
+    css`
+      display: none;
+    `}
 `;
 
-let treedata = [
-  {
-    name: 'Cards',
-    isExpand: true,
-    isSelected: false,
-    item: [
-      {
-        name: 'Card Orders',
-        isExpand: true,
-        isSelected: false,
-        item: [
-          {
-            name: 'Query Card Orders List',
-            isExpand: false,
-            isSelected: false,
-          },
-          {
-            name: 'Query Get Order',
-            isExpand: false,
-            isSelected: false,
-          },
-        ],
-      },
-      {
-        name: 'Transactions',
-        isExpand: true,
-        isSelected: false,
-      },
-    ],
-  },
-];
+// let treedata = [
+//   {
+//     name: 'Cards',
+//     isExpand: true,
+//     isSelected: false,
+//     item: [
+//       {
+//         name: 'Card Orders',
+//         isExpand: true,
+//         isSelected: false,
+//         item: [
+//           {
+//             name: 'Query Card Orders List',
+//             isExpand: false,
+//             isSelected: false,
+//           },
+//           {
+//             name: 'Query Get Order',
+//             isExpand: false,
+//             isSelected: false,
+//           },
+//         ],
+//       },
+//       {
+//         name: 'Transactions',
+//         isExpand: true,
+//         isSelected: false,
+//       },
+//     ],
+//   },
+// ];
 function removeSpace(string) {
   return string.replace(/\s/g, '').toLowerCase();
 }
-const SearchedMenu = ({ search }) => {
+const SearchedMenu = ({ treedata, search }) => {
   const [menuData, setMenuData] = useState('');
   useEffect(() => {
     let result = [];
@@ -116,7 +121,7 @@ const SearchedMenu = ({ search }) => {
   }, [search]);
 
   return (
-    <Wrapper>
+    <Wrapper menuData={menuData ? menuData.length : false}>
       {menuData &&
         menuData.map((item, index) => (
           <A href={`#${removeSpace(item.name)}`} key={index + 'se' + item.name}>

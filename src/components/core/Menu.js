@@ -17,8 +17,6 @@ import IconDashboard from '@material-ui/icons/Dashboard';
 import IconLibraryBooks from '@material-ui/icons/LibraryBooks';
 import { useDispatch } from 'react-redux';
 import { selectmenu } from '../../modules/collection';
-import { useScrollPosition } from '@n8tb1t/use-scroll-position';
-
 const A = styled(Link)`
   text-decoration: none;
   font-size: 13px;
@@ -55,75 +53,95 @@ const AppMenu = ({ treedata, selectedmenu }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(selectedmenu);
-    selectedmenu &&
-      document.getElementById(selectedmenu + '_menu') &&
+    document.getElementById(selectedmenu + '_menu') &&
       document.getElementById(selectedmenu + '_menu').click();
-    if (selectedmenu)
-      if (!document.getElementById(selectedmenu + '_menu')) {
-        let selectedparent = '';
-        let selectedgrandparent = '';
-        treedata.map((firstchild, index) => {
-          if (firstchild.name === selectedmenu) {
-            selectedparent = treedata[index - 1].name;
+    // if (!selectedmenu.direction)
+    //   if (!document.getElementById(selectedmenu.name + '_menu')) {
+    //     let selectedparent = '';
+    //     let selectedgrandparent = '';
+    //     treedata.map((firstchild, index) => {
+    //       if (removeSpace(firstchild.name) === selectedmenu) {
+    //         if (index !== 1)
+    //           selectedparent = removeSpace(treedata[index - 1].name);
 
-            return firstchild;
-          }
+    //         return firstchild;
+    //       }
+    //       if (firstchild.item) {
+    //         firstchild.item = firstchild.item.map((seconddata) => {
+    //           if (removeSpace(seconddata.name) === selectedmenu) {
+    //             selectedparent = removeSpace(firstchild.name);
 
-          if (firstchild.item) {
-            firstchild.item = firstchild.item.map((seconddata) => {
-              if (seconddata.name === selectedmenu) {
-                selectedparent = firstchild.name;
+    //             return seconddata;
+    //           }
 
-                return seconddata;
-              }
+    //           if (seconddata.item) {
+    //             seconddata.item = seconddata.item.map((thirddata) => {
+    //               if (selectedmenu === removeSpace(thirddata.name)) {
+    //                 selectedparent = removeSpace(seconddata.name);
+    //                 selectedgrandparent = removeSpace(firstchild.name);
+    //               }
+    //               return thirddata;
+    //             });
+    //           }
+    //           return seconddata;
+    //         });
+    //       }
 
-              if (seconddata.item) {
-                seconddata.item = seconddata.item.map((thirddata) => {
-                  if (selectedmenu === thirddata.name) {
-                    selectedparent = seconddata.name;
-                    selectedgrandparent = firstchild.name;
-                    console.log('find');
-                  }
-                  return thirddata;
-                });
-              }
-              return seconddata;
-            });
-          }
-
-          return firstchild;
-        });
-        console.log('grand', selectedgrandparent);
-        console.log('grand', selectedparent);
-        if (selectedgrandparent)
-          document.getElementById(selectedgrandparent + '_menu') &&
-            document.getElementById(selectedgrandparent + '_menu').click();
-        document.getElementById(selectedparent + '_menu') &&
-          document.getElementById(selectedparent + '_menu').click();
-        document.getElementById(selectedmenu + '_menu') &&
-          document.getElementById(selectedmenu + '_menu').click();
-      }
+    //       return firstchild;
+    //     });
+    //     if (selectedgrandparent)
+    //       document.getElementById(selectedgrandparent + '_menu') &&
+    //         document
+    //           .getElementById(selectedgrandparent + '_menu')
+    //           .click(function () {
+    //             console.log('secondclick');
+    //             document.getElementById(selectedparent + '_menu') &&
+    //               document
+    //                 .getElementById(selectedparent + '_menu')
+    //                 .click(function () {
+    //                   console.log('thid');
+    //                   document.getElementById(selectedmenu + '_menu') &&
+    //                     document.getElementById(selectedmenu + '_menu').click();
+    //                 });
+    //           });
+    //     else
+    //       document.getElementById(selectedparent + '_menu') &&
+    //         document
+    //           .getElementById(selectedparent + '_menu')
+    //           .click(function () {
+    //             document.getElementById(selectedmenu + '_menu') &&
+    //               document.getElementById(selectedmenu + '_menu').click();
+    //           });
+    //   }
     //dispatch(selectmenu(selectedmenu));
   }, [selectedmenu]);
   function handleClick(string, isParent = true) {
-    //    dispatch(selectmenu(string));
     treedata = treedata.map((firstchild) => {
       if (firstchild.name === string) {
         if (isParent) firstchild.isExpand = !firstchild.isExpand;
         firstchild.isSelected = true;
-      } else firstchild.isSelected = false;
+      } else {
+        firstchild.isExpand = false;
+        firstchild.isSelected = false;
+      }
+
       if (firstchild.item) {
         firstchild.item = firstchild.item.map((seconddata) => {
           if (seconddata.name === string) {
             seconddata.isExpand = !seconddata.isExpand;
             seconddata.isSelected = true;
-          } else seconddata.isSelected = false;
+            firstchild.isExpand = true;
+          } else {
+            seconddata.isSelected = false;
+            seconddata.isExpand = false;
+          }
 
           if (seconddata.item) {
             seconddata.item = seconddata.item.map((thirddata) => {
               if (string === thirddata.name) {
                 thirddata.isSelected = true;
+                firstchild.isExpand = true;
+                seconddata.isExpand = true;
               } else thirddata.isSelected = false;
               return thirddata;
             });
@@ -134,6 +152,7 @@ const AppMenu = ({ treedata, selectedmenu }) => {
 
       return firstchild;
     });
+    dispatch(selectmenu(string));
   }
   return (
     <ReactShadowScroll
@@ -236,7 +255,16 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                                               : classes.thirdmenuItem
                                           }
                                         >
-                                          <ApiType post>Post</ApiType>
+                                          <ApiType
+                                            post={
+                                              thirddata.request.method ===
+                                              'POST'
+                                                ? true
+                                                : false
+                                            }
+                                          >
+                                            {thirddata.request.method}
+                                          </ApiType>
                                           <ListItemText
                                             inset
                                             primary={thirddata.name}
