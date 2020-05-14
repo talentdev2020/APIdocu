@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { HashLink as Link } from 'react-router-hash-link';
+// import { HashLink as Link } from 'react-router-hash-link';
+import { Link } from 'react-router-dom';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import styled, { css } from 'styled-components';
 import List from '@material-ui/core/List';
@@ -55,70 +56,29 @@ const AppMenu = ({ treedata, selectedmenu }) => {
   useEffect(() => {
     document.getElementById(selectedmenu + '_menu') &&
       document.getElementById(selectedmenu + '_menu').click();
-    // if (!selectedmenu.direction)
-    //   if (!document.getElementById(selectedmenu.name + '_menu')) {
-    //     let selectedparent = '';
-    //     let selectedgrandparent = '';
-    //     treedata.map((firstchild, index) => {
-    //       if (removeSpace(firstchild.name) === selectedmenu) {
-    //         if (index !== 1)
-    //           selectedparent = removeSpace(treedata[index - 1].name);
-
-    //         return firstchild;
-    //       }
-    //       if (firstchild.item) {
-    //         firstchild.item = firstchild.item.map((seconddata) => {
-    //           if (removeSpace(seconddata.name) === selectedmenu) {
-    //             selectedparent = removeSpace(firstchild.name);
-
-    //             return seconddata;
-    //           }
-
-    //           if (seconddata.item) {
-    //             seconddata.item = seconddata.item.map((thirddata) => {
-    //               if (selectedmenu === removeSpace(thirddata.name)) {
-    //                 selectedparent = removeSpace(seconddata.name);
-    //                 selectedgrandparent = removeSpace(firstchild.name);
-    //               }
-    //               return thirddata;
-    //             });
-    //           }
-    //           return seconddata;
-    //         });
-    //       }
-
-    //       return firstchild;
-    //     });
-    //     if (selectedgrandparent)
-    //       document.getElementById(selectedgrandparent + '_menu') &&
-    //         document
-    //           .getElementById(selectedgrandparent + '_menu')
-    //           .click(function () {
-    //             console.log('secondclick');
-    //             document.getElementById(selectedparent + '_menu') &&
-    //               document
-    //                 .getElementById(selectedparent + '_menu')
-    //                 .click(function () {
-    //                   console.log('thid');
-    //                   document.getElementById(selectedmenu + '_menu') &&
-    //                     document.getElementById(selectedmenu + '_menu').click();
-    //                 });
-    //           });
-    //     else
-    //       document.getElementById(selectedparent + '_menu') &&
-    //         document
-    //           .getElementById(selectedparent + '_menu')
-    //           .click(function () {
-    //             document.getElementById(selectedmenu + '_menu') &&
-    //               document.getElementById(selectedmenu + '_menu').click();
-    //           });
-    //   }
-    //dispatch(selectmenu(selectedmenu));
   }, [selectedmenu]);
-  function handleClick(string, isParent = true) {
-    treedata = treedata.map((firstchild) => {
+  function handleClick(e, string, isParent, isClicked) {
+    if (isClicked) {
+      const elements = document.getElementById('parent').children;
+      for (let i = 0; i < parseInt(elements.length); i++) {
+        const element = elements[i];
+        if (element.id === removeSpace(string)) {
+          console.log('find');
+          window.scrollTo(
+            0,
+            element.getBoundingClientRect().top + window.scrollY + 30,
+          );
+        }
+      }
+    }
+
+    const temp = treedata.map((firstchild) => {
       if (firstchild.name === string) {
-        if (isParent) firstchild.isExpand = !firstchild.isExpand;
+        if (isParent) {
+          firstchild.isExpand = !firstchild.isExpand;
+        }
+        console.log(isClicked);
+        if (isClicked) firstchild.isExpand = true;
         firstchild.isSelected = true;
       } else {
         firstchild.isExpand = false;
@@ -131,6 +91,7 @@ const AppMenu = ({ treedata, selectedmenu }) => {
             seconddata.isExpand = !seconddata.isExpand;
             seconddata.isSelected = true;
             firstchild.isExpand = true;
+            if (isClicked) seconddata.isExpand = true;
           } else {
             seconddata.isSelected = false;
             seconddata.isExpand = false;
@@ -149,10 +110,11 @@ const AppMenu = ({ treedata, selectedmenu }) => {
           return seconddata;
         });
       }
-
       return firstchild;
     });
-    dispatch(selectmenu(string));
+    treedata = temp;
+
+    // e.preventDefault();
   }
   return (
     <ReactShadowScroll
@@ -165,9 +127,9 @@ const AppMenu = ({ treedata, selectedmenu }) => {
             return (
               <div key={index}>
                 <A
-                  to={`#${removeSpace(firstdata.name)}`}
                   key={index + firstdata.name}
-                  onClick={() => handleClick(firstdata.name)}
+                  to={`#${removeSpace(firstdata.name)}`}
+                  onClick={(e) => handleClick(e, firstdata.name, true, true)}
                   id={`${removeSpace(firstdata.name)}_menu`}
                 >
                   <ListItem
@@ -183,10 +145,14 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                     </ListItemIcon>
 
                     <ListItemText inset primary={firstdata.name}></ListItemText>
-                    {firstdata.name !== 'introduction' && firstdata.isExpand ? (
-                      <IconExpandLess />
-                    ) : (
-                      <IconExpandMore />
+                    {firstdata.name !== 'introduction' && (
+                      <>
+                        {firstdata.isExpand ? (
+                          <IconExpandLess />
+                        ) : (
+                          <IconExpandMore />
+                        )}
+                      </>
                     )}
                   </ListItem>
                 </A>
@@ -203,8 +169,10 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                         return (
                           <div key={index1 + seconddata.name}>
                             <A
-                              onClick={() => handleClick(seconddata.name)}
                               to={`#${removeSpace(seconddata.name)}`}
+                              onClick={(e) =>
+                                handleClick(e, seconddata.name, true, true)
+                              }
                               id={`${removeSpace(seconddata.name)}_menu`}
                               key={index1 + 'a' + seconddata.name}
                             >
@@ -241,8 +209,13 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                                           thirddata.name,
                                         )}_menu`}
                                         key={thirddata.name}
-                                        onClick={() =>
-                                          handleClick(thirddata.name, false)
+                                        onClick={(e) =>
+                                          handleClick(
+                                            e,
+                                            thirddata.name,
+                                            false,
+                                            true,
+                                          )
                                         }
                                       >
                                         <ListItem

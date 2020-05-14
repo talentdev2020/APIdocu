@@ -54,7 +54,7 @@ function removeSpace(string) {
 }
 const LeftSide = ({ data, selectedmenu }) => {
   const [search, setSearch] = useState('');
-  const [menu, setMenu] = useState(data);
+  const [menu, setMenu] = useState();
   useEffect(() => {
     const newelement = { name: 'introduction', type: 'parent' };
     let temp = [newelement].concat(data);

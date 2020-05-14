@@ -19,7 +19,7 @@ function App() {
         <Link to="/coreApi">Core API</Link>
       </header>
       <Switch>
-        <Route path={['/', '/quickStart']} component={QuickStart} exact />
+        <Route path={['/', '/quickStart']} component={QuickStart} />
         <Route path="/coreApi" component={CoreAPI} exact />
       </Switch>
       <div className="containter">

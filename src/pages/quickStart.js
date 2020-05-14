@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import './quick.css';
-import { Route, Link, Switch } from 'react-router-dom';
+import { useRouteMatch, Route, Link, Switch } from 'react-router-dom';
 import QuickStart from '../components/quick/QuickStart';
 import Concept from '../components/quick/Concept';
+import Inssuance from '../components/quick/Inssuance';
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -18,27 +19,27 @@ const menu = [
   {
     name: 'Quick start',
     active: true,
-    path: '#quickStart',
+    path: '/quickStart',
   },
   {
     name: 'Quides',
     active: false,
-    path: '/quickStart/keyConcepts',
+    path: '/quickStart/guides',
     items: [
       {
         name: 'Key Concepts',
         active: false,
-        path: 'quickStart/keyConcepts',
+        path: '/quickStart/keyconcept',
       },
       {
         name: 'Card Issuance',
         active: false,
-        path: '#',
+        path: '/quickStart/inssuance',
       },
       {
         name: 'Transactions',
         active: false,
-        path: '#',
+        path: '/quickStart/transactions',
       },
     ],
   },
@@ -62,7 +63,7 @@ const menu = [
 ];
 const CoreAPI = () => {
   const [data, setData] = useState(menu);
-
+  const match = useRouteMatch();
   const handleClick = (name) => {
     const temp = data.map((item) => {
       if (item.name === name) item.active = true;
@@ -94,7 +95,7 @@ const CoreAPI = () => {
                         onClick={(e) => handleClick(item.name)}
                       >
                         <span className="vline"></span>
-                        <a href={item.path}>{item.name}</a>
+                        <Link to={item.path}>{item.name}</Link>
                       </li>
                       {item.items && (
                         <ul>
@@ -107,7 +108,7 @@ const CoreAPI = () => {
                                 onClick={(e) => handleClick(child.name)}
                               >
                                 <span className="vline"></span>
-                                <a href={child.path}>{child.name}</a>
+                                <Link to={child.path}>{child.name}</Link>
                               </li>
                             );
                           })}
@@ -122,8 +123,15 @@ const CoreAPI = () => {
         </Grid>
         <Grid item md={10}>
           <Switch>
-            <Route path="/quickStart" component={QuickStart} exact />
-            <Route path="/keyConcepts" component={Concept} exact />
+            <Route path="/quickStart/keyconcept" component={Concept} />
+            <Route
+              path={`${match.path}quickStart/inssuance`}
+              component={Inssuance}
+            />
+
+            <Route path={`${match.path}/transactions`} component={Concept} />
+            <Route path={`${match.path}/quides`} component={Concept} />
+            <Route path={`${match.path}`} component={QuickStart} />
           </Switch>
         </Grid>
       </Grid>

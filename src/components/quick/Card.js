@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Card.css';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-const Card = ({ title, body }) => {
+const Card = ({ title, body, isJson }) => {
   const [copied, setCopied] = useState('Copy');
 
   return (
@@ -58,7 +58,11 @@ const Card = ({ title, body }) => {
           <div className="line" key={line}>
             <div className="line-number">{index}</div>
             <div className="line-command">{line}</div>
-            <div style={{ marginLeft: '15px' }}>\</div>
+            {!isJson && (
+              <div style={{ marginLeft: '15px' }}>
+                {index === body.split('\\').length - 1 ? '' : '\\'}
+              </div>
+            )}
           </div>
         ))}
       </div>

@@ -61,7 +61,6 @@ const APIContent = ({ request, type, name, description }) => {
   const [descriptionTitle, setDescriptionTitle] = useState('');
   const [descriptionTableTitle, setDescriptionTableTitle] = useState('');
   const [descriptionTableBody, setDescriptionTableBody] = useState('');
-  console.log(description);
   useEffect(() => {
     if (description && description.includes('**')) {
       let tables = [];
@@ -79,7 +78,6 @@ const APIContent = ({ request, type, name, description }) => {
       const tablebodystring = description.substring(tablestart, tableend);
       const tablebody = tablebodystring.split('\n').join('|').split('|');
       let temp_arr = [];
-      console.log(tablebody);
       for (let i = 0; i < tablebody.length; i = i + 3)
         if (!tablebody[i].includes('------'))
           temp_arr.push({
@@ -88,7 +86,6 @@ const APIContent = ({ request, type, name, description }) => {
             type: tablebody[i + 2],
           });
       tables.push(temp_arr);
-      console.log(tableend);
       if (tableend !== description.length) {
         const n1 = description.indexOf('**', tableend);
         const m1 = description.indexOf('**', n1 + 1);
@@ -110,7 +107,6 @@ const APIContent = ({ request, type, name, description }) => {
           });
         tables.push(temp_arr);
       }
-      console.log(tables);
       setDescriptionTableTitle(tabletitles);
       setDescriptionTableBody(tables);
     }

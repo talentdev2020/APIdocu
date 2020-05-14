@@ -1,0 +1,92 @@
+table.common-table {
+  margin: 20px 0;
+  border-collapse: collapse;
+  overflow: hidden;
+}
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+table.common-table thead {
+  background: #f7f9ff;
+}
+table {
+  border-collapse: collapse;
+}
+table.common-table thead tr th {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-size: 15px;
+  color: #2d292a;
+  letter-spacing: 0.09px;
+  line-height: 24px;
+  opacity: 1;
+  padding: 14px;
+  text-align: center;
+}
+table.common-table tbody {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-size: 14px;
+  color: #2d292a;
+  letter-spacing: 0;
+  line-height: 40px;
+  opacity: 1;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+table td {
+  padding: 0.7rem;
+}
+table,
+tbody,
+thead,
+th,
+tr,
+td {
+  border: 1px solid #bdb6b6;
+}
+.numbered-list,
+.unordered-list {
+  padding: 14px 0 20px 14px;
+  margin-bottom: 0;
+}
+.content-dark-100 {
+  font-family: Montserrat;
+  font-weight: 300;
+  font-size: 14px;
+  color: #000;
+  letter-spacing: 0;
+  line-height: 26px;
+}
+.ordered-item {
+  display: inline-block;
+}
+.ordered-item .ordered-item-circle {
+  background: #b9bac9;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 12px;
+  vertical-align: baseline;
+  margin-bottom: 3px;
+  display: flex;
+  justify-content: center;
+}
+.numbered-list li,
+.unordered-list li {
+  list-style: none;
+  padding-bottom: 12px;
+}
+
+.h5-light-100 {
+  font-family: Montserrat !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  color: #fff !important;
+  letter-spacing: 0.09px !important;
+  line-height: 24px !important;
+}
