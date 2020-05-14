@@ -136,6 +136,7 @@ const Content = ({ data }) => {
       }
       return firstchild;
     });
+    console.log(data);
     setContent(temp);
   }, [data]);
 

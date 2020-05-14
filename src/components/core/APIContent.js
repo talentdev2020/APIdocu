@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Divider from '@material-ui/core/Divider';
 import styled, { css } from 'styled-components';
-
+import VerificationSection from './verification';
 import SuccessResponse from './SuccessResponse';
 import {
   Param,
@@ -10,6 +10,15 @@ import {
   ParamDescriptionTitle,
   ParamTitle,
 } from './SuccessResponse';
+const Th = styled.th`
+  font-weight: 500;
+  padding: 1rem 0;
+`;
+const Td = styled.td`
+  border-bottom: 1px solid #c4c4d6;
+  color: #02152f;
+  padding: 1rem 0;
+`;
 
 const GreenWrapper = styled.span`
   font-size: 0.929em;
@@ -72,11 +81,12 @@ const APIContent = ({ request, type, name, description }) => {
       let temp_arr = [];
       console.log(tablebody);
       for (let i = 0; i < tablebody.length; i = i + 3)
-        temp_arr.push({
-          id: tablebody[i],
-          value: tablebody[i + 1],
-          type: tablebody[i + 2],
-        });
+        if (!tablebody[i].includes('------'))
+          temp_arr.push({
+            id: tablebody[i],
+            value: tablebody[i + 1],
+            type: tablebody[i + 2],
+          });
       tables.push(temp_arr);
       console.log(tableend);
       if (tableend !== description.length) {
@@ -143,55 +153,60 @@ const APIContent = ({ request, type, name, description }) => {
           </ApiBody>
         </>
       )}
-
-      <Description>
-        {descriptionTitle ? '' : description}
-        {descriptionTitle &&
-          descriptionTitle.map((line, index) => {
-            if (index === 0) return <p>{line}</p>;
-            else return <div>{line}</div>;
-          })}
-        {descriptionTableTitle.length > 0 &&
-          descriptionTableTitle.map((title, index) => {
-            return (
-              <>
-                <p key={'title' + index}>{title}</p>
-                <table>
-                  <thead>
-                    {descriptionTableBody[index][1] ? (
-                      <tr key={index + 'thead'}>
-                        <th>{descriptionTableBody[index][1]['id']}</th>
-                        <th>{descriptionTableBody[index][1]['type']}</th>
-                        <th>{descriptionTableBody[index][1]['value']}</th>
-                      </tr>
-                    ) : (
-                      <tr key={index + 'thead'}>
-                        <th>{descriptionTableBody[index][0]['id']}</th>
-                        <th>{descriptionTableBody[index][0]['type']}</th>
-                        <th>{descriptionTableBody[index][0]['value']}</th>
-                      </tr>
-                    )}
-                  </thead>
-                  <tbody>
-                    {descriptionTableBody[index].map((table, tblindex) => {
-                      if (tblindex === 1) {
-                        return <></>;
-                      } else
-                        return (
-                          <tr key={index + 'tr' + tblindex}>
-                            <td>{table['id']}</td>
-                            <td>{table['type']}</td>
-                            <td>{table['value']}</td>
-                          </tr>
-                        );
-                    })}
-                  </tbody>
-                </table>
-                <br />
-              </>
-            );
-          })}
-      </Description>
+      {name === 'Risk' ? (
+        <VerificationSection />
+      ) : (
+        <Description>
+          {descriptionTitle ? '' : description}
+          {descriptionTitle &&
+            descriptionTitle.map((line, index) => {
+              if (index === 0) return <p>{line}</p>;
+              else return <div>{line}</div>;
+            })}
+          {descriptionTableTitle.length > 0 &&
+            descriptionTableTitle.map((title, index) => {
+              return (
+                <>
+                  <p key={'title' + index}>
+                    <strong>{title}</strong>
+                  </p>
+                  <table>
+                    <thead>
+                      {descriptionTableBody[index][1] ? (
+                        <tr key={index + 'thead'}>
+                          <Th>{descriptionTableBody[index][1]['id']}</Th>
+                          <Th>{descriptionTableBody[index][1]['type']}</Th>
+                          <Th>{descriptionTableBody[index][1]['value']}</Th>
+                        </tr>
+                      ) : (
+                        <tr key={index + 'thead'}>
+                          <Td>{descriptionTableBody[index][0]['id']}</Td>
+                          <Td>{descriptionTableBody[index][0]['type']}</Td>
+                          <Td>{descriptionTableBody[index][0]['value']}</Td>
+                        </tr>
+                      )}
+                    </thead>
+                    <tbody>
+                      {descriptionTableBody[index].map((table, tblindex) => {
+                        if (tblindex === 1) {
+                          return <></>;
+                        } else
+                          return (
+                            <tr key={index + 'tr' + tblindex}>
+                              <Td>{table['id']}</Td>
+                              <Td>{table['type']}</Td>
+                              <Td>{table['value']}</Td>
+                            </tr>
+                          );
+                      })}
+                    </tbody>
+                  </table>
+                  <br />
+                </>
+              );
+            })}
+        </Description>
+      )}
       {type === 'api' && (
         <>
           {' '}
