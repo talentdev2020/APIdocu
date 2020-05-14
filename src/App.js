@@ -19,8 +19,9 @@ function App() {
         <Link to="/coreApi">Core API</Link>
       </header>
       <Switch>
-        <Route path={['/', '/quickStart']} component={QuickStart} />
         <Route path="/coreApi" component={CoreAPI} exact />
+
+        <Route path={['/', '/quickStart']} component={QuickStart} />
       </Switch>
       <div className="containter">
         © 2019 Apto Payments, Inc. All rights reserved.
