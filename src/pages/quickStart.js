@@ -28,7 +28,7 @@ const menu = [
     path: '/quickStart',
   },
   {
-    name: 'Quides',
+    name: 'Guides',
     active: false,
     path: '/quickStart/guides',
     items: [
