@@ -6,21 +6,30 @@ import Grid from '@material-ui/core/Grid';
 import { Wrapper } from './Concept';
 
 const P = styled.p`
-  color: #7c7c7c;
+  font-family: Montserrat;
+  font-weight: 300;
   font-size: 20px;
+  color: #2d292a;
+  letter-spacing: 0;
+  line-height: 32px;
 `;
 
 const Title = styled.h3`
+  font-family: Montserrat;
+  font-weight: 600;
   font-size: 15px;
-  color: #535151;
+  color: #2d292a;
+  letter-spacing: 0.09px;
+  opacity: 1;
+  line-height: 24px;
 `;
 const Guides = () => {
   return (
     <Wrapper>
       <Title>GUIDES</Title>
-      <h2 style={{ fontSize: '36px', color: 'black' }}>
+      <p style={{ fontSize: '36px', color: '#2d292a', fontWeight: '400' }}>
         Learn everything you need to know
-      </h2>
+      </p>
 
       <P>
         Welcome to the Apto platform developer guides. The resources available
@@ -246,7 +255,8 @@ const Guides = () => {
             </div>
           </Grid>
         </Grid>
-        <Grid container spacing={3}>
+        <br />
+        <Grid container spacing={3} style={{ marginTop: '0.5rem' }}>
           <Grid item lg={6} md={12} sm={12}>
             <div class="outer-box">
               <a href="/quickStart/pci">
