@@ -8,8 +8,8 @@ const Wrapper = styled(Responsive)`
   padding: 2rem;
   font-family: Montserrat;
   font-weight: 300;
-  font-size: 1rem;
-  color: #807f7f;
+  font-size: 14px;
+  color: #2d292a;
 
   letter-spacing: 0;
   line-height: 26px;
@@ -45,9 +45,10 @@ const HTitle = styled.div`
   }
 `;
 const Title = styled.h3`
-  font-size: 1.5rem;
+  font-size: 20px;
   margin-top: 3.5rem;
-  color: black;
+  color: #2d292a;
+  font-weight: 600;
 `;
 const Concept = () => {
   return (

@@ -18,8 +18,8 @@ const IconWrapper = styled.div`
 const P = styled.p`
   font-family: Montserrat;
   font-weight: 300;
-  font-size: 1rem;
-  color: #807f7f;
+  font-size: 14px;
+  color: #2d292a;
 
   letter-spacing: 0;
   margin: 20px 0px;
@@ -30,9 +30,11 @@ const P = styled.p`
     line-height: 22px;
   }
 `;
+
 const H3 = styled.h3`
   font-size: 20px;
   letter-spacing: 0.12px;
+  color: #2d292a;
   line-height: 28px;
   font-weight: 600;
   text-align: left;

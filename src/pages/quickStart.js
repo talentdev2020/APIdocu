@@ -82,7 +82,7 @@ const menu = [
     ],
   },
   {
-    name: 'Bta SDKs',
+    name: 'Btasg SDKs',
     active: false,
     path: '/coreApi',
   },

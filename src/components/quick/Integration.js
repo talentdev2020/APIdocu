@@ -16,10 +16,11 @@ const Header = styled.div`
   justify-content: center;
   margin-right: 15px;
 `;
-
 const Title = styled.h3`
-  font-size: 1.5rem;
-  color: black;
+  font-size: 20px;
+  margin-top: 3.5rem;
+  color: #2d292a;
+  font-weight: 600;
 `;
 const Integration = () => {
   return (
