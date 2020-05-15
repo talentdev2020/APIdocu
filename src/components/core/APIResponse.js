@@ -131,15 +131,15 @@ const APIResponse = ({ request, response, isVisible }) => {
     setResponseBody(data);
   };
   const collapseAll = () => {
-    const newData = body.map((item, index) => {
-      item.isExpand = false;
-      item.isMarked = false;
+    // const newData = body.map((item, index) => {
+    //   item.isExpand = false;
+    //   item.isMarked = false;
 
-      return item;
-    });
-    setBody(newData);
-    const data = makeResponse(newData, 0, 0);
-    setResponseBody(data);
+    //   return item;
+    // });
+    // setBody(newData);
+    // const data = makeResponse(newData, 0, 0);
+    setResponseBody(['{', '...', '}']);
   };
 
   const makeResponse = useCallback(
@@ -216,6 +216,7 @@ const APIResponse = ({ request, response, isVisible }) => {
 
         .split('],')
         .join(']')
+
         .split(',')
         .join(', ')
         .split('{')
@@ -225,9 +226,8 @@ const APIResponse = ({ request, response, isVisible }) => {
         .split('[')
         .join('[, ')
         .split(']')
-        .join('], ')
+        .join(', ], ')
         .split(', ');
-
     string =
       string &&
       string.filter((item) => {
