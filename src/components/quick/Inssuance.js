@@ -26,7 +26,12 @@ const Title = styled.h3`
   color: #2d292a;
   font-weight: 600;
 `;
-
+const SubTitle = styled.h3`
+  font-size: 17px;
+  margin-top: 44px;
+  color: #2d292a;
+  font-weight: 600;
+`;
 const Inssuance = () => {
   return (
     <Wrapper>
@@ -254,7 +259,7 @@ const Inssuance = () => {
         or other credentials (depending on the configuration of the project /
         custodian).
       </p>
-      <Title>Step 1: Verify a cardholder primary credential</Title>
+      <SubTitle>Step 1: Verify a cardholder primary credential</SubTitle>
       <p>
         To verify the cardholder primary credential, the first step is to start
         the verification:
@@ -324,7 +329,7 @@ const Inssuance = () => {
         A passed verification for a primary credential can be used to create a
         cardholder in step 2.
       </p>
-      <Title>Step 2: Create a cardholder</Title>
+      <SubTitle>Step 2: Create a cardholder</SubTitle>
       <p>
         To create a cardholder from its primary credential verification, use the
         following endpoint:
@@ -366,7 +371,7 @@ const Inssuance = () => {
               `}
         />
       </p>
-      <Title>Step 3: Issue a card</Title>
+      <SubTitle>Step 3: Issue a card</SubTitle>
       <p>
         Using the mobile API, users can issue cards by identifying themselves
         with their user tokens. To issue a card in the Mobile API, use the
