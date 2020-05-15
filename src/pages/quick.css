@@ -23,16 +23,16 @@
 }
 .subnav-dark-60,
 .subnav-dark-100 {
-  font-size: 14px;
+  font-size: 13px;
   font-family: Montserrat;
   letter-spacing: 0;
   line-height: 32px;
 }
 .navigation-documentation ul .active-true {
   color: #00b9ff;
-  font-size: 14px;
+  font-size: 13px;
   font-family: Montserrat;
-  font-weight: 300;
+  font-weight: 600;
   letter-spacing: 0;
   line-height: 32px;
 }
