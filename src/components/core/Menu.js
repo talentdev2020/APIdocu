@@ -13,9 +13,9 @@ import ReactShadowScroll from 'react-shadow-scroll';
 
 import IconExpandLess from '@material-ui/icons/ExpandLess';
 import IconExpandMore from '@material-ui/icons/ExpandMore';
-import IconDashboard from '@material-ui/icons/MenuBook';
+import IconDashboard from '@material-ui/icons/List';
 
-import IconLibraryBooks from '@material-ui/icons/List';
+import IconLibraryBooks from '@material-ui/icons/MenuBook';
 const A = styled(Link)`
   text-decoration: none;
   font-size: 13px;
@@ -183,7 +183,12 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                                     : classes.secondmenuItem
                                 }
                               >
-                                <IconLibraryBooks />
+                                <IconLibraryBooks
+                                  style={{
+                                    width: '0.8em',
+                                    marginRight: '0.4rem',
+                                  }}
+                                />
                                 <ListItemText
                                   inset
                                   primary={seconddata.name}
