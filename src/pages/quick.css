@@ -7,8 +7,20 @@
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  min-width: 200px;
+  min-width: 170px;
   z-index: 1020;
+}
+
+.quick-content {
+  width: 'calc(100% - 180px';
+}
+@media (max-width: 1024px) {
+  .sticky-top {
+    display: none;
+  }
+  .quick-content {
+    width: 100%;
+  }
 }
 .subnav-dark-60 {
   font-weight: 500;

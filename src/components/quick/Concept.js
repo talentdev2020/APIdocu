@@ -30,9 +30,17 @@ const Header = styled.div`
   justify-content: center;
   margin-right: 15px;
 `;
-const SubTitle = styled.h3`
+const SubTitle = styled.div`
+  background: #f7f9ff;
+  font-family: monospace, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 26px;
   color: #413e3f;
-  font-size: 1rem;
+  border-radius: 4px;
+  display: inline-block;
+  padding: 0 5px;
+  word-break: keep-all;
 `;
 const HTitle = styled.div`
   color: #2d292a;

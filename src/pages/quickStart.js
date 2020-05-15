@@ -150,7 +150,7 @@ const CoreAPI = () => {
         </div>
       </div>
 
-      <div style={{ width: 'calc(100% - 180px' }}>
+      <div className="quick-content">
         <Switch>
           <Route
             path={`${match.path}quickStart/issuance`}

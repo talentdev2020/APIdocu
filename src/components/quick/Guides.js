@@ -18,17 +18,17 @@ const P = styled.p`
   line-height: 32px;
 `;
 
-const Title = styled.h3`
+const Title = styled.div`
   font-family: Montserrat;
   font-weight: 600;
   font-size: 15px;
   color: #2d292a;
   letter-spacing: 0.09px;
   opacity: 1;
-  line-height: 24px;
 `;
-const PP = styled.p`
+const PP = styled.div`
   font-size: 36px;
+  margin-bottom:40px
   color: #2d292a;
   line-height: 44px;
   fontweight: 400;
