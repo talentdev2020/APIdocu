@@ -24,31 +24,7 @@ const APIResponseBody = styled.div`
 const P = styled.p`
   padding-left: 15px;
 `;
-// const ResponseButton = styled.button`
-//   padding: 5px 10px;
-//   display: inline-block;
-//   background-color: #11171a;
-//   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-//   cursor: pointer;
-//   text-align: center;
-//   outline: none;
-//   color: red;
-//   margin: 0 5px 5px 5px;
-//   border: 1px solid #07090b;
-//   border-radius: 5px;
-//   min-width: 60px;
-//   font-size: 0.9em;
-//   font-weight: bold;
-//   margin-top: 1rem;
-//   &:focus {
-//     background-color: white;
-//   }
-//   ${(props) =>
-//     props.success &&
-//     css`
-//       color: green;
-//     `}
-// `;
+
 const JsonWrapper = styled.div`
   color: white !important;
   margin: 1rem 0;

@@ -13,9 +13,9 @@ import ReactShadowScroll from 'react-shadow-scroll';
 
 import IconExpandLess from '@material-ui/icons/ExpandLess';
 import IconExpandMore from '@material-ui/icons/ExpandMore';
-import IconDashboard from '@material-ui/icons/Dashboard';
+import IconDashboard from '@material-ui/icons/MenuBook';
 
-import IconLibraryBooks from '@material-ui/icons/LibraryBooks';
+import IconLibraryBooks from '@material-ui/icons/List';
 const A = styled(Link)`
   text-decoration: none;
   font-size: 13px;
