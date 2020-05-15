@@ -1,24 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Footer from './Footer';
-import Responsive from '../common/CResponsive';
+import { Wrapper, HTitle } from './Concept';
 
-const Wrapper = styled(Responsive)`
-  text-align: left;
-  padding: 2rem;
-  font-family: Montserrat;
-  font-weight: 300;
-  font-size: 1rem;
-  color: #807f7f;
-  letter-spacing: 0;
-  line-height: 26px;
-`;
-const HTitle = styled.div`
-  color: #2d292a;
-  font-weight: 400;
-  font-size: 2rem;
-  margin: auto 0;
-`;
 const Header = styled.div`
   height: 56px;
   width: 56px;

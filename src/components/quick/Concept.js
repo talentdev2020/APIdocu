@@ -10,8 +10,13 @@ const Wrapper = styled(Responsive)`
   font-weight: 300;
   font-size: 1rem;
   color: #807f7f;
+
   letter-spacing: 0;
   line-height: 26px;
+  @media (max-width: 1055px) and (min-width: 0) {
+    font-size: 13px;
+    line-height: 22px;
+  }
 `;
 const Header = styled.div`
   height: 56px;
@@ -34,6 +39,10 @@ const HTitle = styled.div`
   font-weight: 400;
   font-size: 2rem;
   margin: auto 0;
+  @media (max-width: 1055px) and (min-width: 0) {
+    font-size: 20px;
+    line-height: 22px;
+  }
 `;
 const Title = styled.h3`
   font-size: 1.5rem;
@@ -340,3 +349,4 @@ const Concept = () => {
   );
 };
 export default Concept;
+export { Wrapper, HTitle };

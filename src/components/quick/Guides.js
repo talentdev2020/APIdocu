@@ -2,19 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import './guides.css';
 import Footer from './Footer';
-import Responsive from '../common/CResponsive';
 import Grid from '@material-ui/core/Grid';
-
-const Wrapper = styled(Responsive)`
-  text-align: left;
-  padding: 2rem;
-  font-family: Montserrat;
-  font-weight: 300;
-  font-size: 1rem;
-  color: #807f7f;
-  letter-spacing: 0;
-  line-height: 26px;
-`;
+import { Wrapper } from './Concept';
 
 const P = styled.p`
   color: #7c7c7c;
