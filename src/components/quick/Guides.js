@@ -11,14 +11,14 @@ const P = styled.p`
 `;
 
 const Title = styled.h3`
-  font-size: 1.5rem;
-  color: black;
+  font-size: 15px;
+  color: #535151;
 `;
 const Guides = () => {
   return (
     <Wrapper>
       <Title>GUIDES</Title>
-      <h2 style={{ fontSize: '2.5rem', color: 'black' }}>
+      <h2 style={{ fontSize: '36px', color: 'black' }}>
         Learn everything you need to know
       </h2>
 
