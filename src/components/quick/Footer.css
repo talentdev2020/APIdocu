@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 24px 24px 24px 0;
+  padding: 6px 24px 24px 0;
 }
 .alert-c .left-content {
   align-self: center;

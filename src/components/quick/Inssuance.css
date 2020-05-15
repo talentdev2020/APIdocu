@@ -53,13 +53,21 @@ td {
   padding: 14px 0 20px 14px;
   margin-bottom: 0;
 }
+
 .content-dark-100 {
   font-family: Montserrat;
   font-weight: 300;
   font-size: 1rem;
   color: #000;
+
   letter-spacing: 0;
   line-height: 32px;
+}
+@media (max-width: 1055px) and (min-width: 0) {
+  .content-dark-100 {
+    font-size: 13px;
+    line-height: 22px;
+  }
 }
 .ordered-item {
   display: inline-block;

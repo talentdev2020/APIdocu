@@ -82,13 +82,21 @@
   letter-spacing: 0.12px;
   line-height: 28px;
 }
+
 .content-dark-100 {
   font-family: Montserrat;
   font-weight: 300;
-  font-size: 14px;
+  font-size: 1rem;
   color: #7c7c7c;
+
   letter-spacing: 0;
   line-height: 26px;
+}
+@media (max-width: 1055px) and (min-width: 0) {
+  .content-dark-100 {
+    font-size: 13px;
+    line-height: 22px;
+  }
 }
 .outer-box .box .triangle-box {
   position: absolute;

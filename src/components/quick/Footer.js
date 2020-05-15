@@ -60,7 +60,7 @@ const Footer = () => {
             <div className="right-content">
               <h4 className="h4-dark-100">Where to go from here?</h4>
               <div className="information-links">
-                <p className="content-dark-100">
+                <div className="content-dark-100">
                   <span className="arrow">
                     <svg
                       width="16px"
@@ -109,8 +109,8 @@ const Footer = () => {
                   >
                     Transaction authorization guide
                   </a>
-                </p>
-                <p className="content-dark-100">
+                </div>
+                <div className="content-dark-100">
                   <span className="arrow">
                     <svg
                       width="16px"
@@ -156,8 +156,8 @@ const Footer = () => {
                   <a className="link" href="#/developers/guides/pci">
                     PCI guide
                   </a>
-                </p>
-                <p className="content-dark-100">
+                </div>
+                <div className="content-dark-100">
                   <span className="arrow">
                     <svg
                       width="16px"
@@ -206,8 +206,8 @@ const Footer = () => {
                     API reference
                   </a>
                   .
-                </p>
-                <p className="content-dark-100">
+                </div>
+                <div className="content-dark-100">
                   <span className="arrow">
                     <svg
                       width="16px"
@@ -252,7 +252,7 @@ const Footer = () => {
                   <a className="link" href="#/developers#developers-sdk">
                     Apto SDKs section
                   </a>
-                </p>
+                </div>
               </div>
             </div>
           </div>

@@ -7,6 +7,7 @@ const Mobile = () => {
   return (
     <Wrapper>
       <HTitle>Apto Mobile API (1.0)</HTitle>
+      <br />
       <p>
         <span>
           E-mail:
