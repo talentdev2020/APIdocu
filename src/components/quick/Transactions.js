@@ -19,7 +19,7 @@ const Header = styled.div`
 
 const Title = styled.h3`
   font-size: 1.5rem;
-  margin-top: 3.5rem;
+  margin-top: 44px;
   color: black;
 `;
 const Transactions = () => {

@@ -1,0 +1,10 @@
+.circle-dark {
+  height: 6px;
+  width: 6px;
+  background: #4f566b;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 12px;
+  vertical-align: baseline;
+  margin-bottom: 3px;
+}

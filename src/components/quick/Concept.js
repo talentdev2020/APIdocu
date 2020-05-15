@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/CResponsive';
 import Footer from './Footer';
+import './concept.css';
 
 const Wrapper = styled(Responsive)`
   text-align: left;
@@ -54,7 +55,7 @@ const HTitle = styled.div`
 `;
 const Title = styled.h3`
   font-size: 20px;
-  margin-top: 3.5rem;
+  margin-top: 44px;
   color: #2d292a;
   font-weight: 600;
 `;

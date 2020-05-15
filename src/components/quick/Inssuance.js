@@ -22,7 +22,7 @@ const Header = styled.div`
 
 const Title = styled.h3`
   font-size: 20px;
-  margin-top: 3.5rem;
+  margin-top: 44px;
   color: #2d292a;
   font-weight: 600;
 `;

@@ -21,7 +21,7 @@ const Header = styled.div`
 `;
 const Title = styled.h3`
   font-size: 20px;
-  margin-top: 3.5rem;
+  margin-top: 44px;
   color: #2d292a;
   font-weight: 600;
 `;
@@ -150,7 +150,7 @@ const PCI = () => {
         your application.
       </p>
       <p>The Apto PCI SDK executes two main functions:</p>
-      <ul class="numbered-list content-dark-100">
+      <ul class="numbered-list unordered-list content-dark-100">
         <li>
           <span class="circle-dark"></span>Securely obtain the PCI card data
         </li>
