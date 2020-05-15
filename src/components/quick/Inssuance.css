@@ -32,7 +32,7 @@ table.common-table tbody {
   font-size: 14px;
   color: #2d292a;
   letter-spacing: 0;
-  line-height: 40px;
+  line-height: 32px;
   opacity: 1;
   -webkit-transition: 0.2s;
   transition: 0.2s;
@@ -59,7 +59,7 @@ td {
   font-size: 14px;
   color: #000;
   letter-spacing: 0;
-  line-height: 26px;
+  line-height: 32px;
 }
 .ordered-item {
   display: inline-block;
@@ -76,11 +76,6 @@ td {
   display: flex;
   justify-content: center;
 }
-.numbered-list li,
-.unordered-list li {
-  list-style: none;
-  padding-bottom: 12px;
-}
 
 .h5-light-100 {
   font-family: Montserrat !important;
@@ -89,4 +84,33 @@ td {
   color: #fff !important;
   letter-spacing: 0.09px !important;
   line-height: 24px !important;
+}
+.code-sample {
+  background: #f7f9ff;
+  background-image: initial;
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: initial;
+
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: rgb(247, 249, 255);
+  font-family: monospace, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 26px;
+  color: #413e3f;
+  border-radius: 4px;
+  display: inline-block;
+  padding: 0 5px;
+  word-break: keep-all;
+}
+.unordered-list li {
+  list-style: none;
+  padding-bottom: 12px;
+}
+a {
+  color: #007bff;
+  text-decoration: none;
 }

@@ -237,7 +237,7 @@ const Inssuance = () => {
       </table>
       <Title>Card issuance (Mobile API)</Title>
       <p>Issuing a card through the Apto Mobile API is a three-step process:</p>
-      <ul class="numbered-list content-dark-100">
+      <ul class="  unordered-list content-dark-100">
         <li>
           <div class="ordered-item">
             <span class="ordered-item-circle">
@@ -368,8 +368,8 @@ const Inssuance = () => {
       <p>
         The previous request checks the validity of the primary credential
         verification, and creates the cardholder. The response contains the{' '}
-        <strong>user_id</strong> and <strong>user_token</strong> for that
-        cardholder:
+        <code class="code-sample">user_id</code> and{' '}
+        <code class="code-sample">user_token</code> for that cardholder:
         <Card
           title="Response
        "

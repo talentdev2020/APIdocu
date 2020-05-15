@@ -39,6 +39,21 @@ const Section = styled.div`
     
   }
 `;
+const Title = styled.p`
+  font-weight: 400;
+  font-size: 1.85714em;
+  line-height: 44px;
+  color: #01005a;
+`;
+const SubTitle = styled.span`
+  font-weight: 400;
+  font-size: 1.2em;
+  line-height: 44px;
+  color: #233a9b;
+  margin-top: 2.2rem;
+  margin-bottom: 0.7rem;
+`;
+
 const P = styled.div`
   padding-left: 8px;
 `;
@@ -124,9 +139,7 @@ const Content = ({ data }) => {
         {' '}
         <Grid container spacing={3}>
           <Grid item md={12} lg={6}>
-            <p>
-              <strong>Introduction</strong>
-            </p>
+            <Title>Introduction</Title>
             Welcome to Venus. <br />
             The purpose of this documentation is to ensure that every user is
             able to properly integrate a full card issuing solution to their
@@ -134,15 +147,10 @@ const Content = ({ data }) => {
             you will find an explanation of how our products work and how to
             integrate with them.
             <div>
-              <p>
-                <strong> Authorization</strong>{' '}
-              </p>
-              On every API call, the header named APIKEY must be sent to
-              authenticate every request. Talk to your account manager to get
-              access to your key.{' '}
-              <p>
-                <strong>Query parameters for listings</strong>
-              </p>{' '}
+              <Title> Authorization</Title> On every API call, the header named
+              APIKEY must be sent to authenticate every request. Talk to your
+              account manager to get access to your key.{' '}
+              <Title>Query parameters for listings</Title>
               Every API in our system that provides a list of records has
               available a set of filters and parameters to make the listings
               represent the records they are actually looking for. <br />
@@ -150,7 +158,7 @@ const Content = ({ data }) => {
               parameters will be available: <br />
             </div>
             <div>
-              with[]
+              <SubTitle> with[]</SubTitle>
               <P>
                 This parameter will let the user who is requesting it add any
                 desired relation the resource has in the API so it lists nested
@@ -167,29 +175,29 @@ const Content = ({ data }) => {
               </P>
             </div>
             <div>
-              and[]
+              <SubTitle>and[]</SubTitle>
               <P>
                 This query parameter will enable the user to filter the records
                 by applying a "AND" conditional, meaning that the search needs
                 to satisfy all values so it loads on the response, it is
                 possible to use multiple values for the same attribute and use
-                as many and as needed. An example would be{' '}
+                as many and as needed. <br /> An example would be{' '}
                 <strong> and[type][][eq]=receive</strong>.
               </P>
             </div>
             <div>
-              {' '}
-              or[]
+              <SubTitle>or[]</SubTitle>
               <P>
                 This query parameter will enable the user to filter the records
                 by applying a "OR" conditional, meaning that the search needs to
                 satisfy at least one or more values so it loads on the response,
                 it is possible to use multiple values for the same attribute and
-                use as many ors as needed. An example would be
+                use as many ors as needed.
+                <br /> An example would be
                 <strong> or[tierLevel][][eq]=1</strong>.
               </P>
               <div>
-                in[]{' '}
+                <SubTitle> in[]</SubTitle>
                 <P>
                   This query parameter will enable the user to filter the
                   records by applying a "IN" conditional, meaning that the
@@ -205,7 +213,7 @@ const Content = ({ data }) => {
                 </P>
               </div>
               <div>
-                date[]
+                <SubTitle>date[]</SubTitle>
                 <P>
                   {' '}
                   This query parameter will enable the user to filter the

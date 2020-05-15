@@ -56,7 +56,7 @@ const LeftSide = ({ data, selectedmenu }) => {
   const [search, setSearch] = useState('');
   const [menu, setMenu] = useState();
   useEffect(() => {
-    const newelement = { name: 'introduction', type: 'parent' };
+    const newelement = { name: 'Introduction', type: 'parent' };
     let temp = [newelement].concat(data);
 
     temp.map((firstchild, index) => {

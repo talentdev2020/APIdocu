@@ -3,8 +3,8 @@ import './Footer.css';
 import Grid from '@material-ui/core/Grid';
 const Footer = () => {
   return (
-    <div className="container container-p-0-20">
-      <Grid container spacing={3}>
+    <div>
+      <Grid container>
         <Grid item md={12} lg={12}>
           <div className="info alert-c">
             <div className="left-content">

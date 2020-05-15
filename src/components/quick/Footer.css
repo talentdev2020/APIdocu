@@ -46,16 +46,17 @@
   background: #00b9ff;
 }
 
-information-links .arrow {
-  padding-right: 8px;
+.information-links .arrow {
+  padding-right: 1rem;
+  line-height: 15px;
 }
 .information-links .arrow svg g {
   fill: #00b9ff;
 }
 
-.information-links .arrow {
-  padding-right: 8px;
-}
 .content-dark-100 a {
   color: #33c2dc;
+}
+.alert-c.info {
+  border-left: 5px solid #00b9ff;
 }
