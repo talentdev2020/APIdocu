@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
 
 import CoreAPIContainer from '../containers/core/coreApi';
 import styled from 'styled-components';

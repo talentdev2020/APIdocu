@@ -12,20 +12,26 @@
   z-index: 1020;
 }
 .subnav-dark-60 {
-  font-weight: 300;
+  font-weight: 500;
   opacity: 0.6;
   color: #2d292a;
 }
+.subnav-dark-60 ul li {
+  font-weight: 300;
+}
+.navigation-documentation ul li a:hover {
+  color: #00b9ff;
+}
 .subnav-dark-60,
 .subnav-dark-100 {
-  font-size: 13px;
+  font-size: 14px;
   font-family: Montserrat;
   letter-spacing: 0;
   line-height: 32px;
 }
 .navigation-documentation ul .active-true {
   color: #00b9ff;
-  font-size: 13px;
+  font-size: 14px;
   font-family: Montserrat;
   font-weight: 300;
   letter-spacing: 0;

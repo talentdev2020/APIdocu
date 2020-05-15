@@ -56,7 +56,6 @@ const Content = ({ data }) => {
       bottom: scroll + window.innerHeight,
     };
     const elements = document.getElementById('parent').children;
-    const direction = currPos.y < prevPos.y ? true : false;
     const isVisible = true;
     if (isVisible)
       for (let i = 0; i < parseInt(elements.length); i++) {
@@ -81,29 +80,6 @@ const Content = ({ data }) => {
           }
         }
       }
-    // else
-    //   for (let i = parseInt(elements.length) - 1; i >= 0; i--) {
-    //     const element = elements[i];
-    //     const boundsTop = element.getBoundingClientRect().top + scroll - 200;
-    //     // console.log('client', element.getBoundingClientRect().top);
-    //     // console.log('scroll', scroll);
-    //     const bounds = {
-    //       top: boundsTop,
-    //       bottom: boundsTop + element.clientHeight + 200,
-    //     };
-
-    //     // console.log(bounds);
-    //     // console.log(viewport);
-
-    //     if (isVisible) {
-    //     } else {
-    //       if (bounds.bottom <= viewport.bottom)
-    //         if (element.id) {
-    //           dispatch(selectmenu(element.id));
-    //           return;
-    //         }
-    //     }
-    //   }
   }, []);
   useEffect(() => {
     let temp = [];

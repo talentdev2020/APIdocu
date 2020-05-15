@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import './guides.css';
 import Footer from './Footer';
 import Responsive from '../common/CResponsive';
+import Grid from '@material-ui/core/Grid';
 
 const Wrapper = styled(Responsive)`
   text-align: left;
@@ -14,20 +15,10 @@ const Wrapper = styled(Responsive)`
   letter-spacing: 0;
   line-height: 26px;
 `;
-const Header = styled.div`
-  height: 56px;
-  width: 56px;
-  display: inline-block;
-  border-radius: 8px;
-  display: inline-flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  margin-right: 15px;
-`;
+
 const P = styled.p`
-  color: #413e3f;
-  font-size: 1.2rem;
+  color: #7c7c7c;
+  font-size: 20px;
 `;
 
 const Title = styled.h3`
@@ -54,10 +45,10 @@ const Guides = () => {
         compliance work.
       </P>
       <div class="container">
-        <div class="row equal">
-          <div class="column col-lg-4 col-md-12 col-sm-12">
+        <Grid container spacing={3} className="equal">
+          <Grid item lg={4} md={12} sm={12}>
             <div class="outer-box">
-              <a href="#/developers/guides/basic_concepts">
+              <a href="/quickStart/concept">
                 <div class="box regular">
                   <div class="icon-box">
                     <svg
@@ -123,10 +114,10 @@ const Guides = () => {
                 </div>
               </a>
             </div>
-          </div>
-          <div class="column col-lg-4 col-md-12 col-sm-12">
+          </Grid>
+          <Grid item lg={4} md={12} sm={12}>
             <div class="outer-box">
-              <a href="#/developers/guides/card_issuance">
+              <a href="/quickStart/issuance">
                 <div class="box regular">
                   <div class="icon-box">
                     <svg
@@ -191,82 +182,85 @@ const Guides = () => {
                 </div>
               </a>
             </div>
-          </div>
-          <div class="column col-lg-4 col-md-12 col-sm-12">
-            <div class="outer-box">
-              <a href="#/developers/guides/transaction_authorization">
-                <div class="box regular">
-                  <div class="icon-box">
-                    <svg
-                      width="36px"
-                      height="26px"
-                      viewBox="0 0 36 26"
-                      version="1.1"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g
-                        id="1.0.-Drafts"
-                        stroke="none"
-                        stroke-width="1"
-                        fill="none"
-                        fill-rule="evenodd"
+          </Grid>
+          <Grid item lg={4} md={12} sm={12}>
+            <div class="column col-lg-4 col-md-12 col-sm-12">
+              <div class="outer-box">
+                <a href="/quickStart/transactions">
+                  <div class="box regular">
+                    <div class="icon-box">
+                      <svg
+                        width="36px"
+                        height="26px"
+                        viewBox="0 0 36 26"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <g
-                          id="D.4.1.Developers---guides"
-                          transform="translate(-975.000000, -686.000000)"
+                          id="1.0.-Drafts"
+                          stroke="none"
+                          stroke-width="1"
+                          fill="none"
+                          fill-rule="evenodd"
                         >
                           <g
-                            id="01"
-                            transform="translate(160.000000, 623.000000)"
+                            id="D.4.1.Developers---guides"
+                            transform="translate(-975.000000, -686.000000)"
                           >
-                            <g id="Starred">
-                              <g
-                                id="24px-(2)"
-                                transform="translate(809.000000, 52.000000)"
-                              >
-                                <polygon
-                                  id="Path"
-                                  points="0 0 48 0 48 48 0 48"
-                                ></polygon>
-                                <path
-                                  d="M12.28,23.72 L6.72,29.3 C6.34,29.7 6.34,30.32 6.72,30.72 L12.28,36.3 C12.9,36.94 13.98,36.48 13.98,35.6 L13.98,32 L26,32 C27.1,32 28,31.1 28,30 C28,28.9 27.1,28 26,28 L13.98,28 L13.98,24.42 C13.98,23.52 12.9,23.08 12.28,23.72 Z M41.3,17.3 L35.74,11.72 C35.12,11.08 34.04,11.54 34.04,12.42 L34.04,16 L22,16 C20.9,16 20,16.9 20,18 C20,19.1 20.9,20 22,20 L34.02,20 L34.02,23.58 C34.02,24.48 35.1,24.92 35.72,24.28 L41.28,18.7 C41.68,18.32 41.68,17.68 41.3,17.3 Z"
-                                  id="Shape"
-                                  fill="#FFFFFF"
-                                  fill-rule="nonzero"
-                                ></path>
+                            <g
+                              id="01"
+                              transform="translate(160.000000, 623.000000)"
+                            >
+                              <g id="Starred">
+                                <g
+                                  id="24px-(2)"
+                                  transform="translate(809.000000, 52.000000)"
+                                >
+                                  <polygon
+                                    id="Path"
+                                    points="0 0 48 0 48 48 0 48"
+                                  ></polygon>
+                                  <path
+                                    d="M12.28,23.72 L6.72,29.3 C6.34,29.7 6.34,30.32 6.72,30.72 L12.28,36.3 C12.9,36.94 13.98,36.48 13.98,35.6 L13.98,32 L26,32 C27.1,32 28,31.1 28,30 C28,28.9 27.1,28 26,28 L13.98,28 L13.98,24.42 C13.98,23.52 12.9,23.08 12.28,23.72 Z M41.3,17.3 L35.74,11.72 C35.12,11.08 34.04,11.54 34.04,12.42 L34.04,16 L22,16 C20.9,16 20,16.9 20,18 C20,19.1 20.9,20 22,20 L34.02,20 L34.02,23.58 C34.02,24.48 35.1,24.92 35.72,24.28 L41.28,18.7 C41.68,18.32 41.68,17.68 41.3,17.3 Z"
+                                    id="Shape"
+                                    fill="#FFFFFF"
+                                    fill-rule="nonzero"
+                                  ></path>
+                                </g>
                               </g>
                             </g>
                           </g>
                         </g>
-                      </g>
-                    </svg>
-                  </div>
-                  <div class="info-box">
-                    <div class="title-box h3-dark-100">
-                      Transaction authorization
+                      </svg>
                     </div>
-                    <div class="description-box content-dark-100">
-                      Every transaction needs to be reviewed and authorised.
-                      This process is fast and automatic, but also flexible. The
-                      Apto platform supports different authorization models.
+                    <div class="info-box">
+                      <div class="title-box h3-dark-100">
+                        Transaction authorization
+                      </div>
+                      <div class="description-box content-dark-100">
+                        Every transaction needs to be reviewed and authorised.
+                        This process is fast and automatic, but also flexible.
+                        The Apto platform supports different authorization
+                        models.
+                      </div>
+                    </div>
+                    <div class="triangle-box">
+                      <img
+                        class="triangle-plus"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAJJJREFUOBHtVVEOgCAIxc7RhbpI3Vu7hz1Yboy2cDL/ZLMAeUjwXESO1FoPrIKVWXfC/e03GV4i2UMkL4DT6JgE0bbVN+uI2ithtINEG4bYeCa8sA97hN1XtvA0wVEA2i1w0C5TpnyimnuwIg3jL71+Wc/R3CONWjdFd0P0KVP+nBJx9FSoKcXUiAlY065m1y/gASqre8K4rJ0/AAAAAElFTkSuQmCC"
+                        alt="plus"
+                      />
                     </div>
                   </div>
-                  <div class="triangle-box">
-                    <img
-                      class="triangle-plus"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAJJJREFUOBHtVVEOgCAIxc7RhbpI3Vu7hz1Yboy2cDL/ZLMAeUjwXESO1FoPrIKVWXfC/e03GV4i2UMkL4DT6JgE0bbVN+uI2ithtINEG4bYeCa8sA97hN1XtvA0wVEA2i1w0C5TpnyimnuwIg3jL71+Wc/R3CONWjdFd0P0KVP+nBJx9FSoKcXUiAlY065m1y/gASqre8K4rJ0/AAAAAElFTkSuQmCC"
-                      alt="plus"
-                    />
-                  </div>
-                </div>
-              </a>
+                </a>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="column col-lg-6 col-md-12 col-sm-12">
+          </Grid>
+        </Grid>
+        <Grid container spacing={3}>
+          <Grid item lg={6} md={12} sm={12}>
             <div class="outer-box">
-              <a href="#/developers/guides/pci">
+              <a href="/quickStart/pci">
                 <div class="box regular">
                   <div class="icon-box">
                     <svg
@@ -328,10 +322,11 @@ const Guides = () => {
                 </div>
               </a>
             </div>
-          </div>
-          <div class="column col-lg-6 col-md-12 col-sm-12">
+          </Grid>
+
+          <Grid item lg={6} md={12} sm={12}>
             <div class="outer-box">
-              <a href="#/developers/guides/integration_scenarios">
+              <a href="/quickStart/integrations">
                 <div class="box regular">
                   <div class="icon-box">
                     <svg
@@ -398,8 +393,8 @@ const Guides = () => {
                 </div>
               </a>
             </div>
-          </div>
-        </div>
+          </Grid>
+        </Grid>
       </div>
       <Footer />
     </Wrapper>

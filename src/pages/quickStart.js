@@ -7,6 +7,7 @@ import QuickStart from '../components/quick/QuickStart';
 import Concept from '../components/quick/Concept';
 import Inssuance from '../components/quick/Inssuance';
 import Integrations from '../components/quick/Integration';
+import Mobile from '../components/quick/Mobile';
 import Transactions from '../components/quick/Transactions';
 import Guides from '../components/quick/Guides';
 import PCI from '../components/quick/PCI';
@@ -39,7 +40,7 @@ const menu = [
       {
         name: 'Card Issuance',
         active: false,
-        path: '/quickStart/inssuance',
+        path: '/quickStart/issuance',
       },
       {
         name: 'Transactions',
@@ -73,7 +74,18 @@ const menu = [
         active: false,
         path: '/coreapi#webhooks',
       },
+
+      {
+        name: 'Mobile API',
+        active: false,
+        path: '/quickStart/mobile',
+      },
     ],
+  },
+  {
+    name: 'Bta SDKs',
+    active: false,
+    path: '/coreApi',
   },
 ];
 const CoreAPI = () => {
@@ -139,7 +151,7 @@ const CoreAPI = () => {
         <div style={{ width: 'calc(100% - 210px' }}>
           <Switch>
             <Route
-              path={`${match.path}quickStart/inssuance`}
+              path={`${match.path}quickStart/issuance`}
               component={Inssuance}
             />
 
@@ -152,6 +164,7 @@ const CoreAPI = () => {
               component={Inssuance}
             />
             <Route path={`${match.path}quickStart/guides`} component={Guides} />
+            <Route path={`${match.path}quickStart/mobile`} component={Mobile} />
             <Route
               path={`${match.path}quickStart/transactions`}
               component={Transactions}

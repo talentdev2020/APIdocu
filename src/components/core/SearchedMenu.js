@@ -119,7 +119,7 @@ const SearchedMenu = ({ treedata, search }) => {
       return firstchild;
     });
     setMenuData(result);
-  }, [search]);
+  }, [search, treedata]);
 
   return (
     <Wrapper menuData={menuData ? menuData.length : false}>
