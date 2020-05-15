@@ -11,6 +11,10 @@ const P = styled.p`
   font-size: 20px;
   color: #2d292a;
   letter-spacing: 0;
+  @media (max-width: 992px) and (min-width: 0) {
+    font-size: 17px;
+    line-height: 28px;
+  }
   line-height: 32px;
 `;
 
@@ -23,13 +27,20 @@ const Title = styled.h3`
   opacity: 1;
   line-height: 24px;
 `;
+const PP = styled.p`
+  font-size: 36px;
+  color: #2d292a;
+  line-height: 44px;
+  fontweight: 400;
+  @media (max-width: 992px) and (min-width: 0) {
+    font-size: 24px;
+  }
+`;
 const Guides = () => {
   return (
     <Wrapper>
       <Title>GUIDES</Title>
-      <p style={{ fontSize: '36px', color: '#2d292a', fontWeight: '400' }}>
-        Learn everything you need to know
-      </p>
+      <PP>Learn everything you need to know</PP>
 
       <P>
         Welcome to the Apto platform developer guides. The resources available

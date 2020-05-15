@@ -13,11 +13,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <Link to="/quickStart">Quick Start page</Link>
-
-        <Link to="/coreApi">Core API</Link>
-      </header>
+      <header className="App-header"></header>
       <Switch>
         <Route path="/coreApi" component={CoreAPI} exact />
 
