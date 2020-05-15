@@ -54,7 +54,7 @@ const Guides = () => {
         compliance work.
       </P>
       <div class="container">
-        <Grid container spacing={3} className="equal">
+        <Grid container className="equal">
           <Grid item lg={4} md={12} sm={12}>
             <div class="outer-box">
               <a href="/quickStart/concept">
@@ -267,7 +267,7 @@ const Guides = () => {
           </Grid>
         </Grid>
         <br />
-        <Grid container spacing={3} style={{ marginTop: '0.5rem' }}>
+        <Grid container style={{ marginTop: '0.5rem' }}>
           <Grid item lg={6} md={12} sm={12}>
             <div class="outer-box">
               <a href="/quickStart/pci">
@@ -405,8 +405,8 @@ const Guides = () => {
             </div>
           </Grid>
         </Grid>
+        <Footer />
       </div>
-      <Footer />
     </Wrapper>
   );
 };
