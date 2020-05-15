@@ -9,7 +9,7 @@ const Wrapper = styled(Responsive)`
   font-family: Montserrat;
   font-weight: 300;
   font-size: 1rem;
-  color: #9d9d9d;
+  color: #807f7f;
   letter-spacing: 0;
   line-height: 26px;
 `;
@@ -83,6 +83,7 @@ const Integration = () => {
           Integration Scenario
         </HTitle>
       </div>
+      <br />
       <p>
         The Apto platform offers different integration options to adapt to your
         specific needs. We’ll help you decide what’s the best option for you,

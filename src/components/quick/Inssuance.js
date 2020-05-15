@@ -11,7 +11,7 @@ const Wrapper = styled(Responsive)`
   font-family: Montserrat;
   font-weight: 300;
   font-size: 1rem;
-  color: #9d9d9d;
+  color: #807f7f;
   letter-spacing: 0;
   line-height: 26px;
 `;

@@ -16,8 +16,9 @@ const IconWrapper = styled.div`
 const P = styled.p`
   font-family: Montserrat;
   font-weight: 300;
-  font-size: 15px;
-  color: #524749;
+  font-size: 1rem;
+  color: #807f7f;
+
   letter-spacing: 0;
   margin: 20px 0px;
   line-height: 26px;

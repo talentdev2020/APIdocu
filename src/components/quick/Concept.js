@@ -9,7 +9,7 @@ const Wrapper = styled(Responsive)`
   font-family: Montserrat;
   font-weight: 300;
   font-size: 1rem;
-  color: #9d9d9d;
+  color: #807f7f;
   letter-spacing: 0;
   line-height: 26px;
 `;
@@ -82,14 +82,15 @@ const Concept = () => {
         </Header>
         <HTitle> KeyConcepts</HTitle>
       </div>
-      <div>
+      <br />
+      <p>
         Welcome to the Apto’s Key concepts guide. We’ll show you the basics
         around the key concepts handled by the Apto platform, such as card
         programs and cards. Here you’ll find also information regarding how
         these concepts are made available through our APIs and SDKs, and how to
         use them to successfully offer your customers a seamless, easy and quick
         experience to issue cards in seconds.
-      </div>
+      </p>
       <Title>Projects</Title>
       <div>
         <p>

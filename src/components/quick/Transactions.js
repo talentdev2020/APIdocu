@@ -9,7 +9,7 @@ const Wrapper = styled(Responsive)`
   font-family: Montserrat;
   font-weight: 300;
   font-size: 1rem;
-  color: #9d9d9d;
+  color: #807f7f;
   letter-spacing: 0;
   line-height: 26px;
 `;
@@ -83,6 +83,7 @@ const Transactions = () => {
         </Header>
         <HTitle>Transaction authorization</HTitle>
       </div>
+      <br />
       <p>
         When a cardholder uses his / her card to make a purchase, an
         authorization request is made. This request is routed from the network

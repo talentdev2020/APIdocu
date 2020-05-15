@@ -108,76 +108,75 @@ const CoreAPI = () => {
   };
   return (
     <Wrapper>
-      <Grid container spacing={3}>
-        <div className="sticky-top navigation-documentation">
-          <div>
-            <ul className="subnav-dark-60">
-              {menu.map((item) => {
-                return (
-                  <>
-                    {' '}
-                    <li
-                      className={item.active ? 'active-true' : 'active-false'}
-                      onClick={(e) => handleClick(item.name)}
-                    >
-                      <span className="vline"></span>
-                      <Link to={item.path}>{item.name}</Link>
-                    </li>
-                    {item.items && (
-                      <ul>
-                        {item.items.map((child, index) => {
-                          return (
-                            <li
-                              key={index + child.name}
-                              className={
-                                child.active ? 'active-true' : 'active-false'
-                              }
-                              onClick={(e) => handleClick(child.name)}
-                            >
-                              <span className="vline"></span>
-                              <Link to={child.path}>{child.name}</Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </>
-                );
-              })}
-            </ul>
-          </div>
+      <div className="sticky-top navigation-documentation">
+        <div>
+          <img src="/logo.png" alt="Logo" width="130px" />
         </div>
-
-        <div style={{ width: 'calc(100% - 210px' }}>
-          <Switch>
-            <Route
-              path={`${match.path}quickStart/issuance`}
-              component={Inssuance}
-            />
-
-            <Route
-              path={`${match.path}quickStart/concept`}
-              component={Concept}
-            />
-            <Route
-              path={`${match.path}quickStart/inssuance`}
-              component={Inssuance}
-            />
-            <Route path={`${match.path}quickStart/guides`} component={Guides} />
-            <Route path={`${match.path}quickStart/mobile`} component={Mobile} />
-            <Route
-              path={`${match.path}quickStart/transactions`}
-              component={Transactions}
-            />
-            <Route path={`${match.path}quickStart/pci`} component={PCI} />
-            <Route
-              path={`${match.path}quickStart/integrations`}
-              component={Integrations}
-            />
-            <Route path={`${match.path}`} component={QuickStart} />
-          </Switch>
+        <br />
+        <div>
+          <ul className="subnav-dark-60">
+            {menu.map((item) => {
+              return (
+                <>
+                  {' '}
+                  <li
+                    className={item.active ? 'active-true' : 'active-false'}
+                    onClick={(e) => handleClick(item.name)}
+                  >
+                    <span className="vline"></span>
+                    <Link to={item.path}>{item.name}</Link>
+                  </li>
+                  {item.items && (
+                    <ul>
+                      {item.items.map((child, index) => {
+                        return (
+                          <li
+                            key={index + child.name}
+                            className={
+                              child.active ? 'active-true' : 'active-false'
+                            }
+                            onClick={(e) => handleClick(child.name)}
+                          >
+                            <span className="vline"></span>
+                            <Link to={child.path}>{child.name}</Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </>
+              );
+            })}
+          </ul>
         </div>
-      </Grid>
+      </div>
+
+      <div style={{ width: 'calc(100% - 210px' }}>
+        <Switch>
+          <Route
+            path={`${match.path}quickStart/issuance`}
+            component={Inssuance}
+          />
+
+          <Route path={`${match.path}quickStart/concept`} component={Concept} />
+          <Route
+            path={`${match.path}quickStart/inssuance`}
+            component={Inssuance}
+          />
+          <Route path={`${match.path}quickStart/guides`} component={Guides} />
+          <Route path={`${match.path}quickStart/mobile`} component={Mobile} />
+          <Route
+            path={`${match.path}quickStart/transactions`}
+            component={Transactions}
+          />
+          <Route path={`${match.path}quickStart/pci`} component={PCI} />
+          <Route
+            path={`${match.path}quickStart/integrations`}
+            component={Integrations}
+          />
+          <Route path={`${match.path}`} component={QuickStart} />
+        </Switch>
+      </div>
     </Wrapper>
   );
 };

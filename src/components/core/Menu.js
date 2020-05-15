@@ -52,7 +52,6 @@ function removeSpace(string) {
 }
 const AppMenu = ({ treedata, selectedmenu }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   useEffect(() => {
     document.getElementById(selectedmenu + '_menu') &&
       document.getElementById(selectedmenu + '_menu').click();

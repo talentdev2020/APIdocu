@@ -90,7 +90,12 @@ const LeftSide = ({ data, selectedmenu }) => {
       <div
         style={{ position: 'fixed', textAlign: 'left', paddingLeft: '1rem' }}
       >
-        <img src="logo.png" alt="Logo" width="250px" />
+        <img
+          src="logo.png"
+          alt="Logo"
+          width="180px"
+          style={{ paddingLeft: '1rem' }}
+        />
         <div
           role="search"
           style={{
