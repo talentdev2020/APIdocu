@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const ResponsiveBlock = styled.div`
   padding-left: 15px;
   padding-right: 15px;
-  width: 800px;
+  width: 850px;
 
   margin: 0 auto;
   font-family: Montserrat;

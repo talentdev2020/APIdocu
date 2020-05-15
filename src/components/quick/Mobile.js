@@ -1,6 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-
+import Footer from './Footer';
 import { Wrapper, HTitle } from './Concept';
 
 const Mobile = () => {
@@ -58,6 +57,7 @@ const Mobile = () => {
       <br />
       <HTitle>Verifications</HTitle>
       <p>How user is verified to access the API resources</p>
+      <Footer />
     </Wrapper>
   );
 };

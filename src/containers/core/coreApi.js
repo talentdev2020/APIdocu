@@ -21,7 +21,9 @@ const LeftSideContainer = () => {
       ) : (
         <>
           {isLoading ? (
-            <div style={{ textAlign: 'center' }}>Loading...</div>
+            <div style={{ textAlign: 'center', margin: 'auto' }}>
+              Loading...
+            </div>
           ) : (
             <>
               <LeftSide

@@ -59,7 +59,13 @@ const Card = ({ title, body, isJson }) => {
             <div className="line-number">{index}</div>
             <div className="line-command">{line}</div>
             {!isJson && (
-              <div style={{ marginLeft: '15px' }}>
+              <div
+                style={{
+                  marginLeft: '15px',
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                }}
+              >
                 {index === body.split('\\').length - 1 ? '' : '\\'}
               </div>
             )}

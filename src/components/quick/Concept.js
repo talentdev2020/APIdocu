@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Footer from './Footer';
 import Responsive from '../common/CResponsive';
+import Footer from './Footer';
 
 const Wrapper = styled(Responsive)`
   text-align: left;

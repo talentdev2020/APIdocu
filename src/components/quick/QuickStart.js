@@ -1,4 +1,6 @@
 import React from 'react';
+import Footer from './Footer';
+
 import Card from './Card';
 import styled from 'styled-components';
 import Responsive from '../common/CResponsive';
@@ -121,6 +123,7 @@ const QuickStart = () => {
             --header 'Authorization: {{authorization}}'
               `}
       />
+      <Footer />
     </Responsive>
   );
 };

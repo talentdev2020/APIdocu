@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import './quick.css';
 import { useRouteMatch, Route, Link, Switch } from 'react-router-dom';
@@ -151,7 +150,7 @@ const CoreAPI = () => {
         </div>
       </div>
 
-      <div style={{ width: 'calc(100% - 210px' }}>
+      <div style={{ width: 'calc(100% - 180px' }}>
         <Switch>
           <Route
             path={`${match.path}quickStart/issuance`}

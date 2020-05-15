@@ -16,8 +16,6 @@ import IconExpandMore from '@material-ui/icons/ExpandMore';
 import IconDashboard from '@material-ui/icons/Dashboard';
 
 import IconLibraryBooks from '@material-ui/icons/LibraryBooks';
-import { useDispatch } from 'react-redux';
-import { selectmenu } from '../../modules/collection';
 const A = styled(Link)`
   text-decoration: none;
   font-size: 13px;

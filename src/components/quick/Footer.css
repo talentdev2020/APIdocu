@@ -45,7 +45,9 @@
 .info .icon-wrapper {
   background: #00b9ff;
 }
-
+.information-links {
+  text-align: left;
+}
 .information-links .arrow {
   padding-right: 1rem;
   line-height: 15px;
