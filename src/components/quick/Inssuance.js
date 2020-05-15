@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import './Inssuance.css';
 import Card from './Card';
 import Footer from './Footer';
-const Wrapper = styled.div`
+import Responsive from '../common/CResponsive';
+
+const Wrapper = styled(Responsive)`
   text-align: left;
   padding: 2rem;
   font-family: Montserrat;
@@ -72,7 +74,7 @@ const Inssuance = () => {
           </g>
         </svg>
       </Header>
-      <h2 style={{ fontSize: '1.5rem', color: 'black' }}> Card Issuance</h2>
+      <h2 style={{ fontSize: '2rem', color: 'black' }}> Card Issuance</h2>
 
       <Title>Card issuance (Core API)</Title>
 

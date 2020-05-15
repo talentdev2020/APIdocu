@@ -6,6 +6,9 @@ import { useRouteMatch, Route, Link, Switch } from 'react-router-dom';
 import QuickStart from '../components/quick/QuickStart';
 import Concept from '../components/quick/Concept';
 import Inssuance from '../components/quick/Inssuance';
+import Integrations from '../components/quick/Integration';
+import Transactions from '../components/quick/Transactions';
+import Guides from '../components/quick/Guides';
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -29,7 +32,7 @@ const menu = [
       {
         name: 'Key Concepts',
         active: false,
-        path: '/quickStart/keyconcept',
+        path: '/quickStart/concept',
       },
       {
         name: 'Card Issuance',
@@ -40,6 +43,11 @@ const menu = [
         name: 'Transactions',
         active: false,
         path: '/quickStart/transactions',
+      },
+      {
+        name: 'Integrations',
+        active: false,
+        path: '/quickStart/integrations',
       },
     ],
   },
@@ -82,58 +90,72 @@ const CoreAPI = () => {
   return (
     <Wrapper>
       <Grid container spacing={3}>
-        <Grid item md={2}>
-          <div className="sticky-top navigation-documentation">
-            <div>
-              <ul className="subnav-dark-60">
-                {menu.map((item) => {
-                  return (
-                    <>
-                      {' '}
-                      <li
-                        className={item.active ? 'active-true' : 'active-false'}
-                        onClick={(e) => handleClick(item.name)}
-                      >
-                        <span className="vline"></span>
-                        <Link to={item.path}>{item.name}</Link>
-                      </li>
-                      {item.items && (
-                        <ul>
-                          {item.items.map((child) => {
-                            return (
-                              <li
-                                className={
-                                  child.active ? 'active-true' : 'active-false'
-                                }
-                                onClick={(e) => handleClick(child.name)}
-                              >
-                                <span className="vline"></span>
-                                <Link to={child.path}>{child.name}</Link>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      )}
-                    </>
-                  );
-                })}
-              </ul>
-            </div>
+        <div className="sticky-top navigation-documentation">
+          <div>
+            <ul className="subnav-dark-60">
+              {menu.map((item) => {
+                return (
+                  <>
+                    {' '}
+                    <li
+                      className={item.active ? 'active-true' : 'active-false'}
+                      onClick={(e) => handleClick(item.name)}
+                    >
+                      <span className="vline"></span>
+                      <Link to={item.path}>{item.name}</Link>
+                    </li>
+                    {item.items && (
+                      <ul>
+                        {item.items.map((child, index) => {
+                          return (
+                            <li
+                              key={index + child.name}
+                              className={
+                                child.active ? 'active-true' : 'active-false'
+                              }
+                              onClick={(e) => handleClick(child.name)}
+                            >
+                              <span className="vline"></span>
+                              <Link to={child.path}>{child.name}</Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </>
+                );
+              })}
+            </ul>
           </div>
-        </Grid>
-        <Grid item md={10}>
+        </div>
+
+        <div style={{ width: 'calc(100% - 210px' }}>
           <Switch>
-            <Route path="/quickStart/keyconcept" component={Concept} />
             <Route
               path={`${match.path}quickStart/inssuance`}
               component={Inssuance}
             />
 
-            <Route path={`${match.path}/transactions`} component={Concept} />
-            <Route path={`${match.path}/quides`} component={Concept} />
+            <Route
+              path={`${match.path}quickStart/concept`}
+              component={Concept}
+            />
+            <Route
+              path={`${match.path}quickStart/inssuance`}
+              component={Inssuance}
+            />
+            <Route path={`${match.path}quickStart/guides`} component={Guides} />
+            <Route
+              path={`${match.path}quickStart/transactions`}
+              component={Transactions}
+            />
+            <Route
+              path={`${match.path}quickStart/integrations`}
+              component={Integrations}
+            />
             <Route path={`${match.path}`} component={QuickStart} />
           </Switch>
-        </Grid>
+        </div>
       </Grid>
     </Wrapper>
   );

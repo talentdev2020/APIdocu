@@ -1,13 +1,14 @@
 import React from 'react';
-import './Footer';
+import './Footer.css';
+import Grid from '@material-ui/core/Grid';
 const Footer = () => {
   return (
-    <div class="container container-p-0-20">
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-xs-12">
-          <div class="info alert-c">
-            <div class="left-content">
-              <div class="icon-wrapper">
+    <div className="container container-p-0-20">
+      <Grid container spacing={3}>
+        <Grid item md={12} lg={12}>
+          <div className="info alert-c">
+            <div className="left-content">
+              <div className="icon-wrapper">
                 <svg
                   width="20px"
                   height="20px"
@@ -56,11 +57,11 @@ const Footer = () => {
                 </svg>
               </div>
             </div>
-            <div class="right-content">
-              <h4 class="h4-dark-100">Where to go from here?</h4>
-              <div class="information-links">
-                <p class="content-dark-100">
-                  <span class="arrow">
+            <div className="right-content">
+              <h4 className="h4-dark-100">Where to go from here?</h4>
+              <div className="information-links">
+                <p className="content-dark-100">
+                  <span className="arrow">
                     <svg
                       width="16px"
                       height="8px"
@@ -76,7 +77,7 @@ const Footer = () => {
                         fill-rule="evenodd"
                       >
                         <g
-                          class="arrow-color"
+                          className="arrow-color"
                           id="6.0.Careers"
                           transform="translate(-1219.000000, -4530.000000)"
                           fill="#0055FF"
@@ -103,14 +104,14 @@ const Footer = () => {
                   To know more about Transaction authorization, please refer to
                   our{' '}
                   <a
-                    class="link"
+                    className="link"
                     href="#/developers/guides/transaction_authorization"
                   >
                     Transaction authorization guide
                   </a>
                 </p>
-                <p class="content-dark-100">
-                  <span class="arrow">
+                <p className="content-dark-100">
+                  <span className="arrow">
                     <svg
                       width="16px"
                       height="8px"
@@ -126,7 +127,7 @@ const Footer = () => {
                         fill-rule="evenodd"
                       >
                         <g
-                          class="arrow-color"
+                          className="arrow-color"
                           id="6.0.Careers"
                           transform="translate(-1219.000000, -4530.000000)"
                           fill="#0055FF"
@@ -152,12 +153,12 @@ const Footer = () => {
                   </span>
                   To know more about PCI compliance and how Apto can help you,
                   please refer to our{' '}
-                  <a class="link" href="#/developers/guides/pci">
+                  <a className="link" href="#/developers/guides/pci">
                     PCI guide
                   </a>
                 </p>
-                <p class="content-dark-100">
-                  <span class="arrow">
+                <p className="content-dark-100">
+                  <span className="arrow">
                     <svg
                       width="16px"
                       height="8px"
@@ -173,7 +174,7 @@ const Footer = () => {
                         fill-rule="evenodd"
                       >
                         <g
-                          class="arrow-color"
+                          className="arrow-color"
                           id="6.0.Careers"
                           transform="translate(-1219.000000, -4530.000000)"
                           fill="#0055FF"
@@ -198,13 +199,16 @@ const Footer = () => {
                     </svg>
                   </span>
                   If you want to check out the details of our APIs, check our{' '}
-                  <a class="link" href="#/developers#developers-api-references">
+                  <a
+                    className="link"
+                    href="#/developers#developers-api-references"
+                  >
                     API reference
                   </a>
                   .
                 </p>
-                <p class="content-dark-100">
-                  <span class="arrow">
+                <p className="content-dark-100">
+                  <span className="arrow">
                     <svg
                       width="16px"
                       height="8px"
@@ -220,7 +224,7 @@ const Footer = () => {
                         fill-rule="evenodd"
                       >
                         <g
-                          class="arrow-color"
+                          className="arrow-color"
                           id="6.0.Careers"
                           transform="translate(-1219.000000, -4530.000000)"
                           fill="#0055FF"
@@ -245,15 +249,15 @@ const Footer = () => {
                     </svg>
                   </span>
                   If you’re interested in integrating our SDKs, go to our{' '}
-                  <a class="link" href="#/developers#developers-sdk">
+                  <a className="link" href="#/developers#developers-sdk">
                     Apto SDKs section
                   </a>
                 </p>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

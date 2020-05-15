@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Footer from './Footer';
-const Wrapper = styled.div`
+import Responsive from '../common/CResponsive';
+
+const Wrapper = styled(Responsive)`
   text-align: left;
   padding: 2rem;
   font-family: Montserrat;
@@ -70,7 +72,7 @@ const Concept = () => {
           </g>
         </svg>
       </Header>
-      <h2 style={{ fontSize: '1.5rem', color: 'black' }}> KeyConcepts</h2>
+      <h2 style={{ fontSize: '2rem', color: 'black' }}> KeyConcepts</h2>
       <div>
         Welcome to the Apto’s Key concepts guide. We’ll show you the basics
         around the key concepts handled by the Apto platform, such as card

@@ -1,0 +1,120 @@
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+#guides-summary .container .row .column {
+  padding-bottom: 32px;
+}
+.outer-box {
+  border-radius: 8px;
+  border: 1px solid #f4f4f4;
+  height: 100%;
+  position: relative;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.outer-box .box.regular {
+  grid-template-rows: repeat(2, auto);
+  grid-template-columns: none;
+  align-content: start;
+}
+.outer-box .box {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  padding: 32px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+.outer-box .box .icon-box {
+  width: 88px;
+  height: 88px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.outer-box .box.regular .info-box {
+  padding-left: 0;
+  padding-top: 32px;
+}
+.outer-box .box .triangle-box {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 18px solid #f4f4f4;
+  border-top: 18px solid #f4f4f4;
+  border-color: transparent #f4f4f4 #f4f4f4 transparent;
+  border-style: solid;
+  border-width: 18px;
+  border-bottom-right-radius: 6px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+.outer-box .box.regular .info-box .title-box {
+  padding-bottom: 4px;
+}
+.h3-dark-100,
+.h4-dark-100 {
+  font-family: Montserrat;
+  font-weight: 600;
+  color: #2d292a;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+.h3-dark-100 {
+  font-size: 20px;
+  letter-spacing: 0.12px;
+  line-height: 28px;
+}
+.content-dark-100 {
+  font-family: Montserrat;
+  font-weight: 300;
+  font-size: 14px;
+  color: #2d292a;
+  letter-spacing: 0;
+  line-height: 26px;
+}
+.outer-box .box .triangle-box {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 18px solid #f4f4f4;
+  border-top: 18px solid #f4f4f4;
+  border-color: transparent #f4f4f4 #f4f4f4 transparent;
+  border-style: solid;
+  border-width: 18px;
+  border-bottom-right-radius: 6px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+.outer-box:hover {
+  border: 1px solid #00b9ff;
+}
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+.outer-box .box .triangle-box .triangle-plus {
+  height: 10px;
+  width: 10px;
+  position: relative;
+  right: -3px;
+  bottom: 6px;
+}

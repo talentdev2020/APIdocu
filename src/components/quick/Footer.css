@@ -14,7 +14,7 @@
   margin-right: -15px;
   margin-left: -15px;
 }
-.alert-c.info {
+.alert-c .info {
   border-left: 5px solid #00b9ff;
 }
 .alert-c {
@@ -40,4 +40,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.info .icon-wrapper {
+  background: #00b9ff;
+}
+
+information-links .arrow {
+  padding-right: 8px;
+}
+.information-links .arrow svg g {
+  fill: #00b9ff;
+}
+
+.information-links .arrow {
+  padding-right: 8px;
+}
+a {
+  color: #33c2dc;
 }

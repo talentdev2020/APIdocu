@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card';
 import styled from 'styled-components';
+import Responsive from '../common/CResponsive';
 const IconWrapper = styled.div`
   height: 56px;
   width: 56px;
@@ -36,7 +37,7 @@ const H3 = styled.h3`
 `;
 const QuickStart = () => {
   return (
-    <>
+    <Responsive>
       <div style={{ textAlign: 'left' }}>
         <IconWrapper>
           <svg
@@ -119,7 +120,7 @@ const QuickStart = () => {
             --header 'Authorization: {{authorization}}'
               `}
       />
-    </>
+    </Responsive>
   );
 };
 
