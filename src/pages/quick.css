@@ -27,7 +27,7 @@
   color: #00b9ff;
   font-size: 13px;
   font-family: Montserrat;
-  font-weight: 600;
+  font-weight: 300;
   letter-spacing: 0;
   line-height: 32px;
 }
@@ -49,23 +49,7 @@
   position: absolute;
   height: 32px;
 }
-.navigation-documentation ul .active-true {
-  color: #00b9ff;
-  font-size: 13px;
-  font-family: Montserrat;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 32px;
-}
-.navigation-documentation ul li {
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-  list-style: none;
-  white-space: nowrap;
-  cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+
 .navigation-documentation .vline {
   border-left: 2px solid #f2f2f2;
   left: 0;

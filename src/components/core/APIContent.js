@@ -12,12 +12,12 @@ import {
 } from './SuccessResponse';
 const Th = styled.th`
   font-weight: 500;
-  padding: 1rem 0;
+  padding: 1rem 0.5rem;
 `;
 const Td = styled.td`
   border-bottom: 1px solid #c4c4d6;
   color: #02152f;
-  padding: 1rem 0;
+  padding: 1rem 0.5rem;
 `;
 
 const GreenWrapper = styled.span`

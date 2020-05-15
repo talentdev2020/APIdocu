@@ -13,69 +13,76 @@ const Wrapper = styled(Responsive)`
   letter-spacing: 0;
   line-height: 26px;
 `;
+const HTitle = styled.div`
+  color: #2d292a;
+  font-weight: 400;
+  font-size: 2rem;
+  margin: auto 0;
+`;
 const Header = styled.div`
   height: 56px;
   width: 56px;
   display: inline-block;
   border-radius: 8px;
   display: inline-flex;
+  background-color: rgb(79, 86, 107);
+
   align-items: center;
   flex-direction: row;
   justify-content: center;
   margin-right: 15px;
 `;
-const SubTitle = styled.h3`
-  color: #413e3f;
-  font-size: 1rem;
-`;
 
 const Title = styled.h3`
   font-size: 1.5rem;
+  margin-top: 3.5rem;
   color: black;
 `;
 const Transactions = () => {
   return (
     <Wrapper>
-      <Header>
-        <svg
-          width="40px"
-          height="40px"
-          viewBox="0 0 40 40"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g
-            id="1.0.-Drafts"
-            stroke="none"
-            stroke-width="1"
-            fill="none"
-            fill-rule="evenodd"
+      <div style={{ display: 'flex', color: '#2d292a' }}>
+        <Header>
+          <svg
+            width="36px"
+            height="26px"
+            viewBox="0 0 36 26"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
-              id="D.4.1.Developers---guides"
-              transform="translate(-216.000000, -679.000000)"
+              id="1.0.-Drafts"
+              stroke="none"
+              stroke-width="1"
+              fill="none"
+              fill-rule="evenodd"
             >
-              <g id="01" transform="translate(160.000000, 623.000000)">
-                <g id="Starred">
-                  <g id="24px" transform="translate(52.000000, 52.000000)">
-                    <polygon id="Path" points="0 0 48 0 48 48 0 48"></polygon>
-                    <path
-                      d="M24,21.8 C22.78,21.8 21.8,22.78 21.8,24 C21.8,25.22 22.78,26.2 24,26.2 C25.22,26.2 26.2,25.22 26.2,24 C26.2,22.78 25.22,21.8 24,21.8 Z M24,4 C12.96,4 4,12.96 4,24 C4,35.04 12.96,44 24,44 C35.04,44 44,35.04 44,24 C44,12.96 35.04,4 24,4 Z M28.38,28.38 L12,36 L19.62,19.62 L36,12 L28.38,28.38 Z"
-                      id="Shape"
-                      fill="#FFFFFF"
-                      fill-rule="nonzero"
-                    ></path>
+              <g
+                id="D.4.1.Developers---guides"
+                transform="translate(-975.000000, -686.000000)"
+              >
+                <g id="01" transform="translate(160.000000, 623.000000)">
+                  <g id="Starred">
+                    <g
+                      id="24px-(2)"
+                      transform="translate(809.000000, 52.000000)"
+                    >
+                      <polygon id="Path" points="0 0 48 0 48 48 0 48"></polygon>
+                      <path
+                        d="M12.28,23.72 L6.72,29.3 C6.34,29.7 6.34,30.32 6.72,30.72 L12.28,36.3 C12.9,36.94 13.98,36.48 13.98,35.6 L13.98,32 L26,32 C27.1,32 28,31.1 28,30 C28,28.9 27.1,28 26,28 L13.98,28 L13.98,24.42 C13.98,23.52 12.9,23.08 12.28,23.72 Z M41.3,17.3 L35.74,11.72 C35.12,11.08 34.04,11.54 34.04,12.42 L34.04,16 L22,16 C20.9,16 20,16.9 20,18 C20,19.1 20.9,20 22,20 L34.02,20 L34.02,23.58 C34.02,24.48 35.1,24.92 35.72,24.28 L41.28,18.7 C41.68,18.32 41.68,17.68 41.3,17.3 Z"
+                        id="Shape"
+                        fill="#FFFFFF"
+                        fill-rule="nonzero"
+                      ></path>
+                    </g>
                   </g>
                 </g>
               </g>
             </g>
-          </g>
-        </svg>
-      </Header>
-      <h2 style={{ fontSize: '2rem', color: 'black' }}>
-        Transaction authorization
-      </h2>
-
+          </svg>
+        </Header>
+        <HTitle>Transaction authorization</HTitle>
+      </div>
       <p>
         When a cardholder uses his / her card to make a purchase, an
         authorization request is made. This request is routed from the network

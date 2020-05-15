@@ -21,61 +21,73 @@ const Header = styled.div`
   display: inline-block;
   border-radius: 8px;
   display: inline-flex;
+  background-color: rgb(79, 86, 107);
+
+  letter-spacing: 0;
+  line-height: 39px;
   align-items: center;
   flex-direction: row;
   justify-content: center;
   margin-right: 15px;
 `;
-const SubTitle = styled.h3`
-  color: #413e3f;
-  font-size: 1rem;
-`;
 
 const Title = styled.h3`
   font-size: 1.5rem;
   color: black;
+  margin-top: 3.5rem;
 `;
+const HTitle = styled.div`
+  color: '#2d292a';
+  font-weight: 400;
+  font-size: 2rem;
+  margin: auto 0;
+`;
+
 const Inssuance = () => {
   return (
     <Wrapper>
-      <Header>
-        <svg
-          width="40px"
-          height="40px"
-          viewBox="0 0 40 40"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g
-            id="1.0.-Drafts"
-            stroke="none"
-            stroke-width="1"
-            fill="none"
-            fill-rule="evenodd"
+      <div style={{ display: 'flex', color: '#2d292a' }}>
+        <Header>
+          <svg
+            width="40px"
+            height="32px"
+            viewBox="0 0 40 32"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
-              id="D.4.1.Developers---guides"
-              transform="translate(-216.000000, -679.000000)"
+              id="1.0.-Drafts"
+              stroke="none"
+              stroke-width="1"
+              fill="none"
+              fill-rule="evenodd"
             >
-              <g id="01" transform="translate(160.000000, 623.000000)">
-                <g id="Starred">
-                  <g id="24px" transform="translate(52.000000, 52.000000)">
-                    <polygon id="Path" points="0 0 48 0 48 48 0 48"></polygon>
-                    <path
-                      d="M24,21.8 C22.78,21.8 21.8,22.78 21.8,24 C21.8,25.22 22.78,26.2 24,26.2 C25.22,26.2 26.2,25.22 26.2,24 C26.2,22.78 25.22,21.8 24,21.8 Z M24,4 C12.96,4 4,12.96 4,24 C4,35.04 12.96,44 24,44 C35.04,44 44,35.04 44,24 C44,12.96 35.04,4 24,4 Z M28.38,28.38 L12,36 L19.62,19.62 L36,12 L28.38,28.38 Z"
-                      id="Shape"
-                      fill="#FFFFFF"
-                      fill-rule="nonzero"
-                    ></path>
+              <g
+                id="D.4.1.Developers---guides"
+                transform="translate(-596.000000, -683.000000)"
+              >
+                <g id="01" transform="translate(160.000000, 623.000000)">
+                  <g id="Starred">
+                    <g
+                      id="24px-(1)"
+                      transform="translate(432.000000, 52.000000)"
+                    >
+                      <polygon id="Path" points="0 0 48 0 48 48 0 48"></polygon>
+                      <path
+                        d="M40,8 L8,8 C5.78,8 4.02,9.78 4.02,12 L4,36 C4,38.22 5.78,40 8,40 L40,40 C42.22,40 44,38.22 44,36 L44,12 C44,9.78 42.22,8 40,8 Z M38,36 L10,36 C8.9,36 8,35.1 8,34 L8,24 L40,24 L40,34 C40,35.1 39.1,36 38,36 Z M40,16 L8,16 L8,14 C8,12.9 8.9,12 10,12 L38,12 C39.1,12 40,12.9 40,14 L40,16 Z"
+                        id="Shape"
+                        fill="#FFFFFF"
+                        fill-rule="nonzero"
+                      ></path>
+                    </g>
                   </g>
                 </g>
               </g>
             </g>
-          </g>
-        </svg>
-      </Header>
-      <h2 style={{ fontSize: '2rem', color: 'black' }}> Card Issuance</h2>
-
+          </svg>
+        </Header>
+        <HTitle> Card Issuance</HTitle>
+      </div>
       <Title>Card issuance (Core API)</Title>
 
       <p>Using the Core API, issuing a card is a single-step process:</p>

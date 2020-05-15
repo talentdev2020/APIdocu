@@ -9,9 +9,11 @@ import Inssuance from '../components/quick/Inssuance';
 import Integrations from '../components/quick/Integration';
 import Transactions from '../components/quick/Transactions';
 import Guides from '../components/quick/Guides';
+import PCI from '../components/quick/PCI';
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+
   width: 1200px;
   @media (max-width: 1200px) {
     width: 100%;
@@ -43,6 +45,11 @@ const menu = [
         name: 'Transactions',
         active: false,
         path: '/quickStart/transactions',
+      },
+      {
+        name: 'PCI',
+        active: false,
+        path: '/quickStart/pci',
       },
       {
         name: 'Integrations',
@@ -149,6 +156,7 @@ const CoreAPI = () => {
               path={`${match.path}quickStart/transactions`}
               component={Transactions}
             />
+            <Route path={`${match.path}quickStart/pci`} component={PCI} />
             <Route
               path={`${match.path}quickStart/integrations`}
               component={Integrations}

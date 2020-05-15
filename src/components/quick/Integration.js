@@ -13,20 +13,24 @@ const Wrapper = styled(Responsive)`
   letter-spacing: 0;
   line-height: 26px;
 `;
+const HTitle = styled.div`
+  color: #2d292a;
+  font-weight: 400;
+  font-size: 2rem;
+  margin: auto 0;
+`;
 const Header = styled.div`
   height: 56px;
   width: 56px;
   display: inline-block;
   border-radius: 8px;
   display: inline-flex;
+  background-color: rgb(79, 86, 107);
+
   align-items: center;
   flex-direction: row;
   justify-content: center;
   margin-right: 15px;
-`;
-const SubTitle = styled.h3`
-  color: #413e3f;
-  font-size: 1rem;
 `;
 
 const Title = styled.h3`
@@ -36,44 +40,49 @@ const Title = styled.h3`
 const Integration = () => {
   return (
     <Wrapper>
-      <Header>
-        <svg
-          width="40px"
-          height="40px"
-          viewBox="0 0 40 40"
-          version="1.1"
-          xmlns="http://www.w.org/2000/svg"
-        >
-          <g
-            id="1.0.-Drafts"
-            stroke="none"
-            stroke-width="1"
-            fill="none"
-            fill-rule="evenodd"
+      <div style={{ display: 'flex', color: '#2d292a' }}>
+        <Header>
+          <svg
+            width="36px"
+            height="40px"
+            viewBox="0 0 36 40"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
-              id="D.4.1.Developers---guides"
-              transform="translate(-216.000000, -679.000000)"
+              id="1.0.-Drafts"
+              stroke="none"
+              stroke-width="1"
+              fill="none"
+              fill-rule="evenodd"
             >
-              <g id="01" transform="translate(160.000000, 623.000000)">
-                <g id="Starred">
-                  <g id="24px" transform="translate(52.000000, 52.000000)">
-                    <polygon id="Path" points="0 0 48 0 48 48 0 48"></polygon>
-                    <path
-                      d="M24,21.8 C22.78,21.8 21.8,22.78 21.8,24 C21.8,25.22 22.78,26.2 24,26.2 C25.22,26.2 26.2,25.22 26.2,24 C26.2,22.78 25.22,21.8 24,21.8 Z M24,4 C12.96,4 4,12.96 4,24 C4,35.04 12.96,44 24,44 C35.04,44 44,35.04 44,24 C44,12.96 35.04,4 24,4 Z M28.38,28.38 L12,36 L19.62,19.62 L36,12 L28.38,28.38 Z"
-                      id="Shape"
-                      fill="#FFFFFF"
-                      fill-rule="nonzero"
-                    ></path>
+              <g
+                id="D.4.1.Developers---guides"
+                transform="translate(-218.000000, -1039.000000)"
+              >
+                <g id="01" transform="translate(160.000000, 623.000000)">
+                  <g id="Starred">
+                    <g
+                      id="24px-(8)"
+                      transform="translate(52.000000, 412.000000)"
+                    >
+                      <polygon id="Path" points="0 0 48 0 48 48 0 48"></polygon>
+                      <path
+                        d="M36,32.16 C34.48,32.16 33.12,32.76 32.08,33.7 L17.82,25.4 C17.92,24.94 18,24.48 18,24 C18,23.52 17.92,23.06 17.82,22.6 L31.92,14.38 C33,15.38 34.42,16 36,16 C39.32,16 42,13.32 42,10 C42,6.68 39.32,4 36,4 C32.68,4 30,6.68 30,10 C30,10.48 30.08,10.94 30.18,11.4 L16.08,19.62 C15,18.62 13.58,18 12,18 C8.68,18 6,20.68 6,24 C6,27.32 8.68,30 12,30 C13.58,30 15,29.38 16.08,28.38 L30.32,36.7 C30.22,37.12 30.16,37.56 30.16,38 C30.16,41.22 32.78,43.84 36,43.84 C39.22,43.84 41.84,41.22 41.84,38 C41.84,34.78 39.22,32.16 36,32.16 Z"
+                        id="Path"
+                        fill="#FFFFFF"
+                      ></path>
+                    </g>
                   </g>
                 </g>
               </g>
             </g>
-          </g>
-        </svg>
-      </Header>
-      <h2 style={{ fontSize: '2rem', color: 'black' }}>Integration Scenario</h2>
-
+          </svg>
+        </Header>
+        <HTitle style={{ fontSize: '2rem', color: 'black' }}>
+          Integration Scenario
+        </HTitle>
+      </div>
       <p>
         The Apto platform offers different integration options to adapt to your
         specific needs. We’ll help you decide what’s the best option for you,

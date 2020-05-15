@@ -23,6 +23,7 @@ const EDivider = styled(Divider)`
 const Wrapper = styled.div`
   padding-left: 3rem;
   width: calc(100vw - 320px);
+  font-family: Montserrat;
   & div {
     color: #383838;
     text-align: left;
