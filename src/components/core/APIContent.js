@@ -2,18 +2,68 @@ import React, { useEffect, useState } from 'react';
 import Divider from '@material-ui/core/Divider';
 import styled, { css } from 'styled-components';
 import VerificationSection from './verification';
+import Updatecardorder from './subpages/Updatecardorder';
+import Createcardorder from './subpages/Createcardorder';
+import Cardtransactions from './subpages/Cardtransactions';
 import SuccessResponse from './SuccessResponse';
 import {
-  Param,
   ParamBody,
   ParamDescription,
   ParamDescriptionTitle,
   ParamTitle,
+  TreeArrow,
 } from './SuccessResponse';
 const Th = styled.th`
   font-weight: 500;
   padding: 1rem 0.5rem;
 `;
+const Param = styled.div`
+  display: flex;
+
+  padding-top: 6px;
+
+  border-left: 1px solid #386117;
+  &:last-child:first-child {
+    background: none;
+    border-left-color: transparent;
+    border-left-width: 0px;
+  }
+  &:first-child {
+    padding-top: 6px;
+
+    background-image: linear-gradient(
+      transparent 0%,
+      transparent 22px,
+      rgb(38, 35, 208) 22px,
+      rgb(38, 35, 208) 100%
+    );
+    border-left-width: 0px;
+
+    background-size: 1px 100%;
+    background-position: left top;
+    background-repeat: no-repeat;
+  }
+  &:last-child {
+    padding-top: 6px;
+    background-size: 1px 100%;
+    border-left-width: 0px;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(
+      to bottom,
+      #2623d0 0%,
+      #2623d0 22px,
+      transparent 22px,
+      transparent 100%
+    );
+  }
+`;
+const except = [
+  'Create Card Orders',
+  'Update Card Order',
+  'Risk',
+  'Card Transactions',
+];
+
 const Td = styled.td`
   border-bottom: 1px solid #c4c4d6;
   color: #02152f;
@@ -56,7 +106,7 @@ const MainCategory = styled.h3`
 const SubCategory = styled.h3`
   color: #01525a;
 `;
-const APIContent = ({ request, type, name, description }) => {
+const APIContent = ({ response, request, type, name, description }) => {
   const [postBody, setPostBody] = useState();
   const [descriptionTitle, setDescriptionTitle] = useState('');
   const [descriptionTableTitle, setDescriptionTableTitle] = useState('');
@@ -149,15 +199,17 @@ const APIContent = ({ request, type, name, description }) => {
           </ApiBody>
         </>
       )}
-      {name === 'Risk' ? (
-        <VerificationSection />
-      ) : (
+      {name === 'Update Card Order' && <Updatecardorder />}
+      {name === 'Create Card Orders' && <Createcardorder />}
+      {name === 'Card Transactions' && <Cardtransactions />}
+      {name === 'Risk' && <VerificationSection />}
+      {!except.includes(name) && (
         <Description>
           {descriptionTitle ? '' : description}
           {descriptionTitle &&
             descriptionTitle.map((line, index) => {
-              if (index === 0) return <p>{line}</p>;
-              else return <div>{line}</div>;
+              if (index === 0) return <p key={index + 'line'}>{line}</p>;
+              else return <div key={index + 'line'}>{line}</div>;
             })}
           {descriptionTableTitle.length > 0 &&
             descriptionTableTitle.map((title, index) => {
@@ -166,7 +218,13 @@ const APIContent = ({ request, type, name, description }) => {
                   <p key={'title' + index}>
                     <strong>{title}</strong>
                   </p>
-                  <table>
+                  <table
+                    style={{
+                      overflowX: 'auto',
+                      width: '100%',
+                      display: 'block',
+                    }}
+                  >
                     <thead>
                       {descriptionTableBody[index][1] ? (
                         <tr key={index + 'thead'}>
@@ -212,7 +270,10 @@ const APIContent = ({ request, type, name, description }) => {
           <div>
             {request.header.map((item, index) => (
               <Param key={'header' + index}>
-                <ParamTitle>{item.key}</ParamTitle>
+                <ParamTitle>
+                  <TreeArrow />
+                  {item.key}
+                </ParamTitle>
                 <ParamBody>
                   <ParamDescriptionTitle>{item.text}</ParamDescriptionTitle>
                   <ParamDescription>{item.value}</ParamDescription>
@@ -224,17 +285,22 @@ const APIContent = ({ request, type, name, description }) => {
           <span style={{ color: 'grey' }}>PARAMS</span>
           <Divider />
           <br />
-          {request.method === 'GET' &&
-            request.url.query &&
-            request.url.query.map((item, index) => (
-              <Param key={index + 'pa' + item.value}>
-                <ParamTitle>{item.key}</ParamTitle>
-                <ParamBody>
-                  <ParamDescriptionTitle>{item.value}</ParamDescriptionTitle>
-                  <ParamDescription>{item.description}</ParamDescription>
-                </ParamBody>
-              </Param>
-            ))}
+          <div>
+            {request.method === 'GET' &&
+              request.url.query &&
+              request.url.query.map((item, index) => (
+                <Param key={index + 'pa' + item.value}>
+                  <ParamTitle>
+                    <TreeArrow />
+                    {item.key}
+                  </ParamTitle>
+                  <ParamBody>
+                    <ParamDescriptionTitle>{item.value}</ParamDescriptionTitle>
+                    <ParamDescription>{item.description}</ParamDescription>
+                  </ParamBody>
+                </Param>
+              ))}
+          </div>
           {request.method === 'POST' &&
             postBody &&
             postBody.map((item, index) => (
@@ -248,8 +314,8 @@ const APIContent = ({ request, type, name, description }) => {
           <br />
           <p>Responses</p>
           {/* for 200 */}
-          <SuccessResponse status={200} />
-          <SuccessResponse status={401} />
+          <SuccessResponse status={200} response={response} />
+          <SuccessResponse status={400} />
         </>
       )}
     </>

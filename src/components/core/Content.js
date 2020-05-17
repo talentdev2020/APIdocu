@@ -128,7 +128,6 @@ const Content = ({ data }) => {
       }
       return firstchild;
     });
-    console.log(data);
     setContent(temp);
   }, [data]);
 
@@ -252,6 +251,7 @@ const Content = ({ data }) => {
               <Grid item sm={12} sx={12} md={12} lg={6}>
                 <APIContent
                   request={item.request}
+                  response={item.response && item.response.body}
                   type={item.type}
                   name={item.name}
                   description={

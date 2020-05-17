@@ -85,3 +85,9 @@
 .MuiGrid-item {
   padding-right: unset !important;
 }
+.subcontainer-0-3-3 {
+  overflow-y: hidden !important;
+}
+.subcontainer-0-3-3:hover {
+  overflow-y: auto !important;
+}

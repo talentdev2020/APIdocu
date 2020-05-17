@@ -48,6 +48,8 @@ const CopyBoard = styled.div`
 const ResponsiveSpan = styled.div`
   padding-left: 20px;
   color: #629e35 !important;
+  font-family: monospace;
+  font-size: 12px;
 `;
 const CopyButton = styled.span`
   padding: 0.3rem 0.6rem;
@@ -76,12 +78,52 @@ const Collapse = styled.div`
     cursor: pointer;
   }
 `;
-
+const ResponseButton = styled.button`
+  padding: 5px 10px;
+  display: inline-block;
+  background-color: #11171a;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  color: red;
+  ${(props) =>
+    props.success &&
+    css`
+      color: #00aa13;
+    `}
+  ${(props) =>
+    props.active &&
+    css`
+      background-color: white;
+    `}
+  margin: 0 5px 5px 5px;
+  border: 1px solid #07090b;
+  border-radius: 5px;
+  min-width: 60px;
+  font-size: 0.9em;
+  font-weight: bold;
+`;
+const error = ` {
+  "success":false,
+"error:":[{
+    "code:3424,
+    "message":"Authentication to the API occurs via HTTP Basic Auth"
+  }
+]}`;
+const error1 = `
+{
+  "success":false,
+  "error:":[{
+    "code:3424,
+    "message":"Example Invalid Request Description"
+    }]
+  }`;
 const APIResponse = ({ request, response, isVisible }) => {
   const [body, setBody] = useState('');
   const [responseBody, setResponseBody] = useState('');
-  // const [bodytype, setBodyType] = useState('200');
-
+  const [bodytype, setBodyType] = useState('200');
+  const [clipboard, setClipboard] = useState(response);
   const handleClick = useCallback((index, source) => {
     const temp =
       source &&
@@ -107,19 +149,11 @@ const APIResponse = ({ request, response, isVisible }) => {
     setResponseBody(data);
   };
   const collapseAll = () => {
-    // const newData = body.map((item, index) => {
-    //   item.isExpand = false;
-    //   item.isMarked = false;
-
-    //   return item;
-    // });
-    // setBody(newData);
-    // const data = makeResponse(newData, 0, 0);
     setResponseBody(['{', '...', '}']);
   };
 
   const makeResponse = useCallback(
-    (source, start, depth) => {
+    (source, start, depth, isFirst = false) => {
       let childflag = 0;
       return (
         source &&
@@ -130,42 +164,46 @@ const APIResponse = ({ request, response, isVisible }) => {
           if (item.isMarked) return <></>;
           let left = 16 * depth;
           item.isMarked = true;
+          if (isFirst && depth >= 1) item.isExpand = false;
           if (item.name.includes('{') || item.name.includes('[')) {
             return (
-              <Li key={index + start + 'li' + item.name}>
-                <div
-                  style={{
-                    display: 'flex',
-                    position: 'relative',
-                    paddingLeft: left + 'px',
-                  }}
-                >
-                  {index !== 0 && (
-                    <Collapse
-                      isExpand={item.isExpand}
-                      onClick={(e) => handleClick(index, source)}
-                    />
-                  )}
-                  <ResponsiveSpan>{item.name}</ResponsiveSpan>
-                </div>
+              <>
+                <Li key={index + start + 'li' + item.name}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      position: 'relative',
+                      paddingLeft: left + 'px',
+                    }}
+                  >
+                    {index !== 0 && (
+                      <Collapse
+                        isExpand={item.isExpand}
+                        onClick={(e) => handleClick(index, source)}
+                      />
+                    )}
+                    <ResponsiveSpan>{item.name}</ResponsiveSpan>
+                  </div>
 
-                <ul className={item.isExpand ? '' : 'hide'}>
-                  {makeResponse(source, index + 1, depth + 1)}
-                </ul>
-              </Li>
+                  <ul className={item.isExpand ? '' : 'hide'}>
+                    {makeResponse(source, index + 1, depth + 1, isFirst)}
+                  </ul>
+                </Li>
+                <Li
+                  key={index + start + 'res' + item.name}
+                  style={{ paddingLeft: left + 'px' }}
+                >
+                  <ResponsiveSpan key={index + '2E'}>
+                    {item.name.includes('{') ? '}' : ']'}
+                  </ResponsiveSpan>
+                </Li>
+              </>
             );
           }
           if (item.name.includes('}') || item.name.includes(']')) {
             childflag = 1;
             left = 16 * (depth - 1);
-            return (
-              <Li
-                key={index + start + 'res' + item.name}
-                style={{ paddingLeft: left + 'px' }}
-              >
-                <ResponsiveSpan key={index + 'E'}>{item.name}</ResponsiveSpan>
-              </Li>
-            );
+            return <></>;
             //  parentflag = 0;
           }
           //  if (parentflag === 1) return <></>;
@@ -185,10 +223,15 @@ const APIResponse = ({ request, response, isVisible }) => {
 
   useEffect(() => {
     let string = '';
-    // if (bodytype === '200') {
+    let source = response;
+    if (bodytype === '400') {
+      source = error;
+    } else if (bodytype === '401') {
+      source = error1;
+    }
     string =
-      response &&
-      response
+      source &&
+      source
 
         .split('],')
         .join(']')
@@ -210,6 +253,7 @@ const APIResponse = ({ request, response, isVisible }) => {
         return item !== '';
       });
     string && string.push('}');
+
     let depth = 0;
     let newData =
       string &&
@@ -224,18 +268,21 @@ const APIResponse = ({ request, response, isVisible }) => {
         return item;
       });
     setBody(newData);
-    const data = makeResponse(newData, 0, 0);
+    const data = makeResponse(newData, 0, 0, false);
     setResponseBody(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response]);
+  }, [response, bodytype]);
 
-  // const changeContentResponse = (type) => {
-  //   setBodyType(type);
-  // };
+  const changeContentResponse = (type) => {
+    if (type === '200') setClipboard(response);
+    else if (type === '400') setClipboard(error);
+    else setClipboard(error1);
+    setBodyType(type);
+  };
 
   return (
     <APIResponseWrapper key="random">
-      {!isVisible && (
+      {!isVisible && request && (
         <div>
           <strong style={{ fontSize: '1.3rem', color: 'white' }}>
             Request Example
@@ -265,15 +312,27 @@ const APIResponse = ({ request, response, isVisible }) => {
             Response Example
           </strong>
           <br />
-          {/* <ResponseButton success onClick={() => changeContentResponse('200')}>
-            200
-          </ResponseButton> */}
-          {/* <ResponseButton onClick={() => changeContentResponse('400')}>
-            400
-          </ResponseButton>
-          <ResponseButton onClick={() => changeContentResponse('401')}>
-            401
-          </ResponseButton> */}
+          <div>
+            <ResponseButton
+              success
+              active={bodytype === '200' ? true : false}
+              onClick={() => changeContentResponse('200')}
+            >
+              200
+            </ResponseButton>
+            <ResponseButton
+              active={bodytype === '400' ? true : false}
+              onClick={() => changeContentResponse('400')}
+            >
+              400
+            </ResponseButton>
+            <ResponseButton
+              active={bodytype === '401' ? true : false}
+              onClick={() => changeContentResponse('401')}
+            >
+              401
+            </ResponseButton>
+          </div>
         </div>
       )}
 
@@ -281,7 +340,7 @@ const APIResponse = ({ request, response, isVisible }) => {
         <APIResponseBody key="ee">
           <JsonWrapper>application/json</JsonWrapper>
           <CopyBoard>
-            <CopyToClipboard text={response}>
+            <CopyToClipboard text={clipboard}>
               <CopyButton>Copy</CopyButton>
             </CopyToClipboard>
             <CopyButton onClick={expandAll}>Expand All</CopyButton>

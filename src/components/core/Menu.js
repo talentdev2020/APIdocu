@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 // import { HashLink as Link } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
@@ -11,8 +11,8 @@ import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
 import ReactShadowScroll from 'react-shadow-scroll';
 
-import IconExpandLess from '@material-ui/icons/ExpandLess';
-import IconExpandMore from '@material-ui/icons/ExpandMore';
+import IconExpandLess from '@material-ui/icons/ExpandMore';
+import IconExpandMore from '@material-ui/icons/ChevronRight';
 import IconDashboard from '@material-ui/icons/List';
 
 import IconLibraryBooks from '@material-ui/icons/MenuBook';
@@ -50,32 +50,37 @@ function removeSpace(string) {
 }
 const AppMenu = ({ treedata, selectedmenu }) => {
   const classes = useStyles();
+  let flag = useRef(0);
   useEffect(() => {
     document.getElementById(selectedmenu + '_menu') &&
       document.getElementById(selectedmenu + '_menu').click();
   }, [selectedmenu]);
+  const mouseDown = () => {
+    flag.current = 1;
+  };
   function handleClick(e, string, isParent, isClicked) {
-    if (isClicked) {
-      const elements = document.getElementById('parent').children;
-      for (let i = 0; i < parseInt(elements.length); i++) {
-        const element = elements[i];
-        if (element.id === removeSpace(string)) {
-          console.log('find');
-          window.scrollTo(
-            0,
-            element.getBoundingClientRect().top + window.scrollY + 30,
-          );
-        }
-      }
-    }
+    // let flag = 0;
+
+    // const elements = document.getElementById('parent').children;
+    // for (let i = 0; i < parseInt(elements.length); i++) {
+    //   const element = elements[i];
+    //   if (element.id === removeSpace(string)) {
+    //     if (
+    //       window.scrollY <=
+    //         element.getBoundingClientRect().top + window.scrollY + 50 &&
+    //       window.scrollY >=
+    //         element.getBoundingClientRect().top + window.scrollY + 10
+    //     )
+    //       flag = 1;
+    //   }
+    // }
 
     const temp = treedata.map((firstchild) => {
       if (firstchild.name === string) {
         if (isParent) {
-          firstchild.isExpand = !firstchild.isExpand;
+          if (flag.current === 1) firstchild.isExpand = !firstchild.isExpand;
         }
-        console.log(isClicked);
-        if (isClicked) firstchild.isExpand = true;
+        if (!flag.current) firstchild.isExpand = true;
         firstchild.isSelected = true;
       } else {
         firstchild.isExpand = false;
@@ -85,10 +90,10 @@ const AppMenu = ({ treedata, selectedmenu }) => {
       if (firstchild.item) {
         firstchild.item = firstchild.item.map((seconddata) => {
           if (seconddata.name === string) {
-            seconddata.isExpand = !seconddata.isExpand;
+            if (flag.current) seconddata.isExpand = !seconddata.isExpand;
+            else seconddata.isExpand = true;
             seconddata.isSelected = true;
             firstchild.isExpand = true;
-            if (isClicked) seconddata.isExpand = true;
           } else {
             seconddata.isSelected = false;
             seconddata.isExpand = false;
@@ -109,6 +114,19 @@ const AppMenu = ({ treedata, selectedmenu }) => {
       }
       return firstchild;
     });
+    flag.current = 0;
+    if (isClicked) {
+      const elements = document.getElementById('parent').children;
+      for (let i = 0; i < parseInt(elements.length); i++) {
+        const element = elements[i];
+        if (element.id === removeSpace(string)) {
+          window.scrollTo(
+            0,
+            element.getBoundingClientRect().top + window.scrollY + 30,
+          );
+        }
+      }
+    }
     treedata = temp;
 
     // e.preventDefault();
@@ -118,7 +136,12 @@ const AppMenu = ({ treedata, selectedmenu }) => {
       style={{ height: 'calc(100vh - 18rem)' }}
       isShadow={false}
     >
-      <List component="nav" className={classes.appMenu} disablePadding>
+      <List
+        component="nav"
+        className={classes.appMenu}
+        disablePadding
+        onMouseDown={mouseDown}
+      >
         {treedata &&
           treedata.map((firstdata, index) => {
             return (
