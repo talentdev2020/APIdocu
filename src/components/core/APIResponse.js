@@ -165,7 +165,10 @@ const APIResponse = ({ request, response, isVisible }) => {
           let left = 16 * depth;
           item.isMarked = true;
           if (isFirst && depth >= 1) item.isExpand = false;
-          if (item.name.includes('{') || item.name.includes('[')) {
+          if (
+            (item.name.includes('{') || item.name.includes('[')) &&
+            !item.name.includes('{{')
+          ) {
             return (
               <div key={index + 'eew' + item.name}>
                 <Li key={index + start + 'li' + item.name}>
@@ -200,7 +203,10 @@ const APIResponse = ({ request, response, isVisible }) => {
               </div>
             );
           }
-          if (item.name.includes('}') || item.name.includes(']')) {
+          if (
+            (item.name.includes('}') || item.name.includes(']')) &&
+            !item.name.includes('}}')
+          ) {
             childflag = 1;
             left = 16 * (depth - 1);
             return <></>;
@@ -232,7 +238,10 @@ const APIResponse = ({ request, response, isVisible }) => {
     string =
       source &&
       source
-
+        .split('{{')
+        .join('***')
+        .split('}}')
+        .join('___')
         .split('],')
         .join(']')
 
@@ -246,6 +255,10 @@ const APIResponse = ({ request, response, isVisible }) => {
         .join('[, ')
         .split(']')
         .join(', ], ')
+        .split('***')
+        .join('{{')
+        .split('___')
+        .join('}}')
         .split(', ');
     string =
       string &&

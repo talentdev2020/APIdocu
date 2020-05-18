@@ -124,7 +124,8 @@ const SuccessResponse = ({ status, response, apiname }) => {
   const showResponse = () => {
     setSuccess(!success);
   };
-  const path = useRef([]);
+
+  // const path = useRef([]);
   const handleClick = (e, type) => {
     try {
       let parent;
@@ -132,7 +133,6 @@ const SuccessResponse = ({ status, response, apiname }) => {
         parent = e.target.parentNode.parentNode.parentNode;
       } else if (type === 2)
         parent = e.target.parentNode.parentNode.parentNode.parentNode;
-      console.log('paretn', parent);
       if (parent.children[1].className === 'hide')
         parent.children[0].children[0].children[2].innerHTML = `<svg
         version="1.1"
@@ -166,24 +166,21 @@ const SuccessResponse = ({ status, response, apiname }) => {
       console.log(e);
     }
   };
-  const getDescription = () => {
-    const length = path.current.length;
+  const getDescription = (path) => {
+    if (!path) return '';
+    const arr = path.split(',');
+    const length = arr.length;
+
     try {
       switch (length) {
         case 0:
           return '';
         case 1:
-          console.log(descriptions[apiname][path.current[0]]);
-          return descriptions[apiname][path.current[0]];
+          return descriptions[apiname][arr[0]];
         case 2:
-          console.log(descriptions[apiname][path.current[0]][path.current[1]]);
-          return descriptions[apiname][path.current[0]][path.current[1]];
+          return descriptions[apiname][arr[0]][arr[1]];
         case 3:
-          console.log('error', path.current[2]);
-          console.log(descriptions[apiname][path.current[0]][path.current[1]]);
-          return descriptions[apiname][path.current[0]][path.current[1]][
-            path.current[2]
-          ];
+          return descriptions[apiname][arr[0]][arr[1]][arr[2]];
 
         default:
           break;
@@ -192,15 +189,15 @@ const SuccessResponse = ({ status, response, apiname }) => {
       console.log(e);
     }
   };
-  const makeResponse = (source) => {
+  const makeResponse = (source, path) => {
     const objects = Object.keys(source);
+    let temp;
     return objects.map((item, index) => {
       let type = typeof source[item];
-      if (!source[item]) type = null;
+      if (source[item] === 'null') type = null;
       id++;
-      if (index !== 0) path.current.pop();
-      path.current.push(item);
-
+      if (path === '') temp = item;
+      else temp = path + ',' + item;
       return (
         <Param key={id + 'dkey'}>
           <div style={{ display: 'flex' }}>
@@ -237,25 +234,29 @@ const SuccessResponse = ({ status, response, apiname }) => {
               )}
             </ParamTitle>
             <ParamBody>
-              <ParamDescriptionTitle>{type}</ParamDescriptionTitle>
-              <ParamDescription>{getDescription()} </ParamDescription>
+              <ParamDescriptionTitle>
+                {item.includes('_at') ? 'date' : type}
+              </ParamDescriptionTitle>
+              <ParamDescription>
+                {type === 'object' ? 'object' : getDescription(temp)}{' '}
+              </ParamDescription>
             </ParamBody>
           </div>
           <div className="hide">
             {type === 'object' && Array.isArray(source[item]) && (
               <Param style={{ paddingLeft: '2rem' }}>
                 <div>Array</div>
-                {makeResponse(source[item][0], path, item)}
+                {makeResponse(source[item][0], temp)}
               </Param>
             )}
-            {type === 'object' && source[item] && !Array.isArray(source[item]) && (
-              <Param style={{ paddingLeft: '15px' }}>
-                {' '}
-                {makeResponse(source[item], path, item)}
-                {path.current.pop()}
-                {path.current.pop()}
-              </Param>
-            )}
+            {type === 'object' &&
+              source[item] &&
+              !Array.isArray(source[item]) && (
+                <Param style={{ paddingLeft: '15px' }}>
+                  {' '}
+                  {makeResponse(source[item], temp)}
+                </Param>
+              )}
           </div>
         </Param>
       );
@@ -268,7 +269,7 @@ const SuccessResponse = ({ status, response, apiname }) => {
     try {
       const t_response = JSON.parse(response);
       // id.current = 0;
-      const data = makeResponse(t_response, []);
+      const data = makeResponse(t_response, '');
       setResponseBody(data);
     } catch (e) {
       console.log('error', e);

@@ -5,7 +5,9 @@ import VerificationSection from './verification';
 import Updatecardorder from './subpages/Updatecardorder';
 import Createcardorder from './subpages/Createcardorder';
 import Cardtransactions from './subpages/Cardtransactions';
+import Updateentitycard from './subpages/Updateentitycard';
 import SuccessResponse from './SuccessResponse';
+import descriptions from '../../lib/config';
 import {
   ParamBody,
   ParamDescription,
@@ -68,6 +70,7 @@ const except = [
   'Update Card Order',
   'Risk',
   'Card Transactions',
+  'Update Entity Card',
 ];
 
 const Td = styled.td`
@@ -211,6 +214,7 @@ const APIContent = ({ response, request, type, name, description }) => {
       {name === 'Update Card Order' && <Updatecardorder />}
       {name === 'Create Card Orders' && <Createcardorder />}
       {name === 'Card Transactions' && <Cardtransactions />}
+      {name === 'Update Entity Card' && <Updateentitycard />}
       {name === 'Risk' && <VerificationSection />}
       {!except.includes(name) && (
         <Description>
@@ -322,7 +326,12 @@ const APIContent = ({ response, request, type, name, description }) => {
                     {item.key}
                   </ParamTitle>
                   <ParamBody>
-                    <ParamDescriptionTitle>{item.value}</ParamDescriptionTitle>
+                    <ParamDescriptionTitle>
+                      {typeof item.value}
+                    </ParamDescriptionTitle>
+                    <ParamDescription>
+                      {descriptions[removeSpace(name)][item.key]}
+                    </ParamDescription>
                   </ParamBody>
                 </Param>
               ))}

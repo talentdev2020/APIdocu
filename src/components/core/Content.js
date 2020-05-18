@@ -9,6 +9,7 @@ import APIContent from './APIContent';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import { useDispatch } from 'react-redux';
 import { selectmenu } from '../../modules/collection';
+import descriptions from '../../lib/config';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -64,6 +65,7 @@ const Content = ({ data }) => {
   const elementRef = useRef();
   const dispatch = useDispatch();
   // Element scroll position
+  console.log(data);
   useScrollPosition(({ prevPos, currPos }) => {
     const scroll = currPos.y || window.pageYOffset;
 
@@ -107,11 +109,27 @@ const Content = ({ data }) => {
       });
       if (firstchild.item) {
         firstchild.item = firstchild.item.map((seconddata) => {
-          temp.push({
-            name: seconddata.name,
-            type: 'subparent',
-            description: seconddata.description,
-          });
+          let type = 'subparent';
+          let description = seconddata.description;
+          if (
+            seconddata.name === 'Authorization' ||
+            seconddata.name === 'KYC'
+          ) {
+            description = seconddata.request.description;
+            type = 'api';
+            temp.push({
+              name: seconddata.name,
+              type: type,
+              description: description,
+              response: seconddata.response[0],
+              request: seconddata.request,
+            });
+          } else
+            temp.push({
+              name: seconddata.name,
+              type: type,
+              description: description,
+            });
 
           if (seconddata.item) {
             seconddata.item = seconddata.item.map((thirddata) => {
@@ -129,6 +147,7 @@ const Content = ({ data }) => {
       }
       return firstchild;
     });
+    console.log(temp);
     setContent(temp);
   }, [data]);
 
@@ -266,13 +285,7 @@ const Content = ({ data }) => {
                 <APIResponse
                   key={index + 'reponsebody'}
                   isVisible={item.type.includes('parent')}
-                  response={
-                    item.response && item.response.body
-                      ? item.response.body
-                      : item.request
-                      ? item.request.body.raw
-                      : ''
-                  }
+                  response={item.response && item.response.body}
                   request={''}
                 />
               </Grid>
