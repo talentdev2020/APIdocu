@@ -11,7 +11,6 @@ import Transactions from '../components/quick/Transactions';
 import Guides from '../components/quick/Guides';
 import PCI from '../components/quick/PCI';
 const Wrapper = styled.div`
-  display: flex;
   justify-content: center;
 
   width: 1200px;
@@ -107,74 +106,81 @@ const CoreAPI = () => {
   };
   return (
     <Wrapper>
-      <div className="sticky-top navigation-documentation">
-        <div>
-          <img src="/logo.png" alt="Logo" width="130px" />
-        </div>
-        <br />
-        <div>
-          <ul className="subnav-dark-60">
-            {menu.map((item) => {
-              return (
-                <>
-                  {' '}
-                  <li
-                    className={item.active ? 'active-true' : 'active-false'}
-                    onClick={(e) => handleClick(item.name)}
-                  >
-                    <span className="vline"></span>
-                    <Link to={item.path}>{item.name}</Link>
-                  </li>
-                  {item.items && (
-                    <ul>
-                      {item.items.map((child, index) => {
-                        return (
-                          <li
-                            key={index + child.name}
-                            className={
-                              child.active ? 'active-true' : 'active-false'
-                            }
-                            onClick={(e) => handleClick(child.name)}
-                          >
-                            <span className="vline"></span>
-                            <Link to={child.path}>{child.name}</Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </>
-              );
-            })}
-          </ul>
-        </div>
+      <div
+        style={{ textAlign: 'left', paddingLeft: '18px', marginBottom: '2rem' }}
+      >
+        <img src="/logo.png" alt="Logo" width="130px" />
       </div>
+      <div style={{ display: 'flex' }}>
+        <div className="sticky-top navigation-documentation">
+          <br />
+          <div>
+            <ul className="subnav-dark-60">
+              {menu.map((item) => {
+                return (
+                  <>
+                    {' '}
+                    <li
+                      className={item.active ? 'active-true' : 'active-false'}
+                      onClick={(e) => handleClick(item.name)}
+                    >
+                      <span className="vline"></span>
+                      <Link to={item.path}>{item.name}</Link>
+                    </li>
+                    {item.items && (
+                      <ul>
+                        {item.items.map((child, index) => {
+                          return (
+                            <li
+                              key={index + child.name}
+                              className={
+                                child.active ? 'active-true' : 'active-false'
+                              }
+                              onClick={(e) => handleClick(child.name)}
+                            >
+                              <span className="vline"></span>
+                              <Link to={child.path}>{child.name}</Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
 
-      <div className="quick-content">
-        <Switch>
-          <Route
-            path={`${match.path}quickStart/issuance`}
-            component={Inssuance}
-          />
+        <div className="quick-content">
+          <Switch>
+            <Route
+              path={`${match.path}quickStart/issuance`}
+              component={Inssuance}
+            />
 
-          <Route path={`${match.path}quickStart/concept`} component={Concept} />
-          <Route
-            path={`${match.path}quickStart/inssuance`}
-            component={Inssuance}
-          />
-          <Route path={`${match.path}quickStart/guides`} component={Guides} />
-          <Route path={`${match.path}quickStart/mobile`} component={Mobile} />
-          <Route
-            path={`${match.path}quickStart/transactions`}
-            component={Transactions}
-          />
-          <Route path={`${match.path}quickStart/pci`} component={PCI} />
-          <Route
-            path={`${match.path}quickStart/integrations`}
-            component={Integrations}
-          />
-          <Route path={`${match.path}`} component={QuickStart} />
-        </Switch>
+            <Route
+              path={`${match.path}quickStart/concept`}
+              component={Concept}
+            />
+            <Route
+              path={`${match.path}quickStart/inssuance`}
+              component={Inssuance}
+            />
+            <Route path={`${match.path}quickStart/guides`} component={Guides} />
+            <Route path={`${match.path}quickStart/mobile`} component={Mobile} />
+            <Route
+              path={`${match.path}quickStart/transactions`}
+              component={Transactions}
+            />
+            <Route path={`${match.path}quickStart/pci`} component={PCI} />
+            <Route
+              path={`${match.path}quickStart/integrations`}
+              component={Integrations}
+            />
+            <Route path={`${match.path}`} component={QuickStart} />
+          </Switch>
+        </div>
       </div>
     </Wrapper>
   );

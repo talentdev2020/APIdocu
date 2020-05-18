@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Divider from '@material-ui/core/Divider';
-
+import descriptions from '../../lib/config';
 import styled, { css } from 'styled-components';
 
 const ResponseBody = styled.div`
@@ -116,7 +116,7 @@ const ParamBody = styled.div`
 //   margin-top: 1rem;
 //   margin-bottom: 1rem;
 // `;
-const SuccessResponse = ({ status, response }) => {
+const SuccessResponse = ({ status, response, apiname }) => {
   const [success, setSuccess] = useState(false);
   const [responseBody, setResponseBody] = useState('');
   let id = 0;
@@ -124,7 +124,7 @@ const SuccessResponse = ({ status, response }) => {
   const showResponse = () => {
     setSuccess(!success);
   };
-
+  const path = useRef([]);
   const handleClick = (e, type) => {
     try {
       let parent;
@@ -166,67 +166,98 @@ const SuccessResponse = ({ status, response }) => {
       console.log(e);
     }
   };
+  const getDescription = () => {
+    const length = path.current.length;
+    try {
+      switch (length) {
+        case 0:
+          return '';
+        case 1:
+          console.log(descriptions[apiname][path.current[0]]);
+          return descriptions[apiname][path.current[0]];
+        case 2:
+          console.log(descriptions[apiname][path.current[0]][path.current[1]]);
+          return descriptions[apiname][path.current[0]][path.current[1]];
+        case 3:
+          console.log('error', path.current[2]);
+          console.log(descriptions[apiname][path.current[0]][path.current[1]]);
+          return descriptions[apiname][path.current[0]][path.current[1]][
+            path.current[2]
+          ];
 
+        default:
+          break;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const makeResponse = (source) => {
     const objects = Object.keys(source);
     return objects.map((item, index) => {
       let type = typeof source[item];
       if (!source[item]) type = null;
       id++;
+      if (index !== 0) path.current.pop();
+      path.current.push(item);
+
       return (
-        <>
-          <Param key={id + 'dkey'}>
-            <div style={{ display: 'flex' }}>
-              <ParamTitle
-                id={id + '_response'}
-                key={index + 'key' + item}
-                style={type === 'object' ? { cursor: 'pointer' } : {}}
-              >
-                <TreeArrow
-                  id={id + '_tree'}
-                  onClick={(e) => handleClick(e, 1)}
-                />
-                <span onClick={(e) => handleClick(e, 1)}>{item}</span>
-                {type === 'object' && (
-                  <span id={id + '_svg'} onClick={(e) => handleClick(e, 2)}>
-                    <svg
-                      version="1.1"
-                      viewBox="0 0 24 24"
-                      x="0"
-                      className="rotate"
-                      height="1.1em"
-                      width="1.1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                      y="0"
-                    >
-                      <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
-                    </svg>
-                  </span>
-                )}
-              </ParamTitle>
-              <ParamBody>
-                <ParamDescriptionTitle>{type}</ParamDescriptionTitle>
-                <ParamDescription>&nbsp; </ParamDescription>
-              </ParamBody>
-            </div>
-            <div className="hide">
-              {type === 'object' && Array.isArray(source[item]) && (
-                <Param style={{ paddingLeft: '2rem' }}>
-                  <div>Array</div>
-                  {makeResponse(source[item][0])}
-                </Param>
+        <Param key={id + 'dkey'}>
+          <div style={{ display: 'flex' }}>
+            <ParamTitle
+              id={id + '_response'}
+              key={index + 'key' + item}
+              style={type === 'object' ? { cursor: 'pointer' } : {}}
+            >
+              <TreeArrow
+                id={id + '_tree'}
+                onClick={(e) => type === 'object' && handleClick(e, 1)}
+              />
+              <span onClick={(e) => type === 'object' && handleClick(e, 1)}>
+                {item}
+              </span>
+              {type === 'object' && (
+                <span
+                  id={id + '_svg'}
+                  onClick={(e) => type === 'object' && handleClick(e, 2)}
+                >
+                  <svg
+                    version="1.1"
+                    viewBox="0 0 24 24"
+                    x="0"
+                    className="rotate"
+                    height="1.1em"
+                    width="1.1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                    y="0"
+                  >
+                    <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+                  </svg>
+                </span>
               )}
-              {type === 'object' &&
-                source[item] &&
-                !Array.isArray(source[item]) && (
-                  <Param style={{ paddingLeft: '15px' }}>
-                    {' '}
-                    {makeResponse(source[item])}
-                  </Param>
-                )}
-            </div>
-          </Param>
-        </>
+            </ParamTitle>
+            <ParamBody>
+              <ParamDescriptionTitle>{type}</ParamDescriptionTitle>
+              <ParamDescription>{getDescription()} </ParamDescription>
+            </ParamBody>
+          </div>
+          <div className="hide">
+            {type === 'object' && Array.isArray(source[item]) && (
+              <Param style={{ paddingLeft: '2rem' }}>
+                <div>Array</div>
+                {makeResponse(source[item][0], path, item)}
+              </Param>
+            )}
+            {type === 'object' && source[item] && !Array.isArray(source[item]) && (
+              <Param style={{ paddingLeft: '15px' }}>
+                {' '}
+                {makeResponse(source[item], path, item)}
+                {path.current.pop()}
+                {path.current.pop()}
+              </Param>
+            )}
+          </div>
+        </Param>
       );
     });
   };
@@ -237,7 +268,7 @@ const SuccessResponse = ({ status, response }) => {
     try {
       const t_response = JSON.parse(response);
       // id.current = 0;
-      const data = makeResponse(t_response, 0);
+      const data = makeResponse(t_response, []);
       setResponseBody(data);
     } catch (e) {
       console.log('error', e);

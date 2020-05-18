@@ -19,9 +19,9 @@ const Footer = () => {
                   <g
                     id="1.0.-Drafts"
                     stroke="none"
-                    stroke-width="1"
+                    strokeWidth="1"
                     fill="none"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                   >
                     <g
                       id="D.4.2.Developers---components"
@@ -47,7 +47,7 @@ const Footer = () => {
                               d="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z M12,17 C11.45,17 11,16.55 11,16 L11,12 C11,11.45 11.45,11 12,11 C12.55,11 13,11.45 13,12 L13,16 C13,16.55 12.55,17 12,17 Z M13,9 L11,9 L11,7 L13,7 L13,9 Z"
                               id="Shape"
                               fill="#FFFFFF"
-                              fill-rule="nonzero"
+                              fillRule="nonzero"
                             ></path>
                           </g>
                         </g>

@@ -112,6 +112,9 @@ const MainCategory = styled.h3`
 const SubCategory = styled.h3`
   color: #01525a;
 `;
+function removeSpace(string) {
+  return string.replace(/\s/g, '').toLowerCase();
+}
 const APIContent = ({ response, request, type, name, description }) => {
   const [postBody, setPostBody] = useState();
   const [descriptionTitle, setDescriptionTitle] = useState('');
@@ -325,7 +328,11 @@ const APIContent = ({ response, request, type, name, description }) => {
           <br />
           <p>Responses</p>
           {/* for 200 */}
-          <SuccessResponse status={200} response={response} />
+          <SuccessResponse
+            status={200}
+            response={response}
+            apiname={removeSpace(name)}
+          />
           <SuccessResponse status={400} />
         </>
       )}

@@ -167,7 +167,7 @@ const APIResponse = ({ request, response, isVisible }) => {
           if (isFirst && depth >= 1) item.isExpand = false;
           if (item.name.includes('{') || item.name.includes('[')) {
             return (
-              <>
+              <div key={index + 'eew' + item.name}>
                 <Li key={index + start + 'li' + item.name}>
                   <div
                     style={{
@@ -197,7 +197,7 @@ const APIResponse = ({ request, response, isVisible }) => {
                     {item.name.includes('{') ? '}' : ']'}
                   </ResponsiveSpan>
                 </Li>
-              </>
+              </div>
             );
           }
           if (item.name.includes('}') || item.name.includes(']')) {
