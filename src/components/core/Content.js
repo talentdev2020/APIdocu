@@ -24,6 +24,7 @@ const EDivider = styled(Divider)`
 const Wrapper = styled.div`
   padding-left: 3rem;
   margin-right: 1rem;
+  margin-bottom: 100px;
   width: calc(100vw - 365px);
   font-family: Montserrat;
   & div {
