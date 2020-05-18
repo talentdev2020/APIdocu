@@ -165,9 +165,9 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                     </ListItemIcon>
 
                     <ListItemText inset primary={firstdata.name}></ListItemText>
-                    {firstdata.name !== 'introduction' && (
+                    {firstdata.name !== 'Introduction' && (
                       <>
-                        {firstdata.isExpand && firstdata.item ? (
+                        {firstdata.isExpand ? (
                           <svg
                             class="collapse notransition"
                             focusable="false"
