@@ -11,7 +11,8 @@ const Th = styled.th`
   padding: 1rem 0.5rem;
 `;
 const SubContent = styled.div`
-  padding-left: 7px;
+  padding-left: 10px;
+  padding-top: 5px;
 `;
 const Createcardorder = () => {
   return (
@@ -56,12 +57,13 @@ const Createcardorder = () => {
           <SubContent>
             - When creating a card order of type `upgrade` under `verified`
             status, the system will try to instantly issue an entity card. In
-            case it succeeds, the entity card will come in the request. The
-            previous card will be deactivated once the newly issued card is
+            case it succeeds, the entity card will come in the request. <br />
+            The previous card will be deactivated once the newly issued card is
             activated.
           </SubContent>
         </SubContent>
       </div>
+      <br />
       <table
         style={{
           overflowX: 'auto',

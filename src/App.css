@@ -91,3 +91,12 @@
 .subcontainer-0-3-3:hover {
   overflow-y: auto !important;
 }
+.rotate {
+  vertical-align: middle;
+  transform: rotateZ(-90deg);
+  transition: transform 0.2s ease-out 0s;
+}
+.norotate {
+  vertical-align: middle;
+  transition: transform 0.2s ease-out 0s;
+}

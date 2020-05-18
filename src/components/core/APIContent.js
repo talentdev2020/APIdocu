@@ -10,12 +10,18 @@ import {
   ParamBody,
   ParamDescription,
   ParamDescriptionTitle,
-  ParamTitle,
   TreeArrow,
 } from './SuccessResponse';
 const Th = styled.th`
   font-weight: 500;
   padding: 1rem 0.5rem;
+`;
+const ParamTitle = styled.div`
+  font-weight: 300;
+  display: inline-block;
+  width: 15rem;
+  cursor: pointer;
+  color: black !important;
 `;
 const Param = styled.div`
   display: flex;

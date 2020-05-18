@@ -1,28 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Divider from '@material-ui/core/Divider';
 
 import styled, { css } from 'styled-components';
-const Collapse = styled.div`
-  padding-right: 6px;
-  padding-left: 6px;
-  cursor: pointer;
 
-  &:after {
-    content: '+';
-    ${(props) =>
-      props.isExpand &&
-      css`
-        content: '-';
-      `}
-    cursor: pointer;
-  }
-`;
 const ResponseBody = styled.div`
   padding: 10px;
   border-radius: 2px;
   margin-bottom: 1rem;
   line-height: 1.5em;
-
   cursor: pointer;
   color: unset !important;
   background-color: rgba(229, 57, 53, 0.1);
@@ -51,8 +36,6 @@ const Param1 = styled.div`
   padding: 1rem 0;
 `;
 const Param = styled.div`
-  display: flex;
-
   padding-top: 7px;
 
   border-left: 1px solid #386117;
@@ -92,7 +75,6 @@ const Param = styled.div`
 `;
 const TreeArrow = styled.span`
   color: #2623d0;
-  cursor: pointer;
   font-family: Courier, monospace;
   margin-right: 10px;
   &:before {
@@ -118,11 +100,12 @@ const ParamDescription = styled.div`
 const ParamTitle = styled.div`
   font-weight: 300;
   display: inline-block;
-  width: 10rem;
+  width: 15rem;
   color: black !important;
 `;
 const ParamDescriptionTitle = styled.div`
   color: #7369ca !important;
+  font-size: 14px !important;
 `;
 const ParamBody = styled.div`
   border-bottom: 1px solid #cfccea !important;
@@ -136,131 +119,126 @@ const ParamBody = styled.div`
 const SuccessResponse = ({ status, response }) => {
   const [success, setSuccess] = useState(false);
   const [responseBody, setResponseBody] = useState('');
+  let id = 0;
   // const [body, setBody] = useState('')
   const showResponse = () => {
     setSuccess(!success);
   };
-  // const handleClick = useCallback((index, source) => {
-  //   const temp =
-  //     source &&
-  //     source.map((item, i) => {
-  //       item.isMarked = false;
-  //       if (index === i) item.isExpand = !item.isExpand;
-  //       return item;
-  //     });
-  //   const data = makeResponse(temp, 0, 0);
-  //   setResponseBody(data);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
-  // const makeResponse = useCallback(
-  //   (source, start, depth, isFirst = false) => {
-  //     let childflag = 0;
-  //     return (
-  //       source &&
-  //       source.map((item, index) => {
-  //         if (index === 0) return <></>;
-  //         if (index < start) return <></>;
-  //         if (childflag === 1) return <></>;
+  const handleClick = (e, type) => {
+    try {
+      let parent;
+      if (type === 1) {
+        parent = e.target.parentNode.parentNode.parentNode;
+      } else if (type === 2)
+        parent = e.target.parentNode.parentNode.parentNode.parentNode;
+      console.log('paretn', parent);
+      if (parent.children[1].className === 'hide')
+        parent.children[0].children[0].children[2].innerHTML = `<svg
+        version="1.1"
+        viewBox="0 0 24 24"
+        x="0"
+        class="norotate"
+        height= '1.1em'
+        width='1.1em'
+        xmlns="http://www.w3.org/2000/svg"
+        y="0"
+      >
+        <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+      </svg>`;
+      else
+        parent.children[0].children[0].children[2].innerHTML = `<svg
+        version="1.1"
+        viewBox="0 0 24 24"
+        x="0"
+        class="rotate"
+        height= '1.1em'
+        width='1.1em'
+        xmlns="http://www.w3.org/2000/svg"
+        y="0"
+      >
+        <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+      </svg>`;
 
-  //         if (item.isMarked) return <></>;
-  //         item.isMarked = true;
-  //         const temp = item.name.split('"').join('');
-  //         const name = temp.split(':')[0];
-  //         const value = typeof temp.split(':')[1];
-  //         if (item.name.includes('{') || item.name.includes('[')) {
-  //           if (isFirst && depth >= 1) item.isExpand = false;
-  //           return (
-  //             <Param key={index + start + 'li' + item.name}>
-  //               <ParamTitle
-  //                 onClick={(e) => handleClick(index, source)}
-  //                 key={index + 'key' + item.name}
-  //               >
-  //                 <TreeArrow />
-  //                 {name}
-  //               </ParamTitle>
+      parent.children[1].className =
+        parent.children[1].className === 'hide' ? '' : 'hide';
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-  //               <Collapse isExpand={item.isExpand} />
-  //               <ParamBody key={index + 'body' + item.name}>
-  //                 <ParamDescriptionTitle>{value}</ParamDescriptionTitle>
-  //               </ParamBody>
-  //               <ul className={item.isExpand ? '' : 'hide'}>
-  //                 {makeResponse(source, index + 1, depth + 1, isFirst)}
-  //               </ul>
-  //             </Param>
-  //           );
-  //         }
-  //         if (item.name.includes('}') || item.name.includes(']')) {
-  //           childflag = 1;
-  //           item.isMarked = false;
-  //           return <></>;
-  //         }
-
-  //         return (
-  //           <Param>
-  //             <ParamTitle
-  //               onClick={(e) => handleClick(index, source)}
-  //               key={index + 'key' + item.name}
-  //             >
-  //               <TreeArrow />
-  //               {name}
-  //             </ParamTitle>
-  //             <ParamBody key={index + 'body' + item.name}>
-  //               <ParamDescriptionTitle>{value}</ParamDescriptionTitle>
-  //             </ParamBody>
-  //           </Param>
-  //         );
-  //       })
-  //     );
-  //   },
-  //   [handleClick],
-  // );
-
-  // useEffect(() => {
-  //   let string = '';
-  //   try {
-  //     string = JSON.parse(response);
-  //   } catch (e) {}
-  //   console.log('{Parse', string);
-
-  //   let depth = 0;
-  //   let newData =
-  //     string &&
-  //     string.map((item) => {
-  //       if (item.includes('[') || item.includes('{')) {
-  //         item = { name: item, isExpand: depth > 4 ? false : true };
-  //         depth++;
-  //       } else if (item.includes(']') || item.includes('}')) {
-  //         item = { name: item, isExpand: false };
-  //         depth--;
-  //       } else item = { name: item };
-  //       return item;
-  //     });
-  //   console.log('newdata', newData);
-  //   // setBody(newData);
-  //   const data = makeResponse(newData, 0, 0, true);
-  //   setResponseBody(data);
-  //   console.log('data', data);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [response]);
+  const makeResponse = (source) => {
+    const objects = Object.keys(source);
+    return objects.map((item, index) => {
+      let type = typeof source[item];
+      if (!source[item]) type = null;
+      id++;
+      return (
+        <>
+          <Param key={id + 'dkey'}>
+            <div style={{ display: 'flex' }}>
+              <ParamTitle
+                id={id + '_response'}
+                key={index + 'key' + item}
+                style={type === 'object' ? { cursor: 'pointer' } : {}}
+              >
+                <TreeArrow
+                  id={id + '_tree'}
+                  onClick={(e) => handleClick(e, 1)}
+                />
+                <span onClick={(e) => handleClick(e, 1)}>{item}</span>
+                {type === 'object' && (
+                  <span id={id + '_svg'} onClick={(e) => handleClick(e, 2)}>
+                    <svg
+                      version="1.1"
+                      viewBox="0 0 24 24"
+                      x="0"
+                      className="rotate"
+                      height="1.1em"
+                      width="1.1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                      y="0"
+                    >
+                      <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+                    </svg>
+                  </span>
+                )}
+              </ParamTitle>
+              <ParamBody>
+                <ParamDescriptionTitle>{type}</ParamDescriptionTitle>
+                <ParamDescription>&nbsp; </ParamDescription>
+              </ParamBody>
+            </div>
+            <div className="hide">
+              {type === 'object' && Array.isArray(source[item]) && (
+                <Param style={{ paddingLeft: '2rem' }}>
+                  <div>Array</div>
+                  {makeResponse(source[item][0])}
+                </Param>
+              )}
+              {type === 'object' &&
+                source[item] &&
+                !Array.isArray(source[item]) && (
+                  <Param style={{ paddingLeft: '15px' }}>
+                    {' '}
+                    {makeResponse(source[item])}
+                  </Param>
+                )}
+            </div>
+          </Param>
+        </>
+      );
+    });
+  };
 
   useEffect(() => {
     if (!response) return;
 
     try {
-      console.log('response', response);
       const t_response = JSON.parse(response);
-
-      const objects = Object.keys(t_response);
-      console.log('objects', objects);
-      let temp = [];
-      objects.map((item) => {
-        const type = typeof t_response[item];
-        temp.push({ name: item, type: type });
-        return item;
-      });
-      console.log('body', temp);
-      setResponseBody(temp);
+      // id.current = 0;
+      const data = makeResponse(t_response, 0);
+      setResponseBody(data);
     } catch (e) {
       console.log('error', e);
     }
@@ -291,24 +269,7 @@ const SuccessResponse = ({ status, response }) => {
           </span>
           <span style={{ color: 'black' }}>application/json</span>
           <Divider />
-          <div>
-            {responseBody &&
-              responseBody.map((item) => {
-                return (
-                  <Param key={item.name}>
-                    <ParamTitle>
-                      <TreeArrow />
-                      {item.name}
-                    </ParamTitle>
-                    <ParamBody>
-                      <ParamDescriptionTitle>{item.type}</ParamDescriptionTitle>
-                      <ParamDescription></ParamDescription>
-                    </ParamBody>
-                  </Param>
-                );
-              })}{' '}
-            }
-          </div>
+          <div>{responseBody}</div>
         </div>
       )}
       {status === 400 && success && (
