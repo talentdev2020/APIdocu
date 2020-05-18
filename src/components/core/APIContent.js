@@ -276,7 +276,7 @@ const APIContent = ({ response, request, type, name, description }) => {
       )}
       {type === 'api' && (
         <>
-          {' '}
+          <br />
           <span style={{ color: 'grey' }}>HEADERS</span>
           <Divider />
           <br />
