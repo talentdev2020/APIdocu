@@ -284,8 +284,10 @@ const APIContent = ({ response, request, type, name, description }) => {
                   {item.key}
                 </ParamTitle>
                 <ParamBody>
-                  <ParamDescriptionTitle>{item.text}</ParamDescriptionTitle>
-                  <ParamDescription>{item.value}</ParamDescription>
+                  <ParamDescriptionTitle> {item.text}</ParamDescriptionTitle>
+                  <ParamDescription>
+                    {item.key === 'Authorization' ? '{{auth}}' : item.value}
+                  </ParamDescription>
                 </ParamBody>
               </Param>
             ))}
