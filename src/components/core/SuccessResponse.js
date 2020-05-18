@@ -38,7 +38,7 @@ const Param1 = styled.div`
 const Param = styled.div`
   padding-top: 7px;
 
-  border-left: 1px solid #386117;
+  border-left: 1px solid #2623d0;
   &:last-child:first-child {
     background: none;
     border-left-color: transparent;

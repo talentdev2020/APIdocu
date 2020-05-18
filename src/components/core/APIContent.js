@@ -191,7 +191,6 @@ const APIContent = ({ response, request, type, name, description }) => {
             return 'Array';
           }
         });
-        console.log('Post', arr);
         setPostBody(arr);
       } catch (e) {
         setPostBody('');

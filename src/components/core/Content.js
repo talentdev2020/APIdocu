@@ -65,7 +65,6 @@ const Content = ({ data }) => {
   const elementRef = useRef();
   const dispatch = useDispatch();
   // Element scroll position
-  console.log(data);
   useScrollPosition(({ prevPos, currPos }) => {
     const scroll = currPos.y || window.pageYOffset;
 
@@ -147,7 +146,6 @@ const Content = ({ data }) => {
       }
       return firstchild;
     });
-    console.log(temp);
     setContent(temp);
   }, [data]);
 
