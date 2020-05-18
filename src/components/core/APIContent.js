@@ -311,7 +311,11 @@ const APIContent = ({ response, request, type, name, description }) => {
               postBody &&
               postBody.map((item, index) => (
                 <Param key={index + 'pa' + item.value}>
-                  <ParamTitle>{item.key}</ParamTitle>
+                  <ParamTitle>
+                    {' '}
+                    <TreeArrow />
+                    {item.key}
+                  </ParamTitle>
                   <ParamBody>
                     <ParamDescriptionTitle>{item.value}</ParamDescriptionTitle>
                   </ParamBody>
