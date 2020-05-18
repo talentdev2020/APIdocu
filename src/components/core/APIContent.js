@@ -306,17 +306,18 @@ const APIContent = ({ response, request, type, name, description }) => {
                   </ParamBody>
                 </Param>
               ))}
+
+            {request.method === 'POST' &&
+              postBody &&
+              postBody.map((item, index) => (
+                <Param key={index + 'pa' + item.value}>
+                  <ParamTitle>{item.key}</ParamTitle>
+                  <ParamBody>
+                    <ParamDescriptionTitle>{item.value}</ParamDescriptionTitle>
+                  </ParamBody>
+                </Param>
+              ))}
           </div>
-          {request.method === 'POST' &&
-            postBody &&
-            postBody.map((item, index) => (
-              <Param key={index + 'pa' + item.value}>
-                <ParamTitle>{item.key}</ParamTitle>
-                <ParamBody>
-                  <ParamDescriptionTitle>{item.value}</ParamDescriptionTitle>
-                </ParamBody>
-              </Param>
-            ))}
           <br />
           <p>Responses</p>
           {/* for 200 */}
