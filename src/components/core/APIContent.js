@@ -179,10 +179,11 @@ const APIContent = ({ response, request, type, name, description }) => {
         const temp = JSON.parse(request.body.raw);
         const temp_arr = Object.keys(temp);
         let arr = [];
-        if (temp_arr.length > 10) {
-          setPostBody([]);
-          return;
-        }
+
+        // if (temp_arr.length > 17) {
+        //   setPostBody([]);
+        //   return;
+        // }
         temp_arr.map((item) => {
           try {
             return arr.push({ key: item, value: temp[item] });
@@ -190,9 +191,10 @@ const APIContent = ({ response, request, type, name, description }) => {
             return 'Array';
           }
         });
+        console.log('Post', arr);
         setPostBody(arr);
       } catch (e) {
-        setPostBody([]);
+        setPostBody('');
       }
     }
   }, [request]);
@@ -319,7 +321,7 @@ const APIContent = ({ response, request, type, name, description }) => {
             {request.method === 'POST' &&
               postBody &&
               postBody.map((item, index) => (
-                <Param key={index + 'pa' + item.value}>
+                <Param key={index + 'pa' + item.key}>
                   <ParamTitle>
                     {' '}
                     <TreeArrow />

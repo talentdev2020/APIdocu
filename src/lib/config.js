@@ -728,17 +728,7 @@ const descriptions = {
     status: 'The status of the verification',
     created_at: 'The date that the record was created',
     updated_at: 'The date that the record was updated',
-    results: {
-      id: 'The id of the card order object',
-      verification_id: 'The id of the verification',
-      code: 'The code of the verification',
-      field: 'The first surname',
-      message: 'The message of the verification',
-      data: 'The data of the transaction',
-      score: 'The scroe of the verification',
-      created_at: 'The date that the record was created',
-      updated_at: 'The date that the record was updated',
-    },
+    results: 'Arry of result object',
   },
   authorization: {
     entity_card_id: 'The id of the entity',
