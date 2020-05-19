@@ -1,5 +1,6 @@
 import React from 'react';
 import './Footer.css';
+import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 const Footer = () => {
   return (
@@ -103,12 +104,9 @@ const Footer = () => {
                   </span>
                   To know more about Transaction authorization, please refer to
                   our{' '}
-                  <a
-                    className="link"
-                    href="#/developers/guides/transaction_authorization"
-                  >
+                  <Link className="link" to="/quickStart/transactions">
                     Transaction authorization guide
-                  </a>
+                  </Link>
                 </div>
                 <div className="content-dark-100">
                   <span className="arrow">
@@ -153,9 +151,9 @@ const Footer = () => {
                   </span>
                   To know more about PCI compliance and how Venus can help you,
                   please refer to our{' '}
-                  <a className="link" href="#/developers/guides/pci">
+                  <Link className="link" to="/quickStart/pci">
                     PCI guide
-                  </a>
+                  </Link>
                 </div>
                 <div className="content-dark-100">
                   <span className="arrow">
@@ -199,12 +197,9 @@ const Footer = () => {
                     </svg>
                   </span>
                   If you want to check out the details of our APIs, check our{' '}
-                  <a
-                    className="link"
-                    href="#/developers#developers-api-references"
-                  >
+                  <Link className="link" to="/coreAPI">
                     API reference
-                  </a>
+                  </Link>
                   .
                 </div>
                 <div className="content-dark-100">
@@ -249,9 +244,9 @@ const Footer = () => {
                     </svg>
                   </span>
                   If you’re interested in integrating our SDKs, go to our{' '}
-                  <a className="link" href="#/developers#developers-sdk">
+                  <Link className="link" to="/coreAPI">
                     Venus SDKs section
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

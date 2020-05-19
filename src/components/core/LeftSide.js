@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router';
 import Menu from './Menu';
 import Divider from '@material-ui/core/Divider';
-
+import { Link } from 'react-router-dom';
 import SearchedMenu from './SearchedMenu';
 // import Left from './Left';
 // import TreeView from '@material-ui/lab/TreeView';
@@ -90,12 +90,14 @@ const LeftSide = ({ data, selectedmenu }) => {
       <div
         style={{ position: 'fixed', textAlign: 'left', paddingLeft: '1rem' }}
       >
-        <img
-          src="logo.png"
-          alt="Logo"
-          width="180px"
-          style={{ paddingLeft: '1rem' }}
-        />
+        <Link to="/quickStart">
+          <img
+            src="logo.png"
+            alt="Logo"
+            width="180px"
+            style={{ paddingLeft: '1rem' }}
+          />
+        </Link>
         <div
           role="search"
           style={{
