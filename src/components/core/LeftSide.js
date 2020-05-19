@@ -94,8 +94,8 @@ const LeftSide = ({ data, selectedmenu }) => {
           <img
             src="logo.png"
             alt="Logo"
-            width="180px"
-            style={{ paddingLeft: '1rem' }}
+            width="130px"
+            style={{ paddingLeft: '3rem' }}
           />
         </Link>
         <div
