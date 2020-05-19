@@ -103,8 +103,8 @@ const Concept = () => {
       </div>
       <br />
       <p>
-        Welcome to the Apto’s Key concepts guide. We’ll show you the basics
-        around the key concepts handled by the Apto platform, such as card
+        Welcome to the Venus’s Key concepts guide. We’ll show you the basics
+        around the key concepts handled by the Venus platform, such as card
         programs and cards. Here you’ll find also information regarding how
         these concepts are made available through our APIs and SDKs, and how to
         use them to successfully offer your customers a seamless, easy and quick
@@ -113,21 +113,21 @@ const Concept = () => {
       <Title>Projects</Title>
       <div>
         <p>
-          Everything in Apto starts with a project, also called a custodian. A
+          Everything in Venus starts with a project, also called a custodian. A
           project is the parent object that provides context and branding to
           your application, and that groups all the cardholders and cards that
           will be issued for you.
         </p>
         <p>
-          Projects define also the security context; before using the Apto APIs,
-          we’ll generate a project for you and a set of public / private keys
-          that identify the project and protect the data on it.
+          Projects define also the security context; before using the Venus
+          APIs, we’ll generate a project for you and a set of public / private
+          keys that identify the project and protect the data on it.
         </p>
       </div>{' '}
       <Title>URIs and Verbs</Title>
       <div>
         <p>
-          The Apto API has been designed for simplicity and flexibility. It
+          The Venus API has been designed for simplicity and flexibility. It
           follows a RESTful protocol, which is based in HTTP verbs (POST, PUT,
           GET) to execute functions on specific objects. Objects in the API are
           represented by the so called URIs. URIs identify a specific object in
@@ -135,31 +135,15 @@ const Concept = () => {
           have multiple cards), and the URI's format represents that hierarchy.
           For example, to get data of a specific Card, the URI would be:
         </p>
-        <SubTitle>/cardholders/[cardholder_id]/cards/[card_id]</SubTitle>
-        <p>
-          Using REST, you can perform different actions on that object. To
-          retrieve the card data, you can use a GET API request:
-        </p>
-        <SubTitle>GET /cardholders/[cardholder_id]/cards/[card_id]</SubTitle>
-        <p>
-          To update data on an object, you can use a PUT request (passing
-          additional data in the request payload):
-        </p>
-        <SubTitle>PUT /cardholders/[cardholder_id] (+payload)</SubTitle>
-        <p>
-          To create an object (for example, issuing a card), you can use a POST
-          request (passing additional data in the request payload):
-        </p>
-        <SubTitle>POST /cardholders/[cardholder_id]/cards (+payload)</SubTitle>
       </div>
       <Title>Security and authentication</Title>
       <div>
         <p>
-          All of the Apto APIs use authentication mechanisms to protect the data
-          from unauthorised access. As explained before, we’ll provide you a set
-          of public and private keys that can be used to access our APIs. Our
-          Core API provides access to all the users created in the context of
-          your project. This API is protected through a pair of client_id,
+          All of the Venus APIs use authentication mechanisms to protect the
+          data from unauthorised access. As explained before, we’ll provide you
+          a set of public and private keys that can be used to access our APIs.
+          Our Core API provides access to all the users created in the context
+          of your project. This API is protected through a pair of client_id,
           client_secret values (we’ll provide them to you), That pair of values
           provide access to all your cardholders data and under no circumstances
           should be made public / available outside of your private
@@ -180,7 +164,7 @@ const Concept = () => {
         The Core API is designed to be used from and only from your backend, not
         from the final user’s application. This API gives you access to all the
         cardholders who sign up for your card programs. When signing up to use
-        the Apto platform, we’ll generate a client id and a client secret that
+        the Venus platform, we’ll generate a client id and a client secret that
         only your backend should know, and that must be used in all the
         endpoints of our Core API. That API uses HTTP basic authentication,
         using the standard Authorization header field to send the client id and
@@ -192,7 +176,7 @@ const Concept = () => {
           The Mobile API is designed to be used from the final user’s
           application. That means that it can’t, for any reason, use the private
           pair of client id and client secret used in the Core API. When signing
-          up to use the Apto platform, we’ll generate a public API key that can
+          up to use the Venus platform, we’ll generate a public API key that can
           be used from your final user’s application. The Mobile API uses a user
           session token that gives access only to the current user’s
           information, and nothing else. It expects two header fields: Api-Key
@@ -207,10 +191,10 @@ const Concept = () => {
           functionalities on that API.
         </p>
       </div>
-      <Title>Apto basic objects</Title>
+      <Title>Venus basic objects</Title>
       <div>
         <p>
-          The Apto API includes 5 basic objects that you can use to build your
+          The Venus API includes 5 basic objects that you can use to build your
           card program experience:
         </p>
         <ul class="unordered-list content-dark-100">
@@ -233,10 +217,10 @@ const Concept = () => {
       </div>
       <Title>Project/Custodian</Title>
       <p>
-        In the Apto platform, a project (also called custodian) is used to
+        In the Venus platform, a project (also called custodian) is used to
         define a context (branding, users, card settings). Projects are defined
-        and customised by Apto to meet your needs and to customise the card
-        capabilities and behaviour. Projects are not exposed in the Apto APIs,
+        and customised by Venus to meet your needs and to customise the card
+        capabilities and behaviour. Projects are not exposed in the Venus APIs,
         but are a fundamental piece for the platform to work. Don’t worry: we’ll
         configure them, they will be transparent for you.
       </p>
@@ -274,12 +258,12 @@ const Concept = () => {
       </p>
       <Title>Card</Title>
       <p>
-        The Apto platform’s main goal is to issue cards and authorise
+        The Venus platform’s main goal is to issue cards and authorise
         transactions. Cards are issued for your cardholders. When a card is lost
         or expired, we can reissue cards for them easily.
       </p>
       <p>
-        Apto supports Visa and Mastercard cards, debit and prepaid cards, and
+        Venus supports Visa and Mastercard cards, debit and prepaid cards, and
         our APIs are prepared to offer all the information you need for a given
         card. You can obtain all the cards for a given cardholder, and also card
         details like the last four digits of the card number (PAN).
@@ -288,7 +272,7 @@ const Concept = () => {
         Cards are protected by strict regulations and controls, the most
         important being defined by the PCI group. These regulations protect the
         card information, including the card number (PAN), the expiration date
-        and the CVV. Depending on your PCI compliance level, Apto can expose
+        and the CVV. Depending on your PCI compliance level, Venus can expose
         that information to you. Don’t worry--if your platform is not PCI
         compliant, you can still show that information to your cardholders by
         using our PCI SDK. This SDK is designed to be embedded in the user’s
@@ -309,7 +293,7 @@ const Concept = () => {
         configure everything accordingly.
       </p>
       <p>
-        Apto cards can be connected to multiple funding sources, and you can
+        Venus cards can be connected to multiple funding sources, and you can
         even offer your cardholders the ability to switch between them in real
         time. Cardholders could, for example, connect a crypto wallet to their
         cards, or a bank account, and that funding source will be used whenever
@@ -317,7 +301,7 @@ const Concept = () => {
         learn more about funding sources and how to connect them to your cards.
       </p>
       <p>
-        The Apto cards can be used anywhere VISA or MASTERCARD cards are
+        The Venus cards can be used anywhere VISA or MASTERCARD cards are
         accepted (depending on the configuration of your card program). Online
         transactions or presence transactions are supported, contactless, chip &
         pin, signature… all that you might expect from a modern card is
@@ -325,7 +309,7 @@ const Concept = () => {
       </p>
       <Title>Transaction</Title>
       <p>
-        Issuing cards is a very important functionality of the Apto platform,
+        Issuing cards is a very important functionality of the Venus platform,
         but it would be useless without transaction processing. When a
         cardholder use their card in a given merchant, the transaction needs to
         be authorised before the funds are actually approved for settlement. The

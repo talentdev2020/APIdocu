@@ -83,7 +83,7 @@ const Inssuance = () => {
       <Card
         title="Card issuance
         "
-        body={`curl https://api.aptopayments.com/cardholders \\
+        body={`curl https://api.Venuspayments.com/cardholders \\
         -u pk_test_72_bf76fa137a7a4f64e6de197e306b96: \\
         -X POST \\
         -d "first_name=John" \\
@@ -123,7 +123,7 @@ const Inssuance = () => {
                 "cards": [{\\
                     "card": {\\
                         "id": "crd_c7015aecb8a05618",\\
-                        "program_id": "Apto_GPR",\\
+                        "program_id": "Venus_GPR",\\
                         "last_four": "5542",\\
                         "status": "CREATED",\\
                         "activated_at": null,\\
@@ -225,7 +225,9 @@ const Inssuance = () => {
         </tbody>
       </table>
       <Title>Card issuance (Mobile API)</Title>
-      <p>Issuing a card through the Apto Mobile API is a three-step process:</p>
+      <p>
+        Issuing a card through the Venus Mobile API is a three-step process:
+      </p>
       <ul class="  unordered-list content-dark-100">
         <li>
           <div class="ordered-item">
@@ -268,7 +270,7 @@ const Inssuance = () => {
         title="Start Verification
 
         "
-        body={`curl https://api.ux.aptopayments.com/v1/verifications/start \\
+        body={`curl https://api.ux.Venuspayments.com/v1/verifications/start \\
         -X POST \\
         -H "Api-Key: Bearer {Public API Key}" \\
         -d '{ \\
@@ -304,7 +306,7 @@ const Inssuance = () => {
       <Card
         title="ReFinish Verification
         sponse  "
-        body={`curl https://api.ux.aptopayments.com/v1/verifications/{verification_id}/finish \\
+        body={`curl https://api.ux.Venuspayments.com/v1/verifications/{verification_id}/finish \\
         -X POST \\
         -H "Api-Key: Bearer {Public API Key}" \\
         -d "secret=1234"
@@ -339,7 +341,7 @@ const Inssuance = () => {
 
        "
         isJson
-        body={`curl https://api.ux.aptopayments.com/v1/user \\\
+        body={`curl https://api.ux.Venuspayments.com/v1/user \\\
         -X POST \\\
         -H "Api-Key: Bearer {Public API Key}" \\\
         -d '{ "data_points": { "type": "list", "data": [ \\
@@ -381,7 +383,7 @@ const Inssuance = () => {
         title="Issue card
 
        "
-        body={`curl https://api.ux.aptopayments.com/v1/user/accounts/issuecard \\
+        body={`curl https://api.ux.Venuspayments.com/v1/user/accounts/issuecard \\
         -X POST \\
         -H "Api-Key: Bearer {Public API Key}" \\
         -H "Authorization: Bearer {User Token}"

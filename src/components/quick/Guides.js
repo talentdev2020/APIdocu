@@ -43,7 +43,7 @@ const Guides = () => {
       <PP>Learn everything you need to know</PP>
 
       <P>
-        Welcome to the Apto platform developer guides. The resources available
+        Welcome to the Venus platform developer guides. The resources available
         in this section teach you how to integrate with the Platform services to
         offer great Card Products to your customers.
       </P>
@@ -107,8 +107,8 @@ const Guides = () => {
                   <div class="info-box">
                     <div class="title-box h3-dark-100">Key Concepts</div>
                     <div class="description-box content-dark-100">
-                      This guide introduces the key concepts handled by the Apto
-                      platform, and provides a high level overview of the
+                      This guide introduces the key concepts handled by the
+                      Venus platform, and provides a high level overview of the
                       elements that define how cards are issued and how
                       transactions are handled.
                     </div>
@@ -178,7 +178,7 @@ const Guides = () => {
                     <div class="description-box content-dark-100">
                       Our APIs allow you to issue virtual and physical cards in
                       a matter of seconds. Read this guide to know all about
-                      card issuance using the Apto platform.
+                      card issuance using the Venus platform.
                     </div>
                   </div>
                   <div class="triangle-box">
@@ -249,7 +249,7 @@ const Guides = () => {
                       <div class="description-box content-dark-100">
                         Every transaction needs to be reviewed and authorised.
                         This process is fast and automatic, but also flexible.
-                        The Apto platform supports different authorization
+                        The Venus platform supports different authorization
                         models.
                       </div>
                     </div>
@@ -387,9 +387,9 @@ const Guides = () => {
                       Integration Scenarios
                     </div>
                     <div class="description-box content-dark-100">
-                      We built the Apto platform to be flexible and easy to
+                      We built the Venus platform to be flexible and easy to
                       integrate with any system. This guide explains the
-                      different ways to integrate with the Apto platform so you
+                      different ways to integrate with the Venus platform so you
                       can decide what's best for you.
                     </div>
                   </div>

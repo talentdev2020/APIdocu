@@ -151,7 +151,7 @@ const Footer = () => {
                       </g>
                     </svg>
                   </span>
-                  To know more about PCI compliance and how Apto can help you,
+                  To know more about PCI compliance and how Venus can help you,
                   please refer to our{' '}
                   <a className="link" href="#/developers/guides/pci">
                     PCI guide
@@ -250,7 +250,7 @@ const Footer = () => {
                   </span>
                   If you’re interested in integrating our SDKs, go to our{' '}
                   <a className="link" href="#/developers#developers-sdk">
-                    Apto SDKs section
+                    Venus SDKs section
                   </a>
                 </div>
               </div>

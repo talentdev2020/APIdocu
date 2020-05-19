@@ -70,7 +70,7 @@ const Integration = () => {
       </div>
       <br />
       <p>
-        The Apto platform offers different integration options to adapt to your
+        The Venus platform offers different integration options to adapt to your
         specific needs. We’ll help you decide what’s the best option for you,
         based on your requirements and the characteristics of your platform.
       </p>
@@ -83,13 +83,13 @@ const Integration = () => {
       </p>
       <p>
         This is the recommended scenario if you already have a mobile
-        application integrated with your backend. Using the Apto Core API,
+        application integrated with your backend. Using the Venus Core API,
         you’ll have all the control, and all the information will flow from the
-        Apto platform to your backend and, finally, to the cardholder’s mobile
+        Venus platform to your backend and, finally, to the cardholder’s mobile
         application.
       </p>
       <p>
-        Apto’s Core API is the one that offers more functionality and
+        Venus’s Core API is the one that offers more functionality and
         flexibility. Using it, you’ll be able to onboard cardholders and issue
         cards, and you’ll be able to integrate with other functionalities like
         crediting or debiting a card from your platform, support for
@@ -99,7 +99,7 @@ const Integration = () => {
       <Title>Mobile API</Title>
       <p>
         In case that you don’t want to implement a backend-to-backend
-        integration, Apto also supports a direct integration from your mobile
+        integration, Venus also supports a direct integration from your mobile
         apps using our mobile-centric Mobile API. This API is designed to be
         used by final users from their mobile apps, and restricts access to the
         data of a single cardholder, after authenticating him / her using 2FA.
@@ -110,11 +110,11 @@ const Integration = () => {
         management is available in this API.
       </p>
       <p>
-        This is the recommended scenario if you want to integrate the Apto
+        This is the recommended scenario if you want to integrate the Venus
         services in your mobile app without developing a backend-to-backend
         integration. This method restricts access to one single user data via
         strong authentication and session tokens. You can build your own UI in
-        your app and use the Mobile API to interact with the Apto API.
+        your app and use the Mobile API to interact with the Venus API.
       </p>
       <Title>Mobile SDKs</Title>
       <p>
@@ -122,17 +122,17 @@ const Integration = () => {
         with the network requests. Convenient classes are exposed in these
         mobile SDK’s, available for iOS (Swift and Objective-C) and Android
         (kotlin and java). Please refer to the mobile
-        <a href="https://www.aptopayments.com/#developers/apto_sdks">
+        <a href="https://www.Venuspayments.com/#developers/Venus_sdks">
           {' '}
           SDKs
         </a>{' '}
         section on this portal for further information.
       </p>
       <p>
-        Apto UI SDKs are also available. These SDKs implement a standard
+        Venus UI SDKs are also available. These SDKs implement a standard
         cardholder experience, both the onboarding and card management flows, so
         you don’t even need to implement that UI in your application. With the
-        Apto UI SDKs, two lines of code can present all the functionality that
+        Venus UI SDKs, two lines of code can present all the functionality that
         your users will need. The look and feel of these UI elements can be
         customised to make them similar to your application.
       </p>

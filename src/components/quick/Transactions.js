@@ -71,14 +71,14 @@ const Transactions = () => {
       <p>
         When a cardholder uses his / her card to make a purchase, an
         authorization request is made. This request is routed from the network
-        (VISA, MASTERCARD) to Apto. Apto executes a process to decide if the
+        (VISA, MASTERCARD) to Venus. Venus executes a process to decide if the
         transaction can be approved or if it must be rejected.:
       </p>
       <Title>Cardholder status</Title>
       <p>
-        Apto will check if the cardholder to which the card belongs is in a good
-        status. Checks against blacklists are made to ensure that persons that
-        are blacklisted can’t make purchases with Apto issued cards.
+        Venus will check if the cardholder to which the card belongs is in a
+        good status. Checks against blacklists are made to ensure that persons
+        that are blacklisted can’t make purchases with Venus issued cards.
       </p>
       <Title>Card status</Title>
       <p>

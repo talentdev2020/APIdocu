@@ -82,12 +82,12 @@ const PCI = () => {
         identification number (PIN), and card expiration date must comply with
         PCI DSS data security requirements. The process of becoming PCI DSS
         certified to store, transmit, and process such data directly is both
-        time consuming and expensive. The Apto PCI SDK handles the complexities
+        time consuming and expensive. The Venus PCI SDK handles the complexities
         of protecting sensitive card data and show it to the cardholder, and can
         help you comply with some aspects of the PCI compliance burden.
       </p>
       <p>
-        Apto is PCI-DSS-Level 1 compliant, and securely handles the card data.
+        Venus is PCI-DSS-Level 1 compliant, and securely handles the card data.
       </p>
       <Title>PCI data on the Core API</Title>
       <p>
@@ -120,7 +120,7 @@ const PCI = () => {
                 "cards": [{\\
                     "card": {\\
                         "id": "crd_c7015aecb8a05618",\\
-                        "program_id": "Apto_GPR",\\
+                        "program_id": "Venus_GPR",\\
                         "last_four": "5542",\\
                         "status": "CREATED",\\
                         "activated_at": null,\\
@@ -136,20 +136,20 @@ const PCI = () => {
         }\\
               `}
       />
-      <Title>Apto PCI SDK</Title>
+      <Title>Venus PCI SDK</Title>
 
       <p>
         If you want to present the PCI data in your Mobile or Web App, but your
         platform is not PCI certified, you can still show that information to
-        your users by using the Apto PCI SDK.
+        your users by using the Venus PCI SDK.
       </p>
       <p>
-        The Apto PCI SDK is a small package that’s available for iOS, Android
+        The Venus PCI SDK is a small package that’s available for iOS, Android
         and Web, and contains a single UI component that can securely obtain the
         card’s PCI protected data and show it on screen, on top of any UI of
         your application.
       </p>
-      <p>The Apto PCI SDK executes two main functions:</p>
+      <p>The Venus PCI SDK executes two main functions:</p>
       <ul class="numbered-list unordered-list content-dark-100">
         <li>
           <span class="circle-dark"></span>Securely obtain the PCI card data
@@ -183,7 +183,7 @@ const PCI = () => {
 
       <Title>Show PCI data on screen</Title>
       <p>
-        The Apto PCI SDK isolates the card data from your application by using
+        The Venus PCI SDK isolates the card data from your application by using
         an embedded IFrame that avoids access to the IFrame contents from the
         host application.
       </p>
