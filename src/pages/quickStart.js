@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import './quick.css';
 import { useRouteMatch, Route, Link, Switch, Redirect } from 'react-router-dom';
-// import QuickStart from '../components/quick/QuickStart';
+import QuickStart from '../components/quick/QuickStart';
 import Concept from '../components/quick/Concept';
 import Inssuance from '../components/quick/Inssuance';
 import Integrations from '../components/quick/Integration';
@@ -191,6 +191,7 @@ const CoreAPI = () => {
               component={Integrations}
               exact
             />
+            <Route path={`${match.path}`} component={QuickStart} exact />
             <Redirect to="/" />
           </Switch>
         </div>
