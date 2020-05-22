@@ -73,16 +73,16 @@ const Footer = () => {
                       <g
                         id="1.0.-Drafts"
                         stroke="none"
-                        stroke-width="1"
+                        strokeWidth="1"
                         fill="none"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                       >
                         <g
                           className="arrow-color"
                           id="6.0.Careers"
                           transform="translate(-1219.000000, -4530.000000)"
                           fill="#0055FF"
-                          fill-rule="nonzero"
+                          fillRule="nonzero"
                         >
                           <g
                             id="Openings"
@@ -120,16 +120,16 @@ const Footer = () => {
                       <g
                         id="1.0.-Drafts"
                         stroke="none"
-                        stroke-width="1"
+                        strokeWidth="1"
                         fill="none"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                       >
                         <g
                           className="arrow-color"
                           id="6.0.Careers"
                           transform="translate(-1219.000000, -4530.000000)"
                           fill="#0055FF"
-                          fill-rule="nonzero"
+                          fillRule="nonzero"
                         >
                           <g
                             id="Openings"
@@ -167,16 +167,16 @@ const Footer = () => {
                       <g
                         id="1.0.-Drafts"
                         stroke="none"
-                        stroke-width="1"
+                        strokeWidth="1"
                         fill="none"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                       >
                         <g
                           className="arrow-color"
                           id="6.0.Careers"
                           transform="translate(-1219.000000, -4530.000000)"
                           fill="#0055FF"
-                          fill-rule="nonzero"
+                          fillRule="nonzero"
                         >
                           <g
                             id="Openings"
@@ -214,16 +214,16 @@ const Footer = () => {
                       <g
                         id="1.0.-Drafts"
                         stroke="none"
-                        stroke-width="1"
+                        strokeWidth="1"
                         fill="none"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                       >
                         <g
                           className="arrow-color"
                           id="6.0.Careers"
                           transform="translate(-1219.000000, -4530.000000)"
                           fill="#0055FF"
-                          fill-rule="nonzero"
+                          fillRule="nonzero"
                         >
                           <g
                             id="Openings"

@@ -9,7 +9,6 @@ import APIContent from './APIContent';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import { useDispatch } from 'react-redux';
 import { selectmenu } from '../../modules/collection';
-import descriptions from '../../lib/config';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

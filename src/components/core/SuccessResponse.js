@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Divider from '@material-ui/core/Divider';
 import descriptions from '../../lib/config';
 import styled, { css } from 'styled-components';
@@ -162,9 +162,7 @@ const SuccessResponse = ({ status, response, apiname }) => {
 
       parent.children[1].className =
         parent.children[1].className === 'hide' ? '' : 'hide';
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
   const getDescription = (path) => {
     if (!path) return '';
@@ -185,9 +183,7 @@ const SuccessResponse = ({ status, response, apiname }) => {
         default:
           break;
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
   const makeResponse = (source, path) => {
     const objects = Object.keys(source);
@@ -271,9 +267,8 @@ const SuccessResponse = ({ status, response, apiname }) => {
       // id.current = 0;
       const data = makeResponse(t_response, '');
       setResponseBody(data);
-    } catch (e) {
-      console.log('error', e);
-    }
+    } catch (e) {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   return (
     <div>

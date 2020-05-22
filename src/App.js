@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import CoreAPI from './pages/coreApi';
 import { getdata } from './modules/collection';
 import QuickStart from './pages/quickStart';

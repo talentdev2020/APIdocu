@@ -188,7 +188,10 @@ const APIResponse = ({ request, response, isVisible }) => {
                     <ResponsiveSpan>{item.name}</ResponsiveSpan>
                   </div>
 
-                  <ul className={item.isExpand ? '' : 'hide'}>
+                  <ul
+                    className={item.isExpand ? '' : 'hide'}
+                    key={index + 'ul' + item.name}
+                  >
                     {makeResponse(source, index + 1, depth + 1, isFirst)}
                   </ul>
                 </Li>

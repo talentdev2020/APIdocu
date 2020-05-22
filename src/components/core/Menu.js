@@ -11,8 +11,6 @@ import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
 import ReactShadowScroll from 'react-shadow-scroll';
 
-import IconExpandLess from '@material-ui/icons/ExpandMore';
-import IconExpandMore from '@material-ui/icons/ChevronRight';
 import IconDashboard from '@material-ui/icons/List';
 
 import IconLibraryBooks from '@material-ui/icons/MenuBook';
@@ -169,7 +167,7 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                       <>
                         {firstdata.isExpand ? (
                           <svg
-                            class="collapse notransition"
+                            className="collapse notransition"
                             focusable="false"
                             viewBox="0 0 24 24"
                             aria-hidden="true"
@@ -178,7 +176,7 @@ const AppMenu = ({ treedata, selectedmenu }) => {
                           </svg>
                         ) : (
                           <svg
-                            class="collapse transition"
+                            className="collapse transition"
                             focusable="false"
                             viewBox="0 0 24 24"
                             aria-hidden="true"
