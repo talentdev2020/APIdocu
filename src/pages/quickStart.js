@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import './quick.css';
-import { useRouteMatch, Route, Link, Switch } from 'react-router-dom';
+import { useRouteMatch, Route, Link, Switch, Redirect } from 'react-router-dom';
 import QuickStart from '../components/quick/QuickStart';
 import Concept from '../components/quick/Concept';
 import Inssuance from '../components/quick/Inssuance';
@@ -157,28 +157,41 @@ const CoreAPI = () => {
             <Route
               path={`${match.path}quickStart/issuance`}
               component={Inssuance}
+              exact
             />
 
             <Route
               path={`${match.path}quickStart/concept`}
               component={Concept}
+              exact
             />
             <Route
               path={`${match.path}quickStart/inssuance`}
               component={Inssuance}
+              exact
             />
-            <Route path={`${match.path}quickStart/guides`} component={Guides} />
-            <Route path={`${match.path}quickStart/mobile`} component={Mobile} />
+            <Route
+              path={`${match.path}quickStart/guides`}
+              component={Guides}
+              exact
+            />
+            <Route
+              path={`${match.path}quickStart/mobile`}
+              component={Mobile}
+              exact
+            />
             <Route
               path={`${match.path}quickStart/transactions`}
               component={Transactions}
+              exact
             />
-            <Route path={`${match.path}quickStart/pci`} component={PCI} />
+            <Route path={`${match.path}quickStart/pci`} component={PCI} exact />
             <Route
               path={`${match.path}quickStart/integrations`}
               component={Integrations}
+              exact
             />
-            <Route path={`${match.path}`} component={QuickStart} />
+            <Redirect to="/" />
           </Switch>
         </div>
       </div>
