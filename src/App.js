@@ -20,7 +20,7 @@ function App() {
         <Route path={['/', '/quickStart']} component={QuickStart} />
       </Switch>
       <div className="containter">
-        © 2020 Btasg Payments, Inc. All rights reserved.
+        © 2020 Venus Payments, Inc. All rights reserved.
       </div>{' '}
     </div>
   );

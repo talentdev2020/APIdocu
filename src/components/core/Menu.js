@@ -46,33 +46,20 @@ const ApiType = styled.span`
 function removeSpace(string) {
   return string.replace(/\s/g, '').toLowerCase();
 }
-const AppMenu = ({ treedata, selectedmenu }) => {
+const AppMenu = ({ treedata, selectedmenu, hash }) => {
   const classes = useStyles();
   let flag = useRef(0);
+
   useEffect(() => {
     document.getElementById(selectedmenu + '_menu') &&
       document.getElementById(selectedmenu + '_menu').click();
-  }, [selectedmenu]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [treedata]);
   const mouseDown = () => {
     flag.current = 1;
   };
+
   function handleClick(e, string, isParent, isClicked) {
-    // let flag = 0;
-
-    // const elements = document.getElementById('parent').children;
-    // for (let i = 0; i < parseInt(elements.length); i++) {
-    //   const element = elements[i];
-    //   if (element.id === removeSpace(string)) {
-    //     if (
-    //       window.scrollY <=
-    //         element.getBoundingClientRect().top + window.scrollY + 50 &&
-    //       window.scrollY >=
-    //         element.getBoundingClientRect().top + window.scrollY + 10
-    //     )
-    //       flag = 1;
-    //   }
-    // }
-
     const temp = treedata.map((firstchild) => {
       if (firstchild.name === string) {
         if (isParent) {
@@ -129,6 +116,7 @@ const AppMenu = ({ treedata, selectedmenu }) => {
 
     // e.preventDefault();
   }
+
   return (
     <ReactShadowScroll
       style={{ height: 'calc(100vh - 18rem)' }}

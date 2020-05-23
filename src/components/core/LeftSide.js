@@ -1,24 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { withRouter } from 'react-router';
 import Menu from './Menu';
 import Divider from '@material-ui/core/Divider';
 import { Link } from 'react-router-dom';
 import SearchedMenu from './SearchedMenu';
-// import Left from './Left';
-// import TreeView from '@material-ui/lab/TreeView';
-// import TreeItem from '@material-ui/lab/TreeItem';
-// import MuiTreeView from 'material-ui-treeview';
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-// import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-// import { makeStyles } from '@material-ui/core/styles';
-// const useStyles = makeStyles({
-//   root: {
-//     height: 240,
-//     flexGrow: 1,
-//     maxWidth: 400,
-//   },
-// });
+import { useDispatch } from 'react-redux';
+import { selectmenu } from '../../modules/collection';
 
 const SearchInput = styled.input`
   width: calc(100% - 40px);
@@ -52,13 +39,14 @@ width: 320px;
 function removeSpace(string) {
   return string.replace(/\s/g, '').toLowerCase();
 }
-const LeftSide = ({ data, selectedmenu }) => {
+const LeftSide = ({ data, selectedmenu, hash }) => {
   const [search, setSearch] = useState('');
+  const dispatch = useDispatch();
   const [menu, setMenu] = useState();
+
   useEffect(() => {
     const newelement = { name: 'Introduction', type: 'parent' };
     let temp = [newelement].concat(data);
-
     temp.map((firstchild, index) => {
       if (firstchild.item) {
         firstchild.item = firstchild.item.map((seconddata, secondindex) => {
@@ -70,6 +58,7 @@ const LeftSide = ({ data, selectedmenu }) => {
               }
               if (selectedmenu === removeSpace(seconddata.name)) {
                 temp[index].isExpand = true;
+                temp[index].isSlected = true;
               }
               return thirddata;
             });
@@ -82,6 +71,9 @@ const LeftSide = ({ data, selectedmenu }) => {
 
     setMenu(temp);
   }, [data, selectedmenu]);
+  useEffect(() => {
+    dispatch(selectmenu(hash));
+  }, [hash, dispatch]);
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -130,10 +122,10 @@ const LeftSide = ({ data, selectedmenu }) => {
         /> */}
         {search && <SearchedMenu treedata={menu} search={search} />}
 
-        <Menu treedata={menu} selectedmenu={selectedmenu} />
+        <Menu treedata={menu} selectedmenu={selectedmenu} hash={hash} />
         <Divider />
       </div>
     </LetfWrapper>
   );
 };
-export default withRouter(LeftSide);
+export default LeftSide;

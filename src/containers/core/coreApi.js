@@ -3,9 +3,12 @@ import LeftSide from '../../components/core/LeftSide';
 import Content from '../../components/core/Content';
 import { useSelector, useDispatch } from 'react-redux';
 import { getdata } from '../../modules/collection';
+import { withRouter } from 'react-router';
 
-const LeftSideContainer = () => {
+const LeftSideContainer = ({ location }) => {
   const dispatch = useDispatch();
+  const hash = location.hash.substr(1, location.hash.length - 1);
+
   const { isLoading, isError, collection, selectedmenu } = useSelector(
     (state) => state.collection,
   );
@@ -22,13 +25,14 @@ const LeftSideContainer = () => {
         <>
           {isLoading ? (
             <div style={{ textAlign: 'center', margin: 'auto' }}>
-              Loading...
+              <img src="/process.gif" width="70px" alt="process" />
             </div>
           ) : (
             <>
               <LeftSide
                 data={collection.data.item}
                 selectedmenu={selectedmenu}
+                hash={hash}
               />
               <Content data={collection.data.item} />{' '}
             </>
@@ -39,4 +43,4 @@ const LeftSideContainer = () => {
   );
 };
 
-export default LeftSideContainer;
+export default withRouter(LeftSideContainer);
