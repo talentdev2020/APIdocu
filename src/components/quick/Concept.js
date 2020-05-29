@@ -132,8 +132,7 @@ const Concept = () => {
           data from unauthorised access. As explained before, we’ll provide you
           a set of public and private keys that can be used to access our APIs.
           Our Core API provides access to all the users created in the context
-          of your project. This API is protected through a pair of client_id,
-          client_secret values (we’ll provide them to you), That pair of values
+          of your project. This API is protected through a JWT token. This token
           provide access to all your cardholders data and under no circumstances
           should be made public / available outside of your private
           infrastructure. Don’t use them from your final user’s applications,

@@ -26,12 +26,12 @@ const Title = styled.h3`
   color: #2d292a;
   font-weight: 600;
 `;
-// const SubTitle = styled.h3`
-//   font-size: 17px;
-//   margin-top: 44px;
-//   color: #2d292a;
-//   font-weight: 600;
-// `;
+const SubTitle = styled.h3`
+  font-size: 17px;
+  margin-top: 44px;
+  color: #2d292a;
+  font-weight: 600;
+`;
 const Inssuance = () => {
   return (
     <Wrapper>
@@ -154,7 +154,7 @@ const Inssuance = () => {
         configuration of the card program, a recently issued card can be
         virtual, physical or hybrid:
       </p>
-      <ul class="unordered-list content-dark-100">
+      <ul class="numbered-list content-dark-100">
         <li>
           <span class="circle-dark"></span>Virtual cards can be used immediately
           in e-commerce transactions.
@@ -235,7 +235,189 @@ const Inssuance = () => {
           </tr>
         </tbody>
       </table>
+      <Title>Card issuance (Mobile API)</Title>
+      <p>
+        Issuing a card through the Venus Mobile API is a three-step process:
+      </p>
+      <ul class="  unordered-list content-dark-100">
+        <li>
+          <div class="ordered-item">
+            <span class="ordered-item-circle">
+              <span class="h5-light-100 ordered-item-number">1</span>
+            </span>
+          </div>
+          Verify cardholder primary credential
+        </li>
+        <li>
+          <div class="ordered-item">
+            <span class="ordered-item-circle">
+              <span class="h5-light-100 ordered-item-number">2</span>
+            </span>
+          </div>
+          Creating a cardholder
+        </li>
+        <li>
+          <div class="ordered-item">
+            <span class="ordered-item-circle">
+              <span class="h5-light-100 ordered-item-number">3</span>
+            </span>
+          </div>
+          Issuing a card for the cardholder
+        </li>
+      </ul>
+      <p>
+        To create a cardholder, the Mobile API requires that the user verifies
+        the primary credential, that credential being configurable in a per
+        project / custodian basis. Users can verify their phone number, email,
+        or other credentials (depending on the configuration of the project /
+        custodian).
+      </p>
+      <SubTitle>Step 1: Verify a cardholder primary credential</SubTitle>
+      <p>
+        To verify the cardholder primary credential, the first step is to start
+        the verification:
+      </p>
+      <Card
+        title="Start Verification
 
+        "
+        body={`curl https://api.ux.Venuspayments.com/v1/verifications/start \\
+        -X POST \\
+        -H "Api-Key: Bearer {Public API Key}" \\
+        -d '{ \\
+              "datapoint_type": "phone", \\
+              "datapoint": { \\
+                "country_code": 1, \\
+                "phone_number": 9366661232 \\
+              }, \\
+            }'
+              `}
+      />
+      <p>
+        This request will initiate the verification of the user’s phone number
+        and will send a one-time password (OTP) via SMS (note: the OTP
+        expiration time is 15 minutes, after that time, a new one will be
+        required). The response will include a verification object identified by
+        the verification_id field, in pending state:
+      </p>
+      <Card
+        title="Response  "
+        isJson
+        body={`{
+            "type": "verification",
+            "verification_id": "b35edd5c-12b3-9099-1596-1ea35331d18a",
+            "status": "pending"
+          }
+              `}
+      />
+      <p>
+        The user will have to introduce that OTP in the app, so the verification
+        can be completed through the finish verification endpoint:
+      </p>
+      <Card
+        title="ReFinish Verification
+        sponse  "
+        body={`curl https://api.ux.Venuspayments.com/v1/verifications/{verification_id}/finish \\
+        -X POST \\
+        -H "Api-Key: Bearer {Public API Key}" \\
+        -d "secret=1234"
+              `}
+      />
+      <p>
+        The result of the previous request will include information regarding
+        the status of the verification (passed, not passed):
+      </p>
+      <Card
+        title="Response
+       "
+        isJson
+        body={`{
+            "type": "verification",
+            "verification_id": "b35edd5c-12b3-9099-1596-1ea35331d18a",
+            "status": "passed"
+          }
+              `}
+      />
+      <p>
+        A passed verification for a primary credential can be used to create a
+        cardholder in step 2.
+      </p>
+      <SubTitle>Step 2: Create a cardholder</SubTitle>
+      <p>
+        To create a cardholder from its primary credential verification, use the
+        following endpoint:
+      </p>
+      <Card
+        title="Cardholder creation
+
+       "
+        isJson
+        body={`curl https://api.ux.Venuspayments.com/v1/user \\\
+        -X POST \\\
+        -H "Api-Key: Bearer {Public API Key}" \\\
+        -d '{ "data_points": { "type": "list", "data": [ \\
+              {"data_type": "phone", "country_code": "1", "phone_number": "3202476962", \\
+               "verification": {"type": "verification", "verification_id": "b35edd5c-12b3-9099-1596-1ea35331d18a", "secret": "123456"}\\
+              }, \\
+              {"data_type": "name", "first_name": "Sandor", "last_name": "Clegane"}, \\
+              {"data_type": "id_document", "doc_type": "ssn", "value": "111110000", "country": "US"}, \\
+              {"data_type": "address", "locality": "San Francisco", "street_one": "1310 Fillmore St.", "postal_code": "94115", "street_two": "", "region": "CA", "country": "US"}, \\
+              {"data_type": "birthdate", "date": "1900-01-01"}, \\
+              {"data_type": "email", "email": "test1@email.com"}\\
+          ]}}'
+              `}
+      />
+      <p>
+        The previous request checks the validity of the primary credential
+        verification, and creates the cardholder. The response contains the{' '}
+        <code class="code-sample">user_id</code> and{' '}
+        <code class="code-sample">user_token</code> for that cardholder:
+        <Card
+          title="Response
+       "
+          isJson
+          body={`{\\
+            "type": "user_id", \\
+            "user_id": user-uuid, \\
+            "user_token":  user-token\\
+        }
+              `}
+        />
+      </p>
+      <SubTitle>Step 3: Issue a card</SubTitle>
+      <p>
+        Using the mobile API, users can issue cards by identifying themselves
+        with their user tokens. To issue a card in the Mobile API, use the
+        following request:
+      </p>
+      <Card
+        title="Issue card
+
+       "
+        body={`curl https://api.ux.Venuspayments.com/v1/user/accounts/issuecard \\
+        -X POST \\
+        -H "Api-Key: Bearer {Public API Key}" \\
+        -H "Authorization: Bearer {User Token}"
+              `}
+      />
+      <p>
+        The previous request issues a card for the current cardholder. The
+        response includes the basic, non PCI protected data of the card, and the
+        card state (see card state in the Core API chapter in this guide)
+      </p>
+      <Card
+        title="Response
+       "
+        body={`{\\
+            "type":"card",\\
+            "account_id":"ef156206-b9cc-ea20-4dba-769594015bb9",\\
+            "last_four":"6607",\\
+            "card_network":"VISA",\\
+            "card_brand":null,\\
+            "state":"created"\\
+        }
+              `}
+      />
       <Footer />
     </Wrapper>
   );

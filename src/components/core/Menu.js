@@ -23,7 +23,7 @@ const ApiType = styled.span`
   display: inline-block;
   height: 12px;
   line-height: 12px;
-  background-color: #6bbd5b;
+  background-color: green;
   border-radius: 3px;
   background-repeat: no-repeat;
   background-position: 6px 4px;
@@ -36,11 +36,20 @@ const ApiType = styled.span`
   vertical-align: middle;
   margin-right: 6px;
   margin-top: 2px;
-  ${(props) =>
-    props.post &&
-    css`
-      background-color: #248fb2;
-    `}
+  ${(props) => {
+    if (props.post === 'POST')
+      return css`
+        background-color: #dada1c;
+      `;
+    if (props.post === 'PUT')
+      return css`
+        background-color: blue;
+      `;
+    if (props.post === 'DELETE')
+      return css`
+        background-color: red;
+      `;
+  }}
 `;
 
 function removeSpace(string) {
@@ -254,12 +263,7 @@ const AppMenu = ({ treedata, selectedmenu, hash }) => {
                                           }
                                         >
                                           <ApiType
-                                            post={
-                                              thirddata.request.method ===
-                                              'POST'
-                                                ? true
-                                                : false
-                                            }
+                                            post={thirddata.request.method}
                                           >
                                             {thirddata.request.method}
                                           </ApiType>

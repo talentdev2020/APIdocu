@@ -6,7 +6,7 @@ import QuickStart from '../components/quick/QuickStart';
 import Concept from '../components/quick/Concept';
 import Inssuance from '../components/quick/Inssuance';
 import Integrations from '../components/quick/Integration';
-import Mobile from '../components/quick/Mobile';
+// import Mobile from '../components/quick/Mobile';
 import Transactions from '../components/quick/Transactions';
 import Guides from '../components/quick/Guides';
 import PCI from '../components/quick/PCI';
@@ -60,7 +60,7 @@ const menu = [
   {
     name: 'API Reference',
     active: false,
-    path: '#',
+    path: '',
     items: [
       {
         name: 'Core API',
@@ -125,7 +125,11 @@ const CoreAPI = () => {
                       onClick={(e) => handleClick(item.name)}
                     >
                       <span className="vline"></span>
-                      <Link to={item.path}>{item.name}</Link>
+                      {item.name === 'API Reference' ? (
+                        item.name
+                      ) : (
+                        <Link to={item.path}>{item.name}</Link>
+                      )}
                     </li>
                     {item.items && (
                       <ul>
@@ -139,6 +143,7 @@ const CoreAPI = () => {
                               onClick={(e) => handleClick(child.name)}
                             >
                               <span className="vline"></span>
+
                               <Link to={child.path}>{child.name}</Link>
                             </li>
                           );
@@ -175,11 +180,7 @@ const CoreAPI = () => {
               component={Guides}
               exact
             />
-            <Route
-              path={`${match.path}quickStart/mobile`}
-              component={Mobile}
-              exact
-            />
+
             <Route
               path={`${match.path}quickStart/transactions`}
               component={Transactions}

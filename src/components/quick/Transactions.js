@@ -37,9 +37,9 @@ const Transactions = () => {
             <g
               id="1.0.-Drafts"
               stroke="none"
-              stroke-width="1"
+              strokeWidth="1"
               fill="none"
-              fill-rule="evenodd"
+              fillRule="evenodd"
             >
               <g
                 id="D.4.1.Developers---guides"
@@ -56,7 +56,7 @@ const Transactions = () => {
                         d="M12.28,23.72 L6.72,29.3 C6.34,29.7 6.34,30.32 6.72,30.72 L12.28,36.3 C12.9,36.94 13.98,36.48 13.98,35.6 L13.98,32 L26,32 C27.1,32 28,31.1 28,30 C28,28.9 27.1,28 26,28 L13.98,28 L13.98,24.42 C13.98,23.52 12.9,23.08 12.28,23.72 Z M41.3,17.3 L35.74,11.72 C35.12,11.08 34.04,11.54 34.04,12.42 L34.04,16 L22,16 C20.9,16 20,16.9 20,18 C20,19.1 20.9,20 22,20 L34.02,20 L34.02,23.58 C34.02,24.48 35.1,24.92 35.72,24.28 L41.28,18.7 C41.68,18.32 41.68,17.68 41.3,17.3 Z"
                         id="Shape"
                         fill="#FFFFFF"
-                        fill-rule="nonzero"
+                        fillRule="nonzero"
                       ></path>
                     </g>
                   </g>
@@ -74,17 +74,26 @@ const Transactions = () => {
         (VISA, MASTERCARD) to Venus. Venus executes a process to decide if the
         transaction can be approved or if it must be rejected.:
       </p>
-      <Title>Cardholder status</Title>
+      <Title>Authorization</Title>
+      <img src="/auth.jpg" alt="auth" width="100%" />
       <p>
-        Venus will check if the cardholder to which the card belongs is in a
-        good status. Checks against blacklists are made to ensure that persons
-        that are blacklisted can’t make purchases with Venus issued cards.
+        An authorization request is a card transaction type that pre-authorizes
+        and sets a hold on the amount. It's held pending until the merchant
+        settles. The settlement can happen overnight or whenever the merchant
+        sends in the batch of transactions to the bank. The settlement of this
+        type of card transaction should be observed on notifications with card
+        transactions of type capture and the amount maybe lower or more then
+        total amount in case of tips or surcharge.
       </p>
-      <Title>Card status</Title>
+      <Title>Refunds/Unauths</Title>
+      <img src="/refund.jpg" alt="refund" width="100%" />
       <p>
-        When a transaction authorization is received belonging to a card in the
-        deactivated or closed states, the transaction will be automatically
-        declined.
+        Refund requests come as type "refund" and can be amounts lower or equal
+        to the original card transaction. The main difference of a refund from
+        an unauth is the fact that it is not linked to a previous card
+        transaction in the system. Although it really is due to a previous card
+        authorization, it is only used to refund authorizations/sales card
+        transaction types that were fully captured/settled.
       </p>
       <Footer />
     </Wrapper>
