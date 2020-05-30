@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './Card.css';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const Card = ({ title, body, isJson }) => {
   const [copied, setCopied] = useState('Copy');
+  let padding = useRef(0);
+  const addPadding = () => {
+    padding.current += 20;
+  };
+  const subPadding = () => {
+    padding.current -= 20;
+  };
 
   return (
     <>
@@ -57,7 +64,14 @@ const Card = ({ title, body, isJson }) => {
         {body.split('\\').map((line, index) => (
           <div className="line" key={line}>
             <div className="line-number">{index}</div>
-            <div className="line-command">{line}</div>
+            {line.includes('{') && addPadding()}
+            {line.includes('}') && subPadding()}
+            <div
+              className="line-command"
+              style={{ paddingLeft: `${padding.current}px` }}
+            >
+              {line}
+            </div>
             {!isJson && (
               <div
                 style={{

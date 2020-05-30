@@ -26,12 +26,12 @@ const Title = styled.h3`
   color: #2d292a;
   font-weight: 600;
 `;
-// const SubTitle = styled.h3`
-//   font-size: 17px;
-//   margin-top: 44px;
-//   color: #2d292a;
-//   font-weight: 600;
-// `;
+const SubTitle = styled.h3`
+  font-size: 17px;
+  margin-top: 44px;
+  color: #2d292a;
+  font-weight: 600;
+`;
 const Inssuance = () => {
   return (
     <Wrapper>
@@ -42,7 +42,7 @@ const Inssuance = () => {
             height="32px"
             viewBox="0 0 40 32"
             version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns="http:\\www.w3.org/2000/svg"
           >
             <g
               id="1.0.-Drafts"
@@ -78,27 +78,25 @@ const Inssuance = () => {
         <HTitle> Card Issuance</HTitle>
       </div>
       <Title>Card issuance (Core API)</Title>
-
       <p>Using the Core API, issuing a card is a single-step process:</p>
+      <SubTitle>- Get the Card Order </SubTitle>
       <Card
-        title="Card issuance
+        title="Get Card Order By ID
         "
-        body={`curl --location --request POST '{{url}}/api/v2/cardOrders'   \\
-        --header 'Content-Type: application/json'  \\
-        --header 'Authorization: {{authorization}}' \\
-        --header 'Content-Type: text/plain' \\
-        --data-raw '{
-          "entity_id": 74341,
-          "card_id": 21,
-          "type": "issue",
-          "status": "verified"
+        body={`curl --location --request POST '{{url}}/api/v2/cardOrders/264'   \\
         
               `}
       />
-
       <p>
-        This request creates a cardorder, conducts KYC (Know Your Customer) on
-        the data provided :
+        This request get the information of a specific card order
+        <br />
+        Each card order is issued against an entity that is tier 2 completed,
+        which means that they have passed KYC clearance (check Risk section for
+        details). During the card order process, it is important to understand
+        the `type` of card order to create and the `card_id` to issue it
+        against. A `card_id` is a unique static number assigned to your account
+        and provided by your manager which represents the card program itself
+        (such as limits, card material, etc.).
       </p>
       <Card
         isJson
@@ -146,9 +144,60 @@ const Inssuance = () => {
           }\\
       }\\
         `}
+      />{' '}
+      <br />
+      <SubTitle>- Get Entity Card </SubTitle>
+      <Card
+        title="Get Entity Card By ID
+        "
+        body={`curl --location --request POST '{{url}}/api/v2/entityCards/4'   \\
+        
+              `}
+      />
+      <p>
+        This request get the information of a specific entity card
+        <br />
+        It represents the actual card issued with the network and also contains
+        important information for tracking limits, when that card is active,
+        lock and unlock features, the status of the card (including shipping
+        status), and other important characteristics
+      </p>
+      <Card
+        isJson
+        title="Response
+        "
+        body={`{ \\
+          "success": true, \\
+          "data": { \\
+              "id": 4, \\
+              "card_order_id": null, \\
+              "entity_id": 2, \\
+              "card_id": 1, \\
+              "from_entity_card_id": null, \\
+              "reference": "274198852", \\
+              "number": "**** **** **** 9035", \\
+              "cvv": "***", \\
+              "expiry_date": "0918", \\
+              "balance": "0.000000000", \\
+              "daily_purchase_total": "0.000000000", \\
+              "daily_atm_total": "0.000000000", \\
+              "monthly_purchase_total": "0.000000000", \\
+              "monthly_atm_total": "0.000000000", \\
+              "physical": false, \\
+              "virtual": true, \\
+              "gift": false, \\
+              "locked": false, \\
+              "activated": false, \\
+              "pin_set": false, \\
+              "status": "shipped", \\
+              "freeze": 0, \\
+              "created_at": "2018-09-13 04:55:16", \\
+              "updated_at": "2019-04-24 02:59:56", \\
+              "deleted_at": null \\
+          } \\
+      }`}
       />
       <Title>Cardholder state</Title>
-
       <p>
         Issued cards have their own state and type. Depending on the
         configuration of the card program, a recently issued card can be
@@ -165,14 +214,7 @@ const Inssuance = () => {
           <a href="#/developers#developers-api-references">API reference</a>).
           After activation, they can be used in card-present transactions.
         </li>
-        <li>
-          <span class="circle-dark"></span>Hybrid cards can be used immediately
-          in e-commerce transactions, and after card activation (see our{' '}
-          <a href="#/developers#developers-api-references">API reference</a>),
-          they can be also used in card-present transactions
-        </li>
       </ul>
-
       <p>
         Cards also have a state that controls the card’s lifecycle. Cards can be
         in one of the following states:
@@ -187,7 +229,7 @@ const Inssuance = () => {
         <tbody>
           <tr>
             <td>
-              <code class="code-sample">created</code>
+              <code class="code-sample">pending</code>
             </td>
             <td>
               Cards that have not been activated yet. This state applies to
@@ -196,7 +238,7 @@ const Inssuance = () => {
           </tr>
           <tr>
             <td>
-              <code class="code-sample">activated</code>
+              <code class="code-sample">completed</code>
             </td>
             <td>
               Cards that are activated can be used to conduct e-commerce and
@@ -205,7 +247,7 @@ const Inssuance = () => {
           </tr>
           <tr>
             <td>
-              <code class="code-sample">deactivated</code>
+              <code class="code-sample">declined</code>
             </td>
             <td>
               Users can freeze their cards temporarily. In this state, incoming
@@ -221,7 +263,7 @@ const Inssuance = () => {
           </tr>
           <tr>
             <td>
-              <code class="code-sample">closed</code>
+              <code class="code-sample">failed</code>
             </td>
             <td>
               Cards can be closed by our customer support team, due to a variety
@@ -235,7 +277,6 @@ const Inssuance = () => {
           </tr>
         </tbody>
       </table>
-
       <Footer />
     </Wrapper>
   );
